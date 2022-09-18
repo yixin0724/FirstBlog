@@ -81,13 +81,13 @@ favicon: /img/favicon.png
 # Avatar (頭像)
 avatar:
   img: https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png
-  effect: false
+  effect: true
 
 # Disable all banner image
 disable_top_img: false
 
 # The banner image of home page
-index_img:
+index_img: 'linear-gradient(20deg, #0062be, #925696, #cc426e, #fb0347)'
 
 # If the banner of page not setting, it will show the top_img
 default_top_img:
@@ -658,7 +658,7 @@ aside:
       enable: true
       icon: fab fa-github
       text: Follow Me
-      link: https://github.com/xxxxxx
+      link: https://github.com/yixin0724
   card_announcement:
     enable: true
     content: This is my Blog

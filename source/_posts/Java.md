@@ -1155,6 +1155,3 @@ java是面向对象的语言，三大特征：①封装②继承③多态
  	
  		document.selectSingleNode("语法")：返回单个值
 
-
-
-![](D:\Blog\source\_img\wuwang.png)

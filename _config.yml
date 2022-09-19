@@ -4,12 +4,12 @@
 
 # Site
 title: YiXin
-subtitle: ''
-description: ''
+subtitle: '加油！'
+description: '也曾仰望天空'
 keywords:
 author: YiXin
-language: en
-timezone: ''
+language: zh-CN
+timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'

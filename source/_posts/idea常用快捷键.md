@@ -1,6 +1,7 @@
 ---
 title: idea常用快捷键
 date: 2022-09-18 22:38:06
+cover: ./img/idea.png
 tags:
 ---
 

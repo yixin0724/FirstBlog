@@ -1,5 +1,7 @@
 ---
 title: Java的知识点记录
+date: 2022-09-18 18:33:40
+cover: ./img/java.png
 ---
 
 

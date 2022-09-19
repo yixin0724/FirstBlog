@@ -1,7 +1,8 @@
 ---
 title: Linux
 date: 2022-09-18 22:33:55
-tags:
+cover: ./img/linux.png
+tags: 
 ---
 
 

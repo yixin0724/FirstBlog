@@ -24,10 +24,7 @@ type: about
 
 + 电子邮箱：571247566@qq.com
 
-+ Github：
-
-  [点击这里]: https://github.com/yixin0724
-
++ Github：[我在这里]("https://github.com/yixin0724")
 
 
 ### 我的项目

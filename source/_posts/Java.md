@@ -899,3 +899,262 @@ java是面向对象的语言，三大特征：①封装②继承③多态
 常见问题：
 
 ​	![](D:\Users\作业\知识点\java\Executors常见问题.png)
+
+
+
+### 七、其他
+
+68.定时器
+	实现方式一：Timer定时器(内部时一个线程)
+	构造方法：Timer()：创造Timer定时器对象
+	方法：void schedule(TimerTask task,long delay延时,long period周期)：开启一个定时器，按照计划处理TImerTask任务
+
+	特点和存在问题：
+		①他是单线程，处理多个任务按照顺序执行，存在延时与与设置定时器的时间有出入
+		②可能因为其中的某个任务的异常使线程死掉，从而影响后续任务执行
+	
+	实现方式二：ScheduledExecutorService(内部是一个线程池)
+	
+	Executors的方法
+	static scheduledExecutorService newSceduledThreadPool(int corePoolSize)：得到线程池对象，指定几个线程
+	
+	ScheduledExecutorService的方法：
+	ScheduleFuture<?> scheduleAtFixedRate(Runnable command,long initialDelay,long period,TimeUnit unit)：周期调度方法
+	优点：各个线程互不影响
+
+69.网络编程
+	IP地址：设备在网络中的地址，是唯一的标识。
+	常见的分类为：IPV4(32位)和IPV6(128位16个字节)
+	DNS服务器(域名解析服务器)
+	IP地址形式：公网地址，私有地址(局域网)
+	192.168.开头就是常见的局域网地址，范围位0.0到255.255
+	常用命令：
+		ipconfig:查看本机IP地址
+		ping ip地址：检测网络是否连通
+		本机IP:127.0.0.1或者localhost，也称为本地回环地址，只会找本机
+
+	IP地址操作类
+	InetAddress类
+	方法：
+		①static InetAddress getLocalHost()：返回本主机的地址对象
+		②static InetAddress getByName(String host)：得到指定主机的IP地址对象，参数是域名或者IP地址
+		③String getHsotName()：获取IP地址的主机名
+		④String getHostAddress()：返回IP地址字符串
+		⑤boolean isReachable(int timeout)：在指定毫秒内连通该IP地址对应的主机，连通返回true
+	
+	端口：应用程序在设备中的唯一标识
+	端口号是一个16位的二进制，范围是0到65535
+	端口类型：周知端口：0到1023，被某些知名应用占用(HTTp占用80，FTP占用21)
+	注册端口：1024到49161，分配给某些程序(如Tomcat用8080，MySQL用3306)
+	动态端口：49152到65535，是因为他不固定，是动态分配
+	注意：我们自己开发的端口选用注册端口
+	
+	协议：数据在网络中传输的规则，常见的有UDP协议和TCP协议
+	连接和通信数据的规则被称为网络通信协议
+	
+	TCP协议的特点
+	①使用TCP协议，必须双方先建立连接，它是一种面向连接的可靠通信协议。传输前，采用“三次握手”方式建立连接，所以是可靠的。
+	②在连接中可进行大数据量的传输。
+	③连接、发送数据都需要确认，且传输完毕后，还需释放已建立的连接，通信效率较低。
+	
+	注意：在Java中使用java.net.Socket类实现通信，底层即是使用了TCP协议
+	
+	Socket
+	构造方法：public Socket(String host, int port)：创建发送端的Socket对象与服务端连接，参数为服务端程序的ip和端口
+	成员方法：
+	OutputStream getOutputStream：获得字节输出流对象
+	InputStream getInputStream：获得字节输入流对象
+	使用步骤：①创建客户端的Socket对象，请求与服务器连接
+	Socket socket = new Socket("127.0.0.1","7777")
+	②从Socket通信管道中获得字节输出流，负责发送数据
+	OutputStream os = socket.getOutputStream();
+	PrintStream ps = new PrintStream(os);
+	尽量使用打印流包装，效率更高
+	③发送消息
+	ps.println()	#这里不能用print，因为服务端是按行读取
+	ps.flush()
+	④不要关闭资源
+	
+	ServerSocket(服务端)
+	构造方法：public ServerSocket(int port)：注册服务端端口
+	成员方法：Socket accept()：等待接收客户端的socket通信连接，连接成功返回Socket对象与客户端建立
+	使用步骤：①注册端口
+	ServerSocket serversocket = new ServerSocket(7777)
+	②调用accept方法，建立socket通信管道
+	Socket socket = serversocket.accept()
+	③从socket通信管道中得到一个字节输入流
+	InputStream is = socket.getInputStream()
+	BufferedReader br = new BufferedReader(new InputStreamReader(is))
+	④按照行读取消息
+	String msg
+	if((msg = br.readLine()) != null){
+		sout(socket.getRemoteSocketAddress())
+	}
+	
+	注意：如果要实现多个客户端通信需要实现多线程，这个时候可以采用线程池来优化性能，使用线程池适合通信时常较短的场景，以上都是CS(服务器和客户端)结构
+	
+	即时通信是什么含义，要实现怎样的设计
+	①即时通信，是指一个客户端的消息发出去，其他客户端可以接收到即时通信需要进行端转发的设计思想。
+	②服务端需要把在线的Socket管道存储起来一旦收到一个消息要推送给其他管道
+	
+	BS
+
+
+​	
+
+	UDP协议特点：
+	①UDP是一种无连接、不可靠传输的协议。
+	②将数据源P、目的地IP和端口封装成数据包，不需要建立连接每个数据包的大小限制在64KB内
+	③发送不管对方是否准备好，接收方收到也不确认，故是不可靠的可以广播发送，发送数据结束时无需释放资源，开销小，速度快。
+
+
+70.Junit单元测试框架
+	使用：导入jar包或者maven导入
+		Assert实现类里面有许多方法
+	注意：①必须是公开的，无参数，网返回值的方法
+		 ②测试方法必须用Test注解标记
+
+71.反射
+	概述：反射是指对于任何一个CLass类，在运行的时候都可以直接得到这个类全部成分
+	使用：
+	①获取Class类的对象三种方式：
+		1.Class.forName("全类名")：获取该class
+		2.类名.class：获取该class
+		3.对象名.getClass()：获取该Class
+	②根据Class类对象获取构造器对象
+		1.Constructor<?>[] getConstructors()：返回所有构造器对象的数组(只拿public)
+		2.Constructor<?>[] getDeclareConstructors()：返回所有构造器对象的数组，存在就能拿
+		3.Constructor<?>[] getConstructor(Class<?>... parameterTypes):返回单个public构造器对象，常用
+		4.Constructor<?>[] getDeclareConstructor(Class<?>... parameterTypes):返回单个构造器对象，存在就能拿到,常用
+		获取构造器对象以后调用对应方法获取值
+			1.newInstance("输入参数或无")：创建一个新的对象，可能需要强转
+			2.setAccessible(true)：权限被打开，可以使用私有构造器，仅限一次
+	③根据Class对象获取成员变量对象
+		1.Field[] getDeclaredFields()：获取全部成员变量
+		2.Field getDeclaredField(String name)：获取某个成员变量
+		获取成员变量后可以进行一系列操作：
+			1.赋值：set(对象，值)
+			2.setAccessible(true)：暴力打开权限
+			2.get(对象)：取这个对象的值，可能需要强转
+	④根据Class对象获取成员方法对象
+		1.Method[] getMethods()：返回所有public成员方法对象的数组
+		2.Method[] getDeclaredMethods()：同上返回所有的
+		3.Method getMethod()：返回单个public的成员方法对象
+		4.Method getDeclaredMethod(name,类型.class)：返回单个成员方法对象，存在就能拿到
+		获取对象以后使用该对象进行执行此方法
+			1.Object invoke(Object obj,Object... args)：运行方法 参数一：用boj对象调用该方法  参数二：调用方法的传递的参数(如果没有就不写)  返回值：方法的返回值(如果没有就不写)
+		注意：方法如果没有结果回来，那么返回的是null
+
+	反射的作用：①绕过编译阶段为集合添加数据(跳过泛型的编译约束)
+					先获得集合的class，然后获得add方法的对象，然后执行方法即可
+			   ②通用框架的底层原理
+
+72.注解
+	自定义注解
+		格式：public @interface 注解名称{
+			public 属性类型 属性名() default 默认值;
+		}
+		使用：需要先定义一个注解接口，然后在里面定义属性值
+			  然后在类或者方法上面可以进行使用自定义注解
+
+	注意：有默认值的时候使用的时候前面的属性名可以省略，并且若只有一个属性值也可也直接省略
+	
+	元注解
+	概述：就是注解注解的注解(就是放在自定义注解接口上面的)
+	分类：@Target：约束自定义注解智能在哪些地方使用
+		  @Retention：申明注解的生命周期
+	使用格式：
+		@Target中可使用的值定义在ElementType枚举类中，常用值如下
+			TYPE，类，接口
+			FIELD,成员变量
+			METHOD,成员方法
+			PARAMETER,方法参数
+			CONSTRUCTOR,构造器
+			LOCAL_VARIABLE，局部变量
+		@Retention中可使用的值定义在RetentionPolicy枚举类中，常用值如下
+			SOURCE:注解只作用在源码阶段，生成的字节码文件中不存在
+			CLASS:注解作用在源码阶段，字节码文件阶段，运行阶段不存在，默认值.
+			RUNTIME:注解作用在源码阶段，字节码文件阶段，运行阶段（开发常用)
+
+
+	注解解析
+		概述：注解的操作中经常需要进行解析，注解的解析就是判断是否存在注解，存在注解就解析出内容。
+	
+	与注解解析相关的接口
+		Annotation:注解的顶级接口，注解都是Annotation类型的对象
+		AnnotatedElement:该接口定义了与注解解析相关的解析方法
+	方法
+		①Annotation[] getDeclaredAnnotations()：获得当前对象上使用的所有注解，返回注解数组。
+		②T getDeclaredAnnotation(Class<T> annotationClass)：根据注解类型获得对应注解对象
+		③boolean isAnnotationPresent(Class<Annotation> annotationClass)：判断当前对象是否使用了指定的注解，如果使用了则返回true，否则false
+		注意：所有的类成分Class, Method , Field , Constructor，都实现了AnnotatedElement接口他们都拥有解析注解的能力
+	使用：①先获取相应的对象
+		 ②然后调用上面的方法
+		 ③获取该注解的对象
+	
+	解析注解的技巧
+		注解在哪个成分上，我们就先拿哪个成分对象。
+		比如注解作用成员方法，则要获得该成员方法对应的Method对象，再来拿上面的注解
+		比如注解作用在类上，则要该类的Class对象，再来拿上面的注解
+		比如注解作用在成员变量上，则要获得该成员变量对应的Field对象，再来拿上面的注解
+
+ 73.代理
+ 	代理的代表类是java.lang.reflect.Proxy
+ 	方法：
+ 		static Object newProxyInstance(Classloder loder，Class<?> interfaces,invocationHandler h)：用于为对象产生一个代理对象返回
+ 		参数一：定义代理类的类加载器
+ 		参数二：代理类要实现的接口列表
+ 		参数三：将方法调用分派到的处理程序(代理对象的核心处理程序)
+ 	使用：
+ 		①必须存在接口
+ 		②被代理对象需要实现接口
+ 		③使用Proxy类提供的方法，的对象的代理对象
+ 	执行流程：
+ 		①先走向代理
+ 		②代理可以为方法额外做一些辅助工作。
+ 		③开发真正触发对象的方法的执行。
+ 		④回到代理中，由代理负责返回结果给方法的调用者。
+
+ 74.XML
+ 	概述：XML是可扩展标记语言的缩写，是一种数据表示格式，常用于传输和存储数据。
+ 	规范：
+ 		①文档的声明必须在第一行
+ 		②根标签有且只能有一个
+ 		③&lt; 小于 &gt; 大于 &amp; 和号 &apos; 单引号 &quot; 引号
+ 		④<![CDATA[  内容  ]]>    在里面可以随便写
+
+ 	文档约束
+ 	分类：DTD(约束编写格式)和schema(可以在其基础上约束数据类型，后缀必须是.xsd)
+ 	
+ 	解析XML
+ 	最常用的是dom4j框架
+ 	使用：
+ 		①创建一个Dom4j的解析器对象，代表了整个dom4j框架
+ 	    	SAXReader saxReader = new SAXReader();
+ 		②把XML文件加载到内存中成为一个Document文档对象
+ 			注意: getResourceAsStream中的/是直接去src下寻找的文件
+ 	        InputStream is = 类名.class.getResourceAsStream("/Contacts.xml");
+ 	        Document document = saxReader.read(is);
+ 	 	③获取根元素对象
+ 	 		Element root = document.getRootElement();
+ 		④然后调用相应方法获取想要的
+ 	
+ 	方法：
+ 	 	①List<Element> elements()：得到当前元素下所有子元素
+ 		②List<Element> elements(String name)：得到当前元素下指定名字的子元素返回集合
+ 		③Element element(String name)：得到当前元素下指定名字的子元素,如果有很多名字相同的返回第一个
+ 		④String getName()：得到元素名字
+ 		⑤String attributeValue(String name)：通过属性名直接得到属性值
+ 		⑥String elementText(子元素名)：得到指定名称的子元素的文本
+ 		⑦String getText()：得到文本
+ 	
+ 	xpath查找XML数据
+ 	使用：
+ 		①导jar包jaxen
+ 		②List<Node> nodes = document.selectNodes("写xpath语法")
+ 	
+ 		document.selectSingleNode("语法")：返回单个值
+
+
+
+![](D:\Blog\source\_img\wuwang.png)

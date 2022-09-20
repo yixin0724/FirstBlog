@@ -3,6 +3,7 @@ title: SSM框架知识点
 date: 2022-09-18 22:39:16
 cover: ./img/SSM.png
 tags: Java
+categories: Java相关的
 ---
 
 

@@ -3,6 +3,7 @@ title: python爬虫
 date: 2022-09-19 14:41:40
 cover: ./img/pachong.png
 tags: python
+categories: python
 ---
 
 

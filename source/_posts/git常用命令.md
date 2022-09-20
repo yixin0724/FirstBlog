@@ -2,7 +2,7 @@
 title: git常用命令
 date: 2022-09-19 22:23:15
 cover: ./img/wuwang.png
-tags:
+tags: Git
 ---
 
 

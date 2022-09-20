@@ -2,7 +2,7 @@
 title: Linux
 date: 2022-09-18 22:33:55
 cover: ./img/linux.png
-tags: 
+tags: Linux
 ---
 
 

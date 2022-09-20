@@ -2,6 +2,7 @@
 title: 关于java实现ocr文字识别功能
 date: 2022-09-20 13:25:26
 tags: Java
+cover: ././img/yi.png
 ---
 
 
@@ -709,7 +710,7 @@ public class Test {
 
 ##### 测试用例：
 
-![](./img/.png)
+![](./img/文字.png)
 
 
 

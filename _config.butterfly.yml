@@ -679,7 +679,7 @@ aside:
       text: Follow Me
       link: https://github.com/yixin0724
   card_announcement:
-    enable: false
+    enable: true
     content: Welcome to YiXin Blog!
   card_recent_post:
     enable: true
@@ -719,8 +719,8 @@ busuanzi:
 # Time difference between publish date and now (網頁運行時間)
 # Formal: Month/Day/Year Time or Year/Month/Day Time
 runtimeshow:
-  enable: true
-  publish_date: 9/18/2022 13:36:17
+  enable: false
+  publish_date: 
 
 # Aside widget - Newest Comments
 newest_comments:

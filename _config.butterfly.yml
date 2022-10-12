@@ -38,6 +38,8 @@ copy:
 social:
   fab fa-github: https://github.com/yixin0724 || Github
   fas fa-envelope: mailto:xxxxxx@gmail.com || Email
+  fab fa-weibo: http://weibo.com || Weibo
+  fa fa-rss: /atom.xml || RSS
 
 # search (搜索)
 # see https://butterfly.js.org/posts/ceeb73f/#搜索系統
@@ -679,7 +681,7 @@ aside:
       text: Follow Me
       link: https://github.com/yixin0724
   card_announcement:
-    enable: true
+    enable: false
     content: Welcome to YiXin Blog!
   card_recent_post:
     enable: true
@@ -719,8 +721,8 @@ busuanzi:
 # Time difference between publish date and now (網頁運行時間)
 # Formal: Month/Day/Year Time or Year/Month/Day Time
 runtimeshow:
-  enable: false
-  publish_date: 
+  enable: true
+  publish_date: 9/18/2022 13:36:17
 
 # Aside widget - Newest Comments
 newest_comments:

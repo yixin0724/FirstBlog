@@ -679,7 +679,7 @@ aside:
       text: Follow Me
       link: https://github.com/yixin0724
   card_announcement:
-    enable: true
+    enable: false
     content: Welcome to YiXin Blog!
   card_recent_post:
     enable: true

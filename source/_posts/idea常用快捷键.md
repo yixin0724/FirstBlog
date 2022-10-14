@@ -4,6 +4,7 @@ date: 2022-09-18 22:38:06
 cover: ./img/idea.png
 tags: idea
 categories: idea
+description: 有些不常用的总是忘记，记录一下吧。
 ---
 
 

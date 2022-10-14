@@ -4,6 +4,7 @@ date: 2022-10-12 21:35:56
 cover: ./img/mybaitsplus.png
 tags: Java
 categories: java
+description: MP真是好用呀，不过或许进了公司还是得回到Mybatis呀
 ---
 
 

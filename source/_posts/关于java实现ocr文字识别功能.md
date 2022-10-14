@@ -4,6 +4,7 @@ date: 2022-09-20 13:25:26
 tags: Java
 cover: ./img/yi.png
 categories: java
+description: 在一个暑假期间老师布置的任务，也算是粗略完成了。
 ---
 
 
@@ -14,21 +15,21 @@ categories: java
 
 ### 方法一：调用百度云接口实现图片文字识别功能
 
-##### 目录：
+目录：
 
-##### 		一、首先进入[百度云](http://ai.baidu.com/)，进行注册账户
+一、首先进入[百度云](http://ai.baidu.com/)，进行注册账户
 
-##### 		二、在idea中新建一个maven项目，并且配置pom文件
+二、在idea中新建一个maven项目，并且配置pom文件
 
-##### 		三、在百度云中申请ocr识别的API Key和Secret Key
+三、在百度云中申请ocr识别的API Key和Secret Key
 
-##### 		四、使用java代码根据API Key和Secret Key进行获取token
+四、使用java代码根据API Key和Secret Key进行获取token
 
-##### 		五、使用token和图片进行测试接口
+五、使用token和图片进行测试接口
 
 
 
-##### 步骤：①首先进入[百度云](http://ai.baidu.com/)，进行注册账户
+步骤：①首先进入[百度云](http://ai.baidu.com/)，进行注册账户
 
 
 
@@ -38,7 +39,7 @@ categories: java
 
 
 
-##### ②在idea中新建一个maven项目，并且配置pom文件
+②在idea中新建一个maven项目，并且配置pom文件
 
 第一步，创建maven项目
 
@@ -59,7 +60,7 @@ categories: java
 
 
 
-##### ③在百度云中申请ocr识别的API Key和Secret Key
+③在百度云中申请ocr识别的API Key和Secret Key
 
 首先进行领取免费资源，然后进行创建应用，通过代码进行通用服务
 
@@ -81,7 +82,7 @@ categories: java
 
 
 
-##### ④使用java代码根据API Key和Secret Key进行获取token
+④使用java代码根据API Key和Secret Key进行获取token
 
 第一步，创建工具Base64Util类，FileUtil类，HttpUtil类
 
@@ -420,7 +421,7 @@ public class AuthService {
 }
 ```
 
-##### ⑤使用token和图片进行测试接口
+⑤使用token和图片进行测试接口
 
 获取好token以后，进行代码测试图片用例。
 
@@ -547,13 +548,13 @@ public class AccurateBasic {
 
 
 
-#### 1.tesseract简介：
+1.tesseract简介：
 
 ***\*Tesseract\****，一款由HP实验室开发由Google维护的开源OCR（Optical Character Recognition , 光学字符识别）库，目前由谷歌赞助，它可以通过训练识别出任何字体，我们可以不断的训练的库，使图像转换文本的能力不断增强；
 
 
 
-#### 2.tesseract的安装：
+2.tesseract的安装：
 
 下载地址：https://digi.bib.uni-mannheim.de/tesseract/，带有dev的表示开发版本，相对稳定，在这里我们选择的是
 
@@ -561,7 +562,7 @@ public class AccurateBasic {
 
 同时需要把**chi_sim** 中文语言包加入到tessdate文件下
 
-#### 3.坏境变量的配置：
+3.坏境变量的配置：
 
 ​	①为了在全局使用方便，比如安装路径为:D:\ocr\Tesseract-OCR，将该路径添加到环境变量的path中。
 ​	②路径：高级系统设置——>环境变量——>系统变量中path路径——>将D:\ocr\Tesseract-OCR添加进去。
@@ -570,7 +571,7 @@ public class AccurateBasic {
 
 ​	④同时在环境变量中直接加入TESSDATA_PREFIX，路径填写例如：D:\ocr\Tesseract-OCR\tessdate
 
-#### 4.java代码编写
+4.java代码编写
 
 ①首先编写OCRHelper工具类
 
@@ -723,7 +724,7 @@ public class Test {
 
 
 
-###### 对比：第一种采用百度云接口，识别率相对比较高，但是使用次数有限制
+对比：第一种采用百度云接口，识别率相对比较高，但是使用次数有限制
 
-###### 			第二种采用外部库，识别率不是比较高，需要加多训练进行订正。
+第二种采用外部库，识别率不是比较高，需要加多训练进行订正。
 

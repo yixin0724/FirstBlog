@@ -4,6 +4,7 @@ date: 2022-10-12 21:36:11
 cover: ./img/springBoot.png
 tags: Java
 categories: java
+description: 学习一下boot框架的强大
 ---
 
 
@@ -1263,21 +1264,21 @@ categories: java
 
 
 ​		
-	使用boot内部缓存实现验证码案例：
-		①导入坐标
-		②启用缓存
-		③定义验证码对应的实体类，封装手机号与验证码两个属性
-			@Data
-			public class SMSCode {
-			    private String tele;
-			    private String code;
-			}
-		④定义验证码功能的业务层接口与实现类
-			public interface SMSCodeService {
-			    public String sendCodeToSMS(String tele);
-			    public boolean checkCode(SMSCode smsCode);
-			}
-	
+​	使用boot内部缓存实现验证码案例：
+​		①导入坐标
+​		②启用缓存
+​		③定义验证码对应的实体类，封装手机号与验证码两个属性
+​			@Data
+​			public class SMSCode {
+​			    private String tele;
+​			    private String code;
+​			}
+​		④定义验证码功能的业务层接口与实现类
+​			public interface SMSCodeService {
+​			    public String sendCodeToSMS(String tele);
+​			    public boolean checkCode(SMSCode smsCode);
+​			}
+​	
 			@Service
 			public class SMSCodeServiceImpl implements SMSCodeService {
 			    @Autowired

@@ -4,28 +4,32 @@ date: 2022-09-19 14:41:40
 cover: ./img/pachong.png
 tags: python
 categories: python
+description: 简单记录一下学习爬虫的知识。
 ---
 
 
 
 
 
-1.urllib库使用
-	urllib.request.urlopen() 模拟浏览器向服务器发送请求，在这里他返回的是一个HTTPResponse类型的
-	response 服务器返回的数据
-	response的数据类型是HttpResponse
-	字节‐‐>字符串
-	解码decode
-	字符串‐‐>字节
-	编码encode
-	read() 字节形式读取二进制 扩展：rede(5)返回前几个字节
-	readline() 读取一行
-	readlines() 一行一行读取 直至结束
-	getcode() 获取状态码		#如果是200，说明是对的
-	geturl() 获取url
-	getheaders() 获取headers
-	urllib.request.urlretrieve(url,filename)	#用来下载的
-	参数：url代表的是下载的路径，filename是文件的名字
+
+
+##### urllib库使用
+
+​	urllib.request.urlopen() 模拟浏览器向服务器发送请求，在这里他返回的是一个HTTPResponse类型的
+​	response 服务器返回的数据
+​		response的数据类型是HttpResponse
+​		字节‐‐>字符串
+​				解码decode
+​		字符串‐‐>字节
+​				编码encode
+​		read() 字节形式读取二进制 扩展：rede(5)返回前几个字节
+​		readline() 读取一行
+​		readlines() 一行一行读取 直至结束
+​		getcode() 获取状态码		#如果是200，说明是对的
+​		geturl() 获取url
+​		getheaders() 获取headers
+​	urllib.request.urlretrieve(url,filename)	#用来下载的
+​	参数：url代表的是下载的路径，filename是文件的名字
 
 2.请求对象的定制
 	UA介绍：UserAgent中文名为用户代理，简称UA，它是一个特殊字符串头，使得服务器能够识别客户使用的操作系统及版本、CPU类型、浏览器及版本。浏览器内核、浏览器渲染引擎、浏览器语言、浏览器插件等
@@ -33,16 +37,136 @@ categories: python
 
 3.编解码
 	①get请求方式：urllib.parse.quote（）	他是把汉字变为unicode编码
+	如
+		import urllib.request
+		import urllib.parse
+		url = 'https://www.baidu.com/s?wd='
+		headers = {
+		'User‐Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+		Gecko) Chrome/74.0.3729.169 Safari/537.36'
+		}
+		url = url + urllib.parse.quote('小野')
+		request = urllib.request.Request(url=url,headers=headers)
+		response = urllib.request.urlopen(request)
+		print(response.read().decode('utf‐8'))
+
 	②get请求方式：urllib.parse.urlencode（）
 	他是把字典中的各个键值对转换为Unicode编码，并且中间用与连接
+		import urllib.request
+		import urllib.parse
+		url = 'http://www.baidu.com/s?'
+		data = {
+		'name':'小刚',
+		'sex':'男',
+		}
+		data = urllib.parse.urlencode(data)
+		url = url + data
+		print(url)
+		headers = {
+		'User‐Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+		Gecko) Chrome/74.0.3729.169 Safari/537.36'
+		}
+		request = urllib.request.Request(url=url,headers=headers)
+		response = urllib.request.urlopen(request)
+		print(response.read().decode('utf‐8'))
+	
+	③post请求
+	如
+		eg:百度翻译
+		import urllib.request
+		import urllib.parse
+		url = 'https://fanyi.baidu.com/sug'
+		headers = {
+			'user‐agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+		Gecko) Chrome/74.0.3729.169 Safari/537.36'
+		}
+		keyword = input('请输入您要查询的单词')
+		data = {
+			'kw':keyword
+		}
+		data = urllib.parse.urlencode(data).encode('utf‐8')
+		request = urllib.request.Request(url=url,headers=headers,data=data)
+		response = urllib.request.urlopen(request)
+		print(response.read().decode('utf‐8'))
 
+
+	post和get区别？
 	1：get请求方式的参数必须编码，参数是拼接到url后面，编码之后不需要调用encode方法
 	2：post请求方式的参数必须编码，参数是放在请求对象定制的方法中，编码之后需要调用encode方法(即在urlencode后面加上encode)
 	
 	注意：将字符串转换为json对象，json.loads(str)
 	
 	详细请求百度翻译：在headers中，最重要的是cookie
-	
+		import urllib.request
+		import urllib.parse
+		url = 'https://fanyi.baidu.com/v2transapi'
+		headers = {
+			留个cookie就行}
+		data = {
+			'from': 'en',
+			'to': 'zh',
+			'query': 'you',
+			'transtype': 'realtime',
+			'simple_means_flag': '3',
+			'sign': '269482.65435',
+			'token': '2e0f1cb44414248f3a2b49fbad28bbd5',
+			}
+		#参数的编码
+		data = urllib.parse.urlencode(data).encode('utf‐8')
+		# 请求对象的定制
+		request = urllib.request.Request(url=url,headers=headers,data=data)
+		response = urllib.request.urlopen(request)
+		# 请求之后返回的所有的数据
+		content = response.read().decode('utf‐8')
+		import json
+		# loads将字符串转换为python对象
+		obj = json.loads(content)
+		# python对象转换为json字符串 ensure_ascii=False 忽略字符集编码
+		s = json.dumps(obj,ensure_ascii=False)
+		print(s)
+
+
+		ajax的get请求
+		案例：豆瓣电影
+			import urllib.request
+			import urllib.parse
+			# 下载前10页数据
+			# 下载的步骤：1.请求对象的定制 2.获取响应的数据 3.下载
+			# 每执行一次返回一个request对象
+			def create_request(page):
+				base_url = 'https://movie.douban.com/j/chart/top_list?type=20&interval_id=100%3A90&action=&'
+				headers = {'User‐Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,like Gecko) Chrome/76.0.3809.100 Safari/537.36'
+			}
+				data={
+					# 1 2 3 4
+					# 0 20 40 60
+					'start':(page‐1)*20,
+					'limit':20
+				}
+				# data编码
+				data = urllib.parse.urlencode(data)
+				url = base_url + data
+				request = urllib.request.Request(url=url,headers=headers)
+				return request
+			# 获取网页源码
+			def get_content(request):
+				response = urllib.request.urlopen(request)
+				content = response.read().decode('utf‐8')
+				return content
+			def down_load(page,content):
+				# with open（文件的名字，模式，编码）as fp:
+				# fp.write(内容)
+				with open('douban_'+str(page)+'.json','w',encoding='utf‐8')as fp:
+					fp.write(content)
+			if __name__ == '__main__':
+				start_page = int(input('请输入起始页码'))
+				end_page = int(input('请输入结束页码'))
+				for page in range(start_page,end_page+1):
+					request = create_request(page)
+					content = get_content(request)
+					down_load(page,content)
+
+
 	下载文件时：可以使用with open() as 参数：
 	他会自动关闭 
 
@@ -59,9 +183,14 @@ categories: python
 
 6.Handler处理器
 	为什么要学习handler？
+	urllib.request.urlopen(url)
+	不能定制请求头
+	urllib.request.Request(url,headers,data)
+	可以定制请求头
+
 	Handler
 	定制更高级的请求头（随着业务逻辑的复杂 请求对象的定制已经满足不了我们的需求（动态cookie和代理不能使用请求对象的定制）
-
+	
 	格式：
 	#请求对象定制
 	①request = urllib.request.Request(url=url,headers=headers)
@@ -72,6 +201,19 @@ categories: python
 	#调用open方法
 	④response = opener.open(request)
 	这个时候就可以去找代理ip来使用了
+	
+	eg:
+	import urllib.request
+	url = 'http://www.baidu.com'
+	headers = {
+	'User ‐ Agent': 'Mozilla / 5.0(Windows NT 10.0;Win64;x64) AppleWebKit / 537.36(KHTML,
+	likeGecko) Chrome / 74.0.3729.169Safari / 537.36'
+	}
+	request = urllib.request.Request(url=url,headers=headers)
+	handler = urllib.request.HTTPHandler()
+	opener = urllib.request.build_opener(handler)
+	response = opener.open(request)
+	print(response.read().decode('utf‐8'))
 
 7.代理服务器
 	代码配置代理
@@ -84,40 +226,79 @@ categories: python
 	代理池
 	可以写一个代理池proxies_pool=[{}，{}]
 	用proxies = random.choice(proxies_pool)进行随机选择
+	
+	eg:
+import urllib.request
+url = 'http://www.baidu.com/s?wd=ip'
+headers = {
+'User ‐ Agent': 'Mozilla / 5.0(Windows NT 10.0;Win64;x64) AppleWebKit / 537.36(KHTML,
+likeGecko) Chrome / 74.0.3729.169Safari / 537.36'
+}
+request = urllib.request.Request(url=url,headers=headers)
+proxies = {'http':'117.141.155.244:53281'}
+handler = urllib.request.ProxyHandler(proxies=proxies)
+opener = urllib.request.build_opener(handler)
+response = opener.open(request)
+content = response.read().decode('utf‐8')
+with open('daili.html','w',encoding='utf‐8')as fp:
+fp.write(content)
 
-8.解析
-	方法一：xpath插件
-	使用：ctrl + shift + x
-	使用步骤
-	1.安装lxml库
-	pip install lxml ‐i https://pypi.douban.com/simple
-	2.导入lxml.etree
-	from lxml import etree
-	3.etree.parse() 解析本地文件
-	html_tree = etree.parse('XX.html')
-	4.etree.HTML() 服务器响应文件
-	html_tree = etree.HTML(response.read().decode('utf‐8')
-	4.html_tree.xpath(xpath路径)
-	注意：xpath的返回值是列表
+#### 解析
+
+​	方法一：xpath插件
+​	使用：ctrl + shift + x
+​	使用步骤
+​	1.安装lxml库
+​	pip install lxml ‐i https://pypi.douban.com/simple
+​	2.导入lxml.etree
+​	from lxml import etree
+​	3.etree.parse() 解析本地文件
+​	html_tree = etree.parse('XX.html')
+​	4.etree.HTML() 服务器响应文件
+​	html_tree = etree.HTML(response.read().decode('utf‐8')
+​	4.html_tree.xpath(xpath路径)
+​	注意：xpath的返回值是列表
+
+
+	简单使用
+		from lxml import etree
+		# 第⼀种⽅式，直接在python代码中解析html字符串
+		text = """
+		<div>
+		<ul>
+		<li class="item-0"><a href="link1.html">first item</a></li>
+		....
+		</ul>
+		</div>
+		"""
+		resp_html = etree.HTML(text)
+	
+		#第⼆种⽅式，读取⼀个html⽂件并解析
+		html = etree.parse('./test.html', etree.HTMLParser())
+		result = etree.tostring(html)
+		print(result.decode('utf-8'))
+
 
 	xpath基本语法：
 	1.路径查询
-	//：查找所有子孙节点，不考虑层级关系
-	/ ：找直接子节点
+		//：查找所有子孙节点，不考虑层级关系
+		/ ：找直接子节点
 	2.谓词查询
-	div是前面的路径
-	//div[@id]
-	//div[@id="maincontent"]
+		div是前面的路径
+		//div[@id]
+		//div[@id="maincontent"]
 	3.属性查询
-	//@class
+		//@class	#查找名叫class的所有属性
+		如//title[@lang]：选取所有拥有名为 lang 的属性的 title 元素。
+		//title[@lang='eng']：选取所有 title 元素，且这些元素拥有值为 eng 的 lang 属性。
 	4.模糊查询
-	//div[contains(@id, "he")]
-	//div[starts‐with(@id, "he")]
+		//div[contains(@id, "he")]
+		//div[starts‐with(@id, "he")]
 	5.内容查询
-	//div/h1/text()
+		//div/h1/text()
 	6.逻辑运算
-	//div[@id="head" and @class="s_down"]
-	//title | //price
+		//div[@id="head" and @class="s_down"]
+		//title | //price
 	
 	方法二：jsonpath
 		只能解析本地文件，不能解析服务器文件
@@ -150,6 +331,15 @@ categories: python
 	本地文件生成对象
 	soup = BeautifulSoup(open('1.html'), 'lxml')
 	注意：默认打开文件的编码格式gbk所以需要指定打开编码格式
+	
+	节点定位
+		1.根据标签名查找节点
+			soup.a 【注】只能找到第一个a
+				soup.a.name
+				soup.a.attrs
+		2.函数
+			(1).find(返回一个对象)
+				find('a')：只找到第一个a标签
 
 9.Selenium
 	1.什么是selenium？
@@ -247,13 +437,13 @@ categories: python
 	    f.write(chunk)
 	
 	1.response的属性以及类型
-	类型 ：models.Response
-	r.text : 获取网站源码
-	r.encoding ：访问或定制编码方式
-	r.url ：获取请求的url
-	r.content ：响应的字节类型
-	r.status_code ：响应的状态码
-	r.headers ：响应的头信息
+		类型 ：models.Response
+		r.text : 获取网站源码
+		r.encoding ：访问或定制编码方式
+		r.url ：获取请求的url
+		r.content ：响应的字节类型
+		r.status_code ：响应的状态码
+		r.headers ：响应的头信息
 	
 	get请求
 	requests.get(url,params=data,headers=headers)
@@ -270,49 +460,73 @@ categories: python
 	# （2）post请求的参数是data
 	# （3）不需要请求对象的定制
 	
-	6：get和post区别？
-	1： get请求的参数名字是params post请求的参数的名字是data
-	2： 请求资源路径后面可以不加?
-	3： 不需要手动编解码
-	4： 不需要做请求对象的定制
+	get和post区别？
+		1： get请求的参数名字是params post请求的参数的名字是data
+		2： 请求资源路径后面可以不加?
+		3： 不需要手动编解码
+		4： 不需要做请求对象的定制
 
-13.scrapy
-	scrapy是什么？
-	Scrapy是一个为了爬取网站数据，提取结构性数据而编写的应用框架。 可以应用在包括数据挖掘，信息处理或存储历史数据等一系列的程序中。
 
-	1.scrapy项目的创建以及运行
-		1.创建scrapy项目：
+	代理
+		proxy定制
+			在请求中设置proxies参数
+			参数类型是一个字典类型
+		eg:
+			import requests
+			url = 'http://www.baidu.com/s?'
+			headers = {
+				'user‐agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML,like Gecko) Chrome/65.0.3325.181 Safari/537.36'
+			}
+			data = {
+				'wd':'ip'
+			}
+			proxy = {
+				'http':'219.149.59.250:9797'
+			}
+			r = requests.get(url=url,params=data,headers=headers,proxies=proxy)
+			with open('proxy.html','w',encoding='utf‐8') as fp:
+				fp.write(r.text)
+
+#### scrapy
+
+​	scrapy是什么？
+​	Scrapy是一个为了爬取网站数据，提取结构性数据而编写的应用框架。 可以应用在包括数据挖掘，信息处理或存储历史数据等一系列的程序中。
+
+	安装scrapy：pip install scrapy
+
+
+	scrapy项目的创建以及运行
+		创建scrapy项目：
 			终端输入 scrapy startproject 项目名称
 	
-	2.项目组成：
-	spiders
-	__init__.py
-	自定义的爬虫文件.py ‐‐‐》由我们自己创建，是实现爬虫核心功能的文件
-	__init__.py
-	items.py ‐‐‐》定义数据结构的地方，是一个继承自scrapy.Item的类
-	middlewares.py ‐‐‐》中间件 代理
-	pipelines.py ‐‐‐》管道文件，里面只有一个类，用于处理下载数据的后续处理
-	默认是300优先级，值越小优先级越高（1‐1000）
-	settings.py ‐‐‐》配置文件 比如：是否遵守robots协议，User‐Agent定义等
+	项目组成：
+		spiders
+		__init__.py
+		自定义的爬虫文件.py 			‐‐‐》由我们自己创建，是实现爬虫核心功能的文件
+		__init__.py
+		items.py 					‐‐‐》定义数据结构的地方，是一个继承自scrapy.Item的类
+		middlewares.py 				‐‐‐》中间件 代理
+		pipelines.py 				‐‐‐》管道文件，里面只有一个类，用于处理下载数据的后续处理，默认是300优先级，值越小优先级越高（1‐1000）
+		settings.py 				‐‐‐》配置文件 比如：是否遵守robots协议，User‐Agent定义等
 	
 	3.创建爬虫文件：
-	（1）跳转到spiders文件夹 cd 目录名字/目录名字/spiders
-	（2）scrapy genspider 爬虫名字 网页的域名
+		（1）跳转到spiders文件夹 cd 目录名字/目录名字/spiders
+		（2）scrapy genspider 爬虫名字 网页的域名
 	爬虫文件的基本组成：
-	继承scrapy.Spider类
-	name = 'baidu' ‐‐‐》 运行爬虫文件时使用的名字
-	allowed_domains ‐‐‐》 爬虫允许的域名，在爬取的时候，如果不是此域名之下的url，会被过滤掉
-	start_urls ‐‐‐》 声明了爬虫的起始地址，可以写多个url，一般是一个
-	parse(self, response) ‐‐‐》解析数据的回调函数
-	response.text ‐‐‐》响应的是字符串
-	response.body ‐‐‐》响应的是二进制文件
-	response.xpath()‐》xpath方法的返回值类型是selector列表
-	extract() ‐‐‐》提取的是selector对象的是data
-	extract_first() ‐‐‐》提取的是selector列表中的第一个数据
+			继承scrapy.Spider类
+				name = 'baidu' 			‐‐‐》 运行爬虫文件时使用的名字
+				allowed_domains 		‐‐‐》 爬虫允许的域名，在爬取的时候，如果不是此域名之下的url，会被过滤掉
+	start_urls 							‐‐‐》 声明了爬虫的起始地址，可以写多个url，一般是一个
+	parse(self, response) 				‐‐‐》解析数据的回调函数
+		response.text 						‐‐‐》响应的是字符串
+		response.body 						‐‐‐》响应的是二进制文件
+		response.xpath()					‐》xpath方法的返回值类型是selector列表
+		extract() 							‐‐‐》提取的是selector对象的是data
+		extract_first() 					‐‐‐》提取的是selector列表中的第一个数据
 	
 	4.运行爬虫文件：
-	scrapy crawl 爬虫名称
-	注意：应在spiders文件夹内执行
+		scrapy crawl 爬虫名称
+		注意：应在spiders文件夹内执行
 	
 	5. scrapy项目的结构
 	项目名字

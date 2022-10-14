@@ -4,6 +4,7 @@ date: 2022-09-19 22:23:15
 cover: ./img/wuwang.png
 tags: Git
 categories: git
+description: 简单记录一下git的常用命令
 ---
 
 

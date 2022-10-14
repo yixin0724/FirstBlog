@@ -4,7 +4,7 @@ date: 2022-10-12 21:36:11
 cover: ./img/springBoot.png
 tags: Java
 categories: java
-description: 学习一下boot框架的强大
+description: "学习一下boot框架的强大"
 ---
 
 
@@ -1279,11 +1279,11 @@ description: 学习一下boot框架的强大
 ​			    public boolean checkCode(SMSCode smsCode);
 ​			}
 ​	
-			@Service
-			public class SMSCodeServiceImpl implements SMSCodeService {
-			    @Autowired
-			    private CodeUtils codeUtils;
-	
+​			@Service
+​			public class SMSCodeServiceImpl implements SMSCodeService {
+​			    @Autowired
+​			    private CodeUtils codeUtils;
+​	
 			    @CachePut(value = "smsCode", key = "#tele")
 			    public String sendCodeToSMS(String tele) {
 			        String code = codeUtils.generator(tele);

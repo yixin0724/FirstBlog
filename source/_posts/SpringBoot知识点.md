@@ -10,7 +10,8 @@ categories: java
 
 
 
-Springboot
+#### 入门
+
 概述：SpringBoot 是由 Pivotal 团队提供的全新框架，其设计目的是用来简化 Spring 应用的初始搭建以及开发过程。
 1.入门案例
 方法一：用官方或者阿里云
@@ -359,8 +360,8 @@ Springboot
 
 
 
+#### SpringBoot运维实用篇
 
-SpringBoot运维实用篇
 1.  ①Windows打包与运行
 		boot中，打包是直接在maven中的lifecycle生命周期中先进行clean，然后双击package打包即可(他会执行test)，然后他会生成一个tagfet文件，里面会有jar包，进入cmd，输入java -jar 名字进行运行。
 		我们可以进行跳过测试，点击maven那个闪电的图标即可
@@ -572,8 +573,8 @@ SpringBoot运维实用篇
 
 
 
+#### SpringBoot开发实用篇(整合第三方技术)
 
-SpringBoot开发实用篇(整合第三方技术)
 1.热部署
 	概念：什么是热部署？简单说就是你程序改了，现在要重新启动服务器，嫌麻烦？不用重启，服务器会自己悄悄的把更新后的程序给重新加载一遍，这就是热部署。
 
@@ -2004,4 +2005,708 @@ SpringBoot开发实用篇(整合第三方技术)
 		    }
 		}
 
+
 13.消息
+	目前企业级开发中广泛使用的消息处理技术共三大类，具体如下：
+		- JMS
+		- AMQP
+		- MQTT
+	解释：为什么是三大类，而不是三个技术呢？因为这些都是规范，就想JDBC技术，是个规范，开发针对规范开发，运行还要靠实现类，例如MySQL提供了JDBC的实现，最终运行靠的还是实现。并且这三类规范都是针对异步消息进行处理的，也符合消息的设计本质，处理异步的业务。
+
+	JMS
+	概述：
+		JMS（Java Message Service）,这是一个规范，作用等同于JDBC规范，提供了与消息服务相关的API接口。
+	JMS消息模型：
+			①点对点模型：peer-2-peer，生产者会将消息发送到一个保存消息的容器中，通常使用队列模型，使用队列保存消息。一个队列的消息只能被一个消费者消费，或未被及时消费导致超时。这种模型下，生产者和消费者是一对一绑定的。
+			②发布订阅模型：publish-subscribe，生产者将消息发送到一个保存消息的容器中，也是使用队列模型来保存。但是消息可以被多个消费者消费，生产者和消费者完全独立，相互不需要感知对方的存在。
+			注意：以上这种分类是从消息的生产和消费过程来进行区分，针对消息所包含的信息不同，还可以进行不同类别的划分。
+	JMS消息种类：
+		根据消息中包含的数据种类划分，可以将消息划分成6种消息。
+		- TextMessage
+		- MapMessage
+		- BytesMessage
+		- StreamMessage
+		- ObjectMessage
+		- Message （只有消息头和属性）
+	注意：JMS主张不同种类的消息，消费方式不同，可以根据使用需要选择不同种类的消息。但是这一点也成为其诟病之处，后面再说。整体上来说，JMS就是典型的保守派，什么都按照J2EE的规范来，做一套规范，定义若干个标准，每个标准下又提供一大批API。目前对JMS规范实现的消息中间件技术还是挺多的，毕竟是皇家御用，肯定有人舔，例如ActiveMQ、Redis、HornetMQ。但是也有一些不太规范的实现，参考JMS的标准设计，但是又不完全满足其规范，例如：RabbitMQ、RocketMQ。
+	
+	AMQP
+	概述：
+		一种协议（高级消息队列协议，也是消息代理规范），规范了网络交换的数据格式，兼容JMS操作。
+	优点：
+		具有跨平台性，服务器供应商，生产者，消费者可以使用不同的语言来实现
+	消息种类：
+		AMQP消息种类：byte[]
+		AMQP在JMS的消息模型基础上又进行了进一步的扩展，除了点对点和发布订阅的模型，开发了几种全新的消息模型，适应各种各样的消息发送。
+	消息模型：
+		- direct exchange
+		- fanout exchange
+		- topic exchange
+		- headers exchange
+		- system exchange
+	场景：目前实现了AMQP协议的消息中间件技术也很多，而且都是较为流行的技术，例如：RabbitMQ、StormMQ、RocketMQ
+	
+	MQTT(消息队列遥测传输，专为小设备设计)
+	
+	KafKa
+	概述：一种高吞吐量的分布式发布订阅消息系统，提供实时消息功能。
+	场景：Kafka技术并不是作为消息中间件为主要功能的产品，但是其拥有发布订阅的工作模式，也可以充当消息中间件来使用，而且目前企业级开发中其身影也不少见。
+
+
+	购物订单发送手机短信案例
+	需求：
+		- 执行下单业务时（模拟此过程），调用消息服务，将要发送短信的订单id传递给消息中间件
+		- 消息处理服务接收到要发送的订单id后输出订单id（模拟发短信）
+	步骤：①创建订单业务(业务层接口)
+			public interface OrderService {
+			    void order(String id);
+			}
+		注意：模拟传入订单id，执行下订单业务，参数为虚拟设定，实际应为订单对应的实体类
+		②业务层实现
+			@Service
+			public class OrderServiceImpl implements OrderService {
+			    @Autowired
+			    private MessageService messageService;
+			    
+			    @Override
+			    public void order(String id) {
+			        //一系列操作，包含各种服务调用，处理各种业务
+			        System.out.println("订单处理开始");
+			        //短信消息处理
+			        messageService.sendMessage(id);
+			        System.out.println("订单处理结束");
+			        System.out.println();
+			    }
+			}
+		注意：业务层转调短信处理的服务MessageService
+		③表现层服务
+			@RestController
+			@RequestMapping("/orders")
+			public class OrderController {
+	
+			    @Autowired
+			    private OrderService orderService;
+	
+			    @PostMapping("{id}")
+			    public void order(@PathVariable String id){
+			        orderService.order(id);
+			    }
+			}
+		注意：表现层对外开发接口，传入订单id即可（模拟）
+		④短信处理业务(业务层接口)
+			public interface MessageService {
+			    void sendMessage(String id);
+			    String doMessage();
+			}
+		注意：短信处理业务层接口提供两个操作，发送要处理的订单id到消息中间件，另一个操作目前暂且设计成处理消息，实际消息的处理过程不应该是手动执行，应该是自动执行，到具体实现时再进行设计
+		⑤业务层实现
+			@Service
+			public class MessageServiceImpl implements MessageService {
+			    private ArrayList<String> msgList = new ArrayList<String>();
+	
+			    @Override
+			    public void sendMessage(String id) {
+			        System.out.println("待发送短信的订单已纳入处理队列，id："+id);
+			        msgList.add(id);
+			    }
+	
+			    @Override
+			    public String doMessage() {
+			        String id = msgList.remove(0);
+			        System.out.println("已完成短信发送业务，id："+id);
+			        return id;
+			    }
+			}
+		注意：短信处理业务层实现中使用集合先模拟消息队列，观察效果
+		⑥表现层服务
+			@RestController
+			@RequestMapping("/msgs")
+			public class MessageController {
+	
+			    @Autowired
+			    private MessageService messageService;
+	
+			    @GetMapping
+			    public String doMessage(){
+			        String id = messageService.doMessage();
+			        return id;
+			    }
+			}
+		注意：短信处理表现层接口暂且开发出一个处理消息的入口，但是此业务是对应业务层中设计的模拟接口，实际业务不需要设计此接口。
+
+
+
+	Boot整合ActiveMQ
+	概述：ActiveMQ是MQ产品中的元老级产品，早期标准MQ产品之一，现在新产品用的很少了
+	整合步骤：
+		①导入springboot整合ActiveMQ的starter
+			<dependency>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-starter-activemq</artifactId>
+			</dependency>
+		②配置ActiveMQ的服务器地址
+			spring:
+			  activemq:
+			    broker-url: tcp://localhost:61616
+		③使用JmsMessagingTemplate操作ActiveMQ
+			@Service
+			public class MessageServiceActivemqImpl implements MessageService {
+			    @Autowired
+			    private JmsMessagingTemplate messagingTemplate;
+	
+			    @Override
+			    public void sendMessage(String id) {
+			        System.out.println("待发送短信的订单已纳入处理队列，id："+id);
+			        messagingTemplate.convertAndSend("order.queue.id",id);
+			    }
+	
+			    @Override
+			    public String doMessage() {
+			        String id = messagingTemplate.receiveAndConvert("order.queue.id",String.class);
+			        System.out.println("已完成短信发送业务，id："+id);
+			        return id;
+			    }
+			}
+		注意：发送消息需要先将消息的类型转换成字符串，然后再发送，所以是convertAndSend，定义消息发送的位置，和具体的消息内容，此处使用id作为消息内容。
+		接收消息需要先将消息接收到，然后再转换成指定的数据类型，所以是receiveAndConvert，接收消息除了提供读取的位置，还要给出转换后的数据的具体类型。
+		④使用消息监听器在服务器启动后，监听指定位置，当消息出现后，立即消费消息(在listener包)
+			@Component
+			public class MessageListener {
+			    @JmsListener(destination = "order.queue.id")
+			    @SendTo("order.other.queue.id")
+			    public String receive(String id){
+			        System.out.println("已完成短信发送业务，id："+id);
+			        return "new:"+id;
+			    }
+			}
+		注意：使用注解@JmsListener定义当前方法监听ActiveMQ中指定名称的消息队列。
+		如果当前消息队列处理完还需要继续向下传递当前消息到另一个队列中使用注解@SendTo即可，这样即可构造连续执行的顺序消息队列。
+		⑤切换消息模型由点对点模型到发布订阅模型，修改jms配置即可
+			spring:
+			  activemq:
+			    broker-url: tcp://localhost:61616
+			  jms:
+			    pub-sub-domain: true
+		注意：pub-sub-domain默认值为false，即点对点模型，修改为true后就是发布订阅模型。
+	总结：
+		1. springboot整合ActiveMQ提供了JmsMessagingTemplate对象作为客户端操作消息队列
+		2. 操作ActiveMQ需要配置ActiveMQ服务器地址，默认端口61616
+		3. 企业开发时通常使用监听器来处理消息队列中的消息，设置监听器使用注解@JmsListener
+		4. 配置jms的pub-sub-domain属性可以在点对点模型和发布订阅模型间切换消息模型
+
+
+
+	Boot整合RabbitMQ
+	场景：RabbitMQ是MQ产品中的目前较为流行的产品之一，它遵从AMQP协议。RabbitMQ的底层实现语言使用的是Erlang，所以安装RabbitMQ需要先安装Erlang。
+	Erlang安装：
+		windows版安装包下载地址：https://www.erlang.org/downloads
+	注意：下载完毕后得到exe安装文件，一键傻瓜式安装，安装完毕需要重启，需要重启，需要重启。
+	Erlang安装后需要配置环境变量，否则RabbitMQ将无法找到安装的Erlang。需要配置项如下，作用等同JDK配置环境变量的作用。
+	然后安装rabbitmq
+	启动服务器(在sbin下)：
+		rabbitmq-service.bat start		# 启动服务
+		rabbitmq-service.bat stop		# 停止服务
+		rabbitmqctl status				# 查看服务状态
+	(建议在电脑服务进行开启)
+	运行sbin目录下的rabbitmq-service.bat命令即可，start参数表示启动，stop参数表示退出，默认对外服务端口5672。
+	注意：启动rabbitmq的过程实际上是开启rabbitmq对应的系统服务，需要管理员权限方可执行。
+	注意：activemq与rabbitmq有一个端口冲突问题，学习阶段无论操作哪一个？请确保另一个处于关闭状态。
+	
+	访问web管理服务
+	概述：RabbitMQ也提供有web控制台服务，但是此功能是一个插件，需要先启用才可以使用。
+		rabbitmq-plugins.bat list							# 查看当前所有插件的运行状态
+		rabbitmq-plugins.bat enable rabbitmq_management		# 启动rabbitmq_management插件
+		关闭是disable
+	启动插件后可以在插件运行状态中查看是否运行，运行后通过浏览器即可打开服务后台管理界面
+		http://localhost:15672
+	先输入访问用户名和密码，初始化用户名和密码相同，均为：guest
+
+
+	boot整合(direct模型)
+	这种属于直连交换机模式
+	RabbitMQ满足AMQP协议，因此不同的消息模型对应的制作不同，先使用最简单的direct模型开发。
+	步骤：
+		①导入springboot整合amqp的starter，amqp协议默认实现为rabbitmq方案
+			<dependency>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-starter-amqp</artifactId>
+			</dependency>
+		②配置RabbitMQ的服务器地址
+			spring:
+			  rabbitmq:
+			    host: localhost
+			    port: 5672
+		③初始化直连模式系统设置
+		由于RabbitMQ不同模型要使用不同的交换机，因此需要先初始化RabbitMQ相关的对象，例如队列，交换机等
+		//他在RabbitMQ包下的direct包下的config中
+			@Configuration
+			public class RabbitConfigDirect {
+			    @Bean
+			    public Queue directQueue(){
+			    //创建队列的参数
+			    //durable：是否持久化，默认false
+			    //exclusive：是否当前连接专用，默认false，连接关闭后队列即被删除
+			    //autoDelete：是否自动删除，当生产者或消费者不再使用此队列，自动删除
+			        return new Queue("direct_queue");
+			    }
+			    @Bean
+			    public Queue directQueue2(){
+			        return new Queue("direct_queue2");
+			    }
+			    @Bean
+			    public DirectExchange directExchange(){
+			        return new DirectExchange("directExchange");
+			    }
+			    @Bean
+			    public Binding bindingDirect(){
+			        return BindingBuilder.bind(directQueue()).to(directExchange()).with("direct");
+			    }
+			    @Bean
+			    public Binding bindingDirect2(){
+			        return BindingBuilder.bind(directQueue2()).to(directExchange()).with("direct2");
+			    }
+			}
+		注意：队列Queue与直连交换机DirectExchange创建后，还需要绑定他们之间的关系Binding，这样就可以通过交换机操作对应队列。
+		④使用AmqpTemplate操作RabbitMQ
+		//他是在RabbitMq包下的direct包下
+			@Service
+			public class MessageServiceRabbitmqDirectImpl implements MessageService {
+			    @Autowired
+			    private AmqpTemplate amqpTemplate;
+	
+			    @Override
+			    public void sendMessage(String id) {
+			        System.out.println("待发送短信的订单已纳入处理队列（rabbitmq direct），id："+id);
+			        amqpTemplate.convertAndSend("directExchange","direct",id);
+			    }
+			}
+		注意：amqp协议中的操作API接口名称看上去和jms规范的操作API接口很相似，但是传递参数差异很大。
+		⑤使用消息监听器在服务器启动后，监听指定位置，当消息出现后，立即消费消息
+			@Component
+			public class MessageListener {
+			    @RabbitListener(queues = "direct_queue")
+			    public void receive(String id){
+			        System.out.println("已完成短信发送业务(rabbitmq direct)，id："+id);
+			    }
+			}
+		注意：使用注解@RabbitListener定义当前方法监听RabbitMQ中指定名称的消息队列
+
+
+	boot整合(topic模型)
+	步骤：
+		①导入springboot整合amqp的starter，amqp协议默认实现为rabbitmq方案
+		②配置RabbitMQ的服务器地址
+		③初始化主题模式系统设置
+			@Configuration
+			public class RabbitConfigTopic {
+			    @Bean
+			    public Queue topicQueue(){
+			        return new Queue("topic_queue");
+			    }
+			    @Bean
+			    public Queue topicQueue2(){
+			        return new Queue("topic_queue2");
+			    }
+			    @Bean
+			    public TopicExchange topicExchange(){
+			        return new TopicExchange("topicExchange");
+			    }
+			    @Bean
+			    public Binding bindingTopic(){
+			        return BindingBuilder.bind(topicQueue()).to(topicExchange()).with("topic.*.id");
+			    }
+			    @Bean
+			    public Binding bindingTopic2(){
+			        return BindingBuilder.bind(topicQueue2()).to(topicExchange()).with("topic.orders.*");
+			    }
+			}
+		注意：主题模式支持routingKey匹配模式，*表示匹配一个单词，#表示匹配任意内容，这样就可以通过主题交换机将消息分发到不同的队列中，详细内容请参看RabbitMQ系列课程。
+		④使用AmqpTemplate操作RabbitMQ
+			@Service
+			public class MessageServiceRabbitmqTopicImpl implements MessageService {
+			    @Autowired
+			    private AmqpTemplate amqpTemplate;
+	
+			    @Override
+			    public void sendMessage(String id) {
+			        System.out.println("待发送短信的订单已纳入处理队列（rabbitmq topic），id："+id);
+			        amqpTemplate.convertAndSend("topicExchange","topic.orders.id",id);
+			    }
+			}
+		注意：发送消息后，根据当前提供的routingKey与绑定交换机时设定的routingKey进行匹配，规则匹配成功消息才会进入到对应的队列中。
+		⑤使用消息监听器在服务器启动后，监听指定队列
+			@Component
+			public class MessageListener {
+			    @RabbitListener(queues = "topic_queue")
+			    public void receive(String id){
+			        System.out.println("已完成短信发送业务(rabbitmq topic 1)，id："+id);
+			    }
+			    @RabbitListener(queues = "topic_queue2")
+			    public void receive2(String id){
+			        System.out.println("已完成短信发送业务(rabbitmq topic 22222222)，id："+id);
+			    }
+			}
+		注意：使用注解@RabbitListener定义当前方法监听RabbitMQ中指定名称的消息队列。
+		总结：
+			1. springboot整合RabbitMQ提供了AmqpTemplate对象作为客户端操作消息队列
+			2. 操作ActiveMQ需要配置ActiveMQ服务器地址，默认端口5672
+			3. 企业开发时通常使用监听器来处理消息队列中的消息，设置监听器使用注解@RabbitListener
+			4. RabbitMQ有5种消息模型，使用的队列相同，但是交换机不同。交换机不同，对应的消息进入的策略也不同
+
+
+
+	Boot整合RocketMQ
+	RocketMQ由阿里研发，后捐赠给apache基金会，目前是apache基金会顶级项目之一，也是目前市面上的MQ产品中较为流行的产品之一，它遵从AMQP协议。
+	还是先安装，默认服务端口9876
+	windows版安装包下载地址：https://rocketmq.apache.org
+	然后配置环境变量
+		- ROCKETMQ_HOME
+		- PATH
+		- NAMESRV_ADDR （建议）： 127.0.0.1:9876
+	注意：第三条不配的话在bin目录启动mqbroker时不能直接双击，需要现在cmd先set NAMESRV_ADDR 127.0.0.1:9876才能够启动
+	
+	RocketMQ工作模式
+	在RocketMQ中，处理业务的服务器称为broker，生产者与消费者不是直接与broker联系的，而是通过命名服务器进行通信。broker启动后会通知命名服务器自己已经上线，这样命名服务器中就保存有所有的broker信息。当生产者与消费者需要连接broker时，通过命名服务器找到对应的处理业务的broker，因此命名服务器在整套结构中起到一个信息中心的作用。并且broker启动前必须保障命名服务器先启动。
+	启动服务器
+		mqnamesrv		# 启动命名服务器
+		mqbroker		# 启动broker
+	测试服务器启动状态
+	运行bin目录下的tools命令即可使用。
+	tools org.apache.rocketmq.example.quickstart.Producer		# 生产消息
+	tools org.apache.rocketmq.example.quickstart.Consumer		# 消费消息
+
+
+	boot整合rocketMQ（异步消息）
+	步骤：
+		①导入springboot整合RocketMQ的starter，此坐标不由springboot维护版本
+			<dependency>
+			    <groupId>org.apache.rocketmq</groupId>
+			    <artifactId>rocketmq-spring-boot-starter</artifactId>
+			    <version>2.2.1</version>
+			</dependency>
+		②配置RocketMQ的服务器地址
+			rocketmq:
+			  name-server: localhost:9876
+			  producer:
+			    group: group_rocketmq
+		注意：设置默认的生产者消费者所属组group。
+		③使用RocketMQTemplate操作RocketMQ
+			@Service
+			public class MessageServiceRocketmqImpl implements MessageService {
+			    @Autowired
+			    private RocketMQTemplate rocketMQTemplate;
+	
+			    @Override
+			    public void sendMessage(String id) {
+			        System.out.println("待发送短信的订单已纳入处理队列（rocketmq），id："+id);
+			        SendCallback callback = new SendCallback() {
+			            @Override
+			            public void onSuccess(SendResult sendResult) {
+			                System.out.println("消息发送成功");
+			            }
+			            @Override
+			            public void onException(Throwable e) {
+			                System.out.println("消息发送失败！！！！！");
+			            }
+			        };
+			        rocketMQTemplate.asyncSend("order_id",id,callback);
+			    }
+			}
+		注意：使用asyncSend方法发送异步消息。
+		④使用消息监听器在服务器启动后，监听指定位置，当消息出现后，立即消费消息
+			@Component
+			@RocketMQMessageListener(topic = "order_id",consumerGroup = "group_rocketmq")
+			public class MessageListener implements RocketMQListener<String> {
+			    @Override
+			    public void onMessage(String id) {
+			        System.out.println("已完成短信发送业务(rocketmq)，id："+id);
+			    }
+			}
+		注意：RocketMQ的监听器必须按照标准格式开发，实现RocketMQListener接口，泛型为消息类型。
+		使用注解@RocketMQMessageListener定义当前类监听RabbitMQ中指定组、指定名称的消息队列。
+		总结
+			1. springboot整合RocketMQ使用RocketMQTemplate对象作为客户端操作消息队列
+			2. 操作RocketMQ需要配置RocketMQ服务器地址，默认端口9876
+			3. 企业开发时通常使用监听器来处理消息队列中的消息，设置监听器使用注解@RocketMQMessageListener
+
+
+
+	boot整合kafka
+	启动服务器
+		kafka服务器的功能相当于RocketMQ中的broker，kafka运行还需要一个类似于命名服务器的服务。在kafka安装目录中自带一个类似于命名服务器的工具，叫做zookeeper，它的作用是注册中心，相关知识请到对应课程中学习。
+		在bin目录里的windows下进行运行
+		zookeeper-server-start.bat ..\..\config\zookeeper.properties		# 启动zookeeper
+		kafka-server-start.bat ..\..\config\server.properties				# 启动kafka
+	运行bin目录下的windows目录下的zookeeper-server-start命令即可启动注册中心，默认对外服务端口2181。
+	运行bin目录下的windows目录下的kafka-server-start命令即可启动kafka服务器，默认对外服务端口9092。
+	
+	创建主题
+	和之前操作其他MQ产品相似，kakfa也是基于主题操作，操作之前需要先初始化topic。
+		# 创建topic
+		kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic itheima
+		# 查询topic
+		kafka-topics.bat --zookeeper 127.0.0.1:2181 --list					
+		# 删除topic
+		kafka-topics.bat --delete --zookeeper localhost:2181 --topic itheima
+	测试服务器启动状态
+	Kafka提供有一套测试服务器功能的测试程序，运行bin目录下的windows目录下的命令即可使用。
+		kafka-console-producer.bat --broker-list localhost:9092 --topic itheima							# 测试生产消息
+		kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic itheima --from-beginning	# 测试消息消费
+	
+	整合步骤：
+		①导入springboot整合Kafka的starter，此坐标由springboot维护版本
+			<dependency>
+			    <groupId>org.springframework.kafka</groupId>
+			    <artifactId>spring-kafka</artifactId>
+			</dependency>
+		②配置Kafka的服务器地址
+			spring:
+			  kafka:
+			    bootstrap-servers: localhost:9092
+			    consumer:
+			      group-id: order
+		注意：设置默认的生产者消费者所属组id。
+		③使用KafkaTemplate操作Kafka
+			@Service
+			public class MessageServiceKafkaImpl implements MessageService {
+			    @Autowired
+			    private KafkaTemplate<String,String> kafkaTemplate;
+	
+			    @Override
+			    public void sendMessage(String id) {
+			        System.out.println("待发送短信的订单已纳入处理队列（kafka），id："+id);
+			        kafkaTemplate.send("itheima2022",id);
+			    }
+			}
+		注意：使用send方法发送消息，需要传入topic名称。
+		④使用消息监听器在服务器启动后，监听指定位置，当消息出现后，立即消费消息
+			@Component
+			public class MessageListener {
+			    @KafkaListener(topics = "itheima2022")
+			    public void onMessage(ConsumerRecord<String,String> record){
+			        System.out.println("已完成短信发送业务(kafka)，id："+record.value());
+			    }
+			}
+		注意：使用注解@KafkaListener定义当前方法监听Kafka中指定topic的消息，接收到的消息封装在对象ConsumerRecord中，获取数据从ConsumerRecord对象中获取即可。
+		总结：
+			1. springboot整合Kafka使用KafkaTemplate对象作为客户端操作消息队列
+			2. 操作Kafka需要配置Kafka服务器地址，默认端口9092
+			3. 企业开发时通常使用监听器来处理消息队列中的消息，设置监听器使用注解@KafkaListener。接收消息保存在形参ConsumerRecord对象中
+
+
+
+14.监控
+	概述：
+		①监控是一个非常重要的工作，是保障程序正常运行的基础手段
+		②监控的过程通过一个监控程序进行，它汇总所有被监控的程序的信息集中统一展示
+		③被监控程序需要主动上报自己被监控，同时要设置哪些指标被监控
+	意义：
+		①监控服务状态是否处理宕机状态
+		②监控服务运行指标(内存，虚拟机，线程，请求等)
+		③监控程序运行日志
+		④管理服务状态(服务下线)
+
+
+15.可视化监控平台(SpringBootAdmin)
+	概述：Spring Boot Admin，这是一个开源社区项目，用于管理和监控SpringBoot应用程序。这个项目中包含有客户端和服务端两部分，而监控平台指的就是服务端。我们做的程序如果需要被监控，将我们做的程序制作成客户端，然后配置服务端地址后，服务端就可以通过HTTP请求的方式从客户端获取对应的信息，并通过UI界面展示对应信息。
+	下面就来开发这套监控程序，先制作服务端，其实服务端可以理解为是一个web程序，收到一些信息后展示这些信息。
+	服务端开发
+	步骤：
+		①导入springboot admin对应的starter，版本与当前使用的springboot版本保持一致，并将其配置成web工程(创建时可以在ops里面勾选)
+			<dependency>
+			    <groupId>de.codecentric</groupId>
+			    <artifactId>spring-boot-admin-starter-server</artifactId>
+			    <version>2.5.4</version>
+			</dependency>
+
+			<dependency>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-starter-web</artifactId>
+			</dependency>
+		②在引导类上添加注解@EnableAdminServer，声明当前应用启动后作为SpringBootAdmin的服务器使用
+			@SpringBootApplication
+			@EnableAdminServer
+			public class Springboot25AdminServerApplication {
+			    public static void main(String[] args) {
+			        SpringApplication.run(Springboot25AdminServerApplication.class, args);
+			    }
+			}
+		注意：在这里就好了，使用http://localhost:8080/applications访问
+	
+	客户端开发
+	客户端程序开发其实和服务端开发思路基本相似，多了一些配置而已。
+	步骤：
+		①导入springboot admin对应的starter，版本与当前使用的springboot版本保持一致，并将其配置成web工程
+			<dependency>
+			    <groupId>de.codecentric</groupId>
+			    <artifactId>spring-boot-admin-starter-client</artifactId>
+			    <version>2.5.4</version>
+			</dependency>
+	
+			<dependency>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-starter-web</artifactId>
+			</dependency>
+		注意：上述过程也可以通过创建项目时使用勾选的形式完成，不过一定要小心，端口配置成不一样的，否则会冲突。
+		②置当前客户端将信息上传到哪个服务器上，通过yml文件配置
+			server:
+			  port: 80
+			spring:
+			  boot:
+			    admin:
+			      client:
+			        url: http://localhost:8080
+			management:
+			  endpoint:
+			    health:
+			      show-details: always
+			  endpoints:
+			    web:
+			      exposure:
+			        include: "*"
+	配置多个客户端
+	可以通过配置客户端的方式在其他的springboot程序中添加客户端坐标，这样当前服务器就可以监控多个客户端程序了。每个客户端展示不同的监控信息。
+	总结：
+		1. 开发监控服务端需要导入坐标，然后在引导类上添加注解@EnableAdminServer，并将其配置成web程序即可
+		2. 开发被监控的客户端需要导入坐标，然后配置服务端服务器地址，并做开放指标的设定即可
+		3. 在监控平台中可以查阅到各种各样被监控的指标，前提是客户端开放了被监控的指标
+
+16.监控原理
+	概述：通过查阅监控中的映射指标，可以看到当前系统中可以运行的所有请求路径，其中大部分路径以/actuator开头
+	简单来说，分四点：
+		①Actuato提供了SpringBoot生产就绪功能，通过端点的配置与访问，获取端点信息
+		②端点描述了一组监控信息，SpringBoot提供了多个内置端点，也可以根据需要自定义端点信息
+		③访问当前应用所有端点信息：/actuator
+		④访问端点详细信息：/actuator/端点名称
+
+	原来监控中显示的信息实际上是通过发送请求后得到json数据，然后展示出来。按照上述操作，可以发送更多的以/actuator开头的链接地址，获取更多的数据，这些数据汇总到一起组成了监控平台显示的所有数据。
+	到这里我们得到了一个核心信息，监控平台中显示的信息实际上是通过对被监控的应用发送请求得到的。那这些请求谁开发的呢？打开被监控应用的pom文件，其中导入了springboot admin的对应的client，在这个资源中导入了一个名称叫做actuator的包。被监控的应用之所以可以对外提供上述请求路径，就是因为添加了这个包。
+	
+	//health的端点是不能关闭的
+	management:
+	  endpoint:
+	    health:						# 端点名称
+	      show-details: always
+	    info:						# 端点名称
+	      enabled: true				# 是否开放
+	为了方便开发者快速配置端点，springboot admin设置了13个较为常用的端点作为默认开放的端点，如果需要控制默认开放的端点的开放状态，可以通过配置设置，如下：
+		management:
+		  endpoints:
+		    enabled-by-default: true	# 是否开启默认端点，默认值true
+	上述端点开启后，就可以通过端点对应的路径查看对应的信息了。但是此时还不能通过HTTP请求查询此信息，还需要开启通过HTTP请求查询的端点名称，使用“*”可以简化配置成开放所有端点的WEB端HTTP请求权限。
+		management:
+		  endpoints:
+		    web:
+		      exposure:
+		        include: "*"
+	整体上来说，对于端点的配置有两组信息，一组是endpoints开头的，对所有端点进行配置，一组是endpoint开头的，对具体端点进行配置。
+		management:
+		  endpoint:		# 具体端点的配置
+		    health:
+		      show-details: always
+		    info:
+		      enabled: true
+		  endpoints:	# 全部端点的配置
+		    web:
+		      exposure:
+		        include: "*"
+		    enabled-by-default: true
+	总结
+		1. 被监控客户端通过添加actuator的坐标可以对外提供被访问的端点功能
+		2. 端点功能的开放与关闭可以通过配置进行控制
+		3. web端默认无法获取所有端点信息，通过配置开放端点功能
+
+
+17.自定义监控指标
+	info端点指标控制(在actuator层下创建对应的类)
+	概述：info端点描述了当前应用的基本信息，可以通过两种形式快速配置info端点的信息
+	配置形式：
+	①在yml文件中通过设置info节点的信息就可以快速配置端点信息
+		info:
+		  appName: @project.artifactId@
+		  version: @project.version@
+		  company: B站大学
+		  author: yixin
+	也可以通过请求端点信息路径获取对应json信息：http://localhost:81/actuator/info
+	②编程形式
+	通过配置的形式只能添加固定的数据，如果需要动态数据还可以通过配置bean的方式为info端点添加信息，此信息与配置信息共存
+		@Component
+		public class InfoConfig implements InfoContributor {
+		    @Override
+		    public void contribute(Info.Builder builder) {
+		        builder.withDetail("runTime",System.currentTimeMillis());		//添加单个信息
+		        Map infoMap = new HashMap();		
+		        infoMap.put("buildTime","2006");
+		        builder.withDetail("runTime",System.currentTimeMillis()).withiDetail("company","大学")
+		        builder.withDetails(infoMap);									//添加一组信息
+		    }
+		}
+
+
+	控制Health端点
+	概述：health端点描述当前应用的运行健康指标，即应用的运行是否成功。通过编程的形式可以扩展指标信息。
+		@Component
+		public class HealthConfig extends AbstractHealthIndicator {
+		    @Override
+		    protected void doHealthCheck(Health.Builder builder) throws Exception {
+		        boolean condition = true;
+		        if(condition) {
+		            builder.status(Status.UP);					//设置运行状态为启动状态
+		            builder.withDetail("runTime", System.currentTimeMillis());
+		            Map infoMap = new HashMap();
+		            infoMap.put("buildTime", "2006");
+		            builder.withDetails(infoMap);
+		        }else{
+		            builder.status(Status.OUT_OF_SERVICE);		//设置运行状态为不在服务状态
+		            builder.withDetail("上线了吗？","你做梦");
+		        }
+		    }
+		}
+	注意：当任意一个组件状态不为UP时，整体应用对外服务状态为非UP状态。
+
+
+	Metrics端点
+	概述：metrics端点描述了性能指标，除了系统自带的监控性能指标，还可以自定义性能指标。
+		@Service
+		public class BookServiceImpl extends ServiceImpl<BookDao, Book> implements IBookService {
+		    @Autowired
+		    private BookDao bookDao;
+	
+		    private Counter counter;
+	
+		    //这个MeterRegistry是自动注入的
+		    public BookServiceImpl(MeterRegistry meterRegistry){
+		        counter = meterRegistry.counter("用户付费操作次数：");
+		    }
+	
+		    @Override
+		    public boolean delete(Integer id) {
+		        //每次执行删除业务等同于执行了付费业务
+		        counter.increment();
+		        return bookDao.deleteById(id) > 0;
+		    }
+		}
+	注意：这样在性能指标中就出现了自定义的性能指标监控项
+
+
+	自定义端点
+	可以根据业务需要自定义端点，方便业务监控
+		@Component
+		@Endpoint(id="pay",enableByDefault = true)
+		public class PayEndpoint {
+		    @ReadOperation
+		    public Object getPay(){
+		        Map payMap = new HashMap();
+		        payMap.put("level 1","300");
+		        payMap.put("level 2","291");
+		        payMap.put("level 3","666");
+		        return payMap;
+		    }
+		}
+	注意：由于此端点数据spirng boot admin无法预知该如何展示，所以通过界面无法看到此数据，通过HTTP请求路径可以获取到当前端点的信息，但是需要先开启当前端点对外功能，或者设置当前端点为默认开发的端点。
+	总结：	
+		1. 端点的指标可以自定义，但是每种不同的指标根据其功能不同，自定义方式不同
+		2. info端点通过配置和编程的方式都可以添加端点指标
+		3. health端点通过编程的方式添加端点指标，需要注意要为对应指标添加启动状态的逻辑设定
+		4. metrics指标通过在业务中添加监控操作设置指标
+		5. 可以自定义端点添加更多的指标

@@ -13,6 +13,8 @@ description: linux系统yyds！
 
 
 
+添加端口白名单：iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
+
 网络连接的三种连接方式：
 	①桥接模式，虚拟系统可以和外部系统通讯，但是容易造成IP冲突
 	②NAT模式，网络地址转换模式，虚拟系统可以和外部系统通讯，不容易造成IP冲突，但是不是双向的
@@ -38,7 +40,7 @@ MobaXterm连接Centos7
 	systemctl stop firewalld.service
 	输入ip和用户名连接即可
 
-终端设备：terminal
+12.终端设备：terminal
 	物理终端，也称控制台：console
 	虚拟终端：tty
 	图形终端
@@ -71,8 +73,7 @@ MobaXterm连接Centos7
 	dirname /etc/sysconfig/network-scripts/ifcfg-ens33
 	/etc/sysconfig/network-scripts
 
-#### Linux基础知识
-
+Linux基础知识
 1.命令格式
 	语法通用格式：# COMMAND OPTIONS ARGUMENTS
 
@@ -585,8 +586,672 @@ MobaXterm连接Centos7
 
 11.IO 重定向与管道
 	输出重定向
+		# >，覆盖输出
+		[root@localhost /]# head -n 5 /etc/passwd
+		root:x:0:0:root:/root:/bin/bash
+		bin:x:1:1:bin:/bin:/sbin/nologin
+		daemon:x:2:2:daemon:/sbin:/sbin/nologin
+		adm:x:3:4:adm:/var/adm:/sbin/nologin
+		lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+
+		[root@localhost /]# head -n 5 /etc/passwd > /tmp/head_5_etc_passwd.txt
+	
+		[root@localhost /]# cat /tmp/head_5_etc_passwd.txt
+		root:x:0:0:root:/root:/bin/bash
+		bin:x:1:1:bin:/bin:/sbin/nologin
+		daemon:x:2:2:daemon:/sbin:/sbin/nologin
+		adm:x:3:4:adm:/var/adm:/sbin/nologin
+		lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+	
+		# >>，追加输出
+		[root@localhost /]# tail -n 5 /etc/passwd
+		dbus:x:81:81:System message bus:/:/sbin/nologin
+		polkitd:x:999:998:User for polkitd:/:/sbin/nologin
+		sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+		postfix:x:89:89::/var/spool/postfix:/sbin/nologin
+		chrony:x:998:996::/var/lib/chrony:/sbin/nologin
+	
+		[root@localhost /]# tail -n 5 /etc/passwd >> /tmp/head_5_etc_passwd.txt
+	
+		[root@localhost /]# cat /tmp/head_5_etc_passwd.txt
+		root:x:0:0:root:/root:/bin/bash
+		bin:x:1:1:bin:/bin:/sbin/nologin
+		daemon:x:2:2:daemon:/sbin:/sbin/nologin
+		adm:x:3:4:adm:/var/adm:/sbin/nologin
+		lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+		dbus:x:81:81:System message bus:/:/sbin/nologin
+		polkitd:x:999:998:User for polkitd:/:/sbin/nologin
+		sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+		postfix:x:89:89::/var/spool/postfix:/sbin/nologin
+		chrony:x:998:996::/var/lib/chrony:/sbin/nologin
+	
+		# set -C，禁止覆盖输出重定向至已存在的文件
+		# set +C，关闭上述功能
+		# 错误输出重定向：2>，2>>
+		# 合并正常输出流和错误输出流：(1) &>，&>>（2） COMMAND > /path/to/somefile 2>&1
+	
+	输入重定向
+		# <，通过输入设备键入输出
+		# tr，tr [OPTION]... SET1 [SET2]
+		# 把输入的数据当中的字符，凡是在SET1定义范围内出现的，通通对位转换为SET2出现的字符，不修改原文件
+		# tr SET1 SET2 < /PATH/FROM/SOMEFILE
+		# tr -d SET1 < /PATH/FROM/SOMEFILE，指定移除指定SET1定义范围内出现得字符
+		[root@localhost /]# tr [a-z] [A-Z]
+		where are you?
+		WHERE ARE YOU?
+		How are you?    
+		HOW ARE YOU?
+		^C
+	
+		# <<，指定分界符，一般为EOF
+		[root@localhost /]# cat > /tmp/cat.out << EOF
+		> where are you?
+		> how are you
+		> EOF
+		[root@localhost /]# cat ^C
+		[root@localhost /]# cat /tmp/cat.out 
+		where are you?
+		how are you
+	
+	管道
+		# |，COMMAND1 | COMMAND2 | COMMAND3 | ...
+		# 连接程序，实现将前一个命令的输出直接定向后一个程序当作输入数据流
+		[root@localhost /]# cat /etc/issue | tr 'a-z' 'A-Z'
+		\S
+		KERNEL \R ON AN \M
+	
+		# tee，COMMAND | tee /PATH/TO/SOMEFILE
+		[root@localhost /]# cat /etc/issue | tee /tmp/issue.tee | tr 'a-z' 'A-Z'
+		\S
+		KERNEL \R ON AN \M
+	
+		[root@localhost /]# cat /tmp/issue.tee
+		\S
+		Kernel \r on an \m
+
+12.用户与组
+	用户类别
+		管理员：0
+		普通用户：1-65635
+			系统用户：1-499(CentOS6), 1-999(CentOS7)
+			登录用户：500-60000(CentOS6), 1000-60000(CentOS7)
+	名称解析：Username <–> UID 名称解析库：/etc/passwd
+
+	组类别
+		管理员组：0
+		普通用户组：1-65635
+			系统组：1-499(CentOS6), 1-999(CentOS7)
+			登录组：500-60000(CentOS6), 1000-60000(CentOS7)
+		用户的基本组
+		用户的附加组
+		私有组：组名同用户名，且只包含一个用户
+		公共组：组内包含了多个用户
+	名称解析：groupname <–> gid 名称解析库：/etc/group
+	
+	认证信息
+	通过比对事先存储的，与登录时提供的信息是否一致
+	密码使用策略：
+		①使用随机密码
+		②最短长度不要低于8位
+		③应该使用大写字母、小写字母、数字和标点符号四类字符中至少三类
+		④定期更换
+	加密算法：
+		①对称加密：加密和解密使用同一个密码
+		②非对称加密：加密和解密使用的一对儿密钥
+		③单向加密：只能加密，不能解密；提取数据特征码
+		算法：
+			md5: message digest, 128bits
+			sha：secure hash algorithm, 160bits
+			sha224
+			sha256
+			sha384
+			sha512
+		etc/passwd：用户的信息库
+	
+		格式为 ：name:password:UID:GID:GECOS:directory:shell
+		name: 用户名
+		password：可以是加密的密码，也可是占位符x；
+		UID：用户ID；
+		GID：用户所属的主组的ID号；
+		GECOS：注释信息
+		directory：用户的家目录；
+		shell：用户的默认shell，登录时默认shell程序；
+	
+		/etc/shadow：用户密码
+		用户名:加密的密码:最近一次修改密码的时间:最短使用期限:最长使用期限:警告期段:过期期限:保留字段
+	
+		/etc/group：组的信息库
+		格式为：group_name:password:GID:user_list
+		user_list：该组的用户成员；以此组为附加组的用户的用户列表
+	
+	groupadd
+		# 添加组，groupadd [选项] group_name
+		# -g GID：指定GID；默认是上一个组的GID+1
+		# -r: 创建系统组
+	
+	groupmod
+		# 修改组属性，groupmod [选项] GROUP
+		# -g GID：修改GID；
+		# -n new_name：修改组名；
+	
+	groupdel
+		# 删除组，groupdel [选项] GROUP
+	
+	useradd
+		# 创建用户,useradd [选项] 登录名
+		# 创建用户时的诸多默认设定配置文件为/etc/login.defs	
+		# -u, --uid UID：指定UID；
+		# -g, --gid GROUP：指定基本组ID，此组得事先存在；
+		# -G, --groups GROUP1[,GROUP2,...[,GROUPN]]]：指明用户所属的附加组，多个组之间用逗号分隔；
+		# -c, --comment COMMENT：指明注释信息；
+		# -d, --home HOME_DIR：以指定的路径为用户的家目录；通过复制/etc/skel此目录并重命名实现；指定的家目录路径如果事先存在，则不会为用户复制环境配置文件；
+		# -s, --shell SHELL：指定用户的默认shell，可用的所有shell列表存储在/etc/shells文件中；
+		# -r, --system：创建系统用户；
+		# useradd -D：显示创建用户的默认配置；
+		# useradd -D 选项: 修改默认选项的值，修改的结果保存于/etc/default/useradd文件中；
+	
+	usermod
+		# 修改用户属性，usermod [选项] 登录名
+		# -u, --uid UID：修改用户的ID为此处指定的新UID；
+		# -g, --gid GROUP：修改用户所属的基本组；
+		# -G, --groups GROUP1[,GROUP2,...[,GROUPN]]]：修改用户所属的附加组；原来的附加组会被覆盖；
+		# -a, --append：与-G一同使用，用于为用户追加新的附加组；
+		# -c, --comment COMMENT：修改注释信息；
+		# -d, --home HOME_DIR：修改用户的家目录；用户原有的文件不会被转移至新位置；
+		# -m, --move-home：只能与-d选项一同使用，用于将原来的家目录移动为新的家目录；
+		# -l, --login NEW_LOGIN：修改用户名；
+		# -s, --shell SHELL：修改用户的默认shell；
+		# -L, --lock：锁定用户密码；即在用户原来的密码字符串之前添加一个"!"；
+		# -U, --unlock：解锁用户的密码；
+	
+	userdel
+		# 删除用户,userdel [选项] 登录
+		# -r：删除用户时一并删除其家目录；
+	
+	passwd
+		# passwd：修改用户自己的密码；
+		# passwd USERNAME：修改指定用户的密码，但仅root有此权限；
+		# -l, -u：锁定和解锁用户；
+		# -d：清除用户密码串；
+		# -e DATE: 过期期限，日期；
+		# -i DAYS：非活动期限；
+		# -n DAYS：密码的最短使用期限；
+		# -x DAYS：密码的最长使用期限；
+		# -w DAYS：警告期限；
+		# --stdin：echo "PASSWORD" | passwd --stdin USERNAME
+	
+	gpasswd
+		# 组密码文件：/etc/gshadow，gpasswd [选项] group
+		# -a USERNAME：向组中添加用户
+		# -d USERNAME：从组中移除用户
+	
+	newgrp
+		# 临时切换指定的组为基本组，newgrp [-] [group]
+		# -: 会模拟用户重新登录以实现重新初始化其工作环境；
+	
+	chage
+		# 更改用户密码过期信息，chage [选项] 登录名
+		# -d，-E，-W，-m，-M
+	
+	id
+		# 显示用户的真和有效ID，id [OPTION]... [USER]
+		# -u: 仅显示有效的UID；
+		# -g: 仅显示用户的基本组ID; 
+		# -G：仅显示用户所属的所有组的ID；
+		# -n: 显示名字而非ID；
+	
+	su
+		# switch user
+		# 登录式切换：会通过读取目标用户的配置文件来重新初始化
+		su - USERNAME
+		su -l USERNAME
+		# 非登录式切换：不会读取目标用户的配置文件进行初始化
+		su USERNAME
+		# 注意：管理员可无密码切换至其它任何用户；
+		#  -c 'COMMAND'：仅以指定用户的身份运行此处指定的命令；
+		su - USERNAME -c 'COMMAND'
 
 
+13.权限管理
+	mode：rwxrwxrwx
+		左三位：定义 user（owner）的权限
+		中三位：定义 group 的权限
+		右三位：定义 other 的权限
+	r：readable，读权限
+	w：writable，写权限
+	x：excutable，执行权限
+	ownership：user,group,other
+
+	权限组合机制
+		---、000、0
+		--x、001、1
+		-w-、010、2
+		-wx、011、3
+		r--、100、4
+		r-x、101、5
+		rw-、110、6
+		rwx、111、7
+	
+	chmod
+		# 更改权限，u:属主、g:属组、o:其他、a:所有
+		# chmod [options] mode file...
+		# 用户只能修改属主为自己的文件
+	
+		# 指定所有权限设置，u=,g=,o=,a=
+		[root@study /]# ll txt
+		-rw-r--r--. 1 root root 541 4月   9 21:34 txt
+		[root@study /]# chmod g=rw- txt
+		[root@study /]# ll txt
+		-rw-rw-r--. 1 root root 541 4月   9 21:34 txt
+	
+		# 指定单个权限设置，u-r,o+x,g-w,+r,+x
+		[root@study /]# chmod g-w txt
+		[root@study /]# ll txt
+		-rw-r--r--. 1 root root 541 4月   9 21:34 txt
+		[root@study /]# chmod +x txt
+		[root@study /]# ll txt
+		-rwxr-xr-x. 1 root root 541 4月   9 21:34 txt
+	
+		# 进制表示权限修改
+		[root@study /]# chmod 660 txt
+		[root@study /]# ll txt
+		-rw-rw----. 1 root root 541 4月   9 21:34 txt
+	
+		# -R，--recursive，递归修改
+	
+	chown
+		# 修改属主
+	
+	chgrp
+		# 修改数组
+	
+	umask
+		# 文件权限反向掩码，遮罩码
+		# 文件默认不能拥有执行权限，如果减得的结果中有执行权限则需要加1
+		[root@study /]# umask
+		0022
+		# umask MASK 设置 umask
+	
+	install
+		# 复制文件并设置权限
+		install [options] [-s] [--strip] source dest
+		install [options] [-s] [--strip] source... directory
+		install [options] [-d,--directory] directory...
+	
+		# -d, --directory
+		# -m mode, --mode=mode
+		# -o owner, --owner=owner
+		# -g group, --group=group
+	
+	mktemp
+		# 创建临时文件或临时目录
+		[root@study /]# mytemp=$(mktemp /tmp/XXXXXXX)
+		[root@study /]# echo $mytemp
+		/tmp/ptfJw0h
+	
+		# -d 创建临时目录
 
 
-添加端口白名单：iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
+14.Shell编程
+	编写脚本
+	第一行指定解释器路径，用于指明解释执行当前脚本的解释器程序文件，常用的有：#!/bin/bash、#!/usr/bin/python、#!/usr/bin/perl，脚本文件为 .sh
+
+	解释器会自动忽略空白行和加 # 的注释行
+	
+	运行脚本
+	第一种：chmod +x file.sh、./file.sh
+	第二种：bash file.sh
+	
+	bash的配置文件
+	
+	profile
+		为交互式登录的 shell 进程提供配置
+		仅管理员可修改
+		全局：/etc/profile, /etc/profile.d/*.sh
+		用户：~/.bash_profile
+	
+		功能:
+			用于定义环境变量
+			运行命令或脚本
+	bashrc
+	为非交互式登录的 shell 进程提供配置
+	全局：/etc/bashrc
+	用户：~/.bashrc
+	
+	功能:
+		定义本地变量
+		定义命令别名
+	
+	交互式登录
+		直接通过某终端输入账号密码打开的 shell 进程
+		使用 su 命令: su - USERNAME,或者使用 su -l USERNAME执行的登录切换
+	
+	非交互式登录
+		su USERNAME 执行的登录切换
+		图形界面下打开的终端
+		运行脚本
+
+
+15.文本处理
+	grep
+		# grep, egrep, fgrep - 打印匹配给定模式的行
+		grep [options] PATTERN [FILE...]
+		grep [options] [-e PATTERN | -f FILE] [FILE...]
+
+		[reajason@study ~]$ grep "UUID" /etc/fstab
+		UUID=4da0c9b1-d833-434b-a700-6abe448403ec /boot
+	
+		# --color=auto，匹配到的文本高亮显示
+		# -i, --ignore-case 忽略模式 PATTERN 和输入文件中的大小写的分别
+		# -o, --only-matching 只显示匹配的行中与 PATTERN 相匹配的部分
+		# -v, --invert-match 变匹配的意义，只选择不匹配的行
+		# -q, --quiet, --silent 不向标准输出写任何东西，只返回状态吗，echo $?
+		# -A NUM, --after-context=NUM 打印出紧随匹配的行之后的下文 NUM 行
+		# -B NUM, --before-context=NUM 打印出匹配的行之前的上文  NUM 行
+		# -C NUM, --context=NUM 打印出匹配的行的上下文前后各 NUM 行
+	
+		[reajason@study ~]$ grep "root" /etc/passwd
+		root:x:0:0:root:/root:/bin/bash
+		operator:x:11:0:operator:/root:/sbin/nologin
+		[reajason@study ~]$ grep -A 1 "root" /etc/passwd
+		root:x:0:0:root:/root:/bin/bash
+		bin:x:1:1:bin:/bin:/sbin/nologin
+		--
+		operator:x:11:0:operator:/root:/sbin/nologin
+		games:x:12:100:games:/usr/games:/sbin/nologin
+		[reajason@study ~]$ grep -B 1 "root" /etc/passwd
+		root:x:0:0:root:/root:/bin/bash
+		--
+		mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+		operator:x:11:0:operator:/root:/sbin/nologin
+		[reajason@study ~]$ grep -C 1 "root" /etc/passwd
+		root:x:0:0:root:/root:/bin/bash
+		bin:x:1:1:bin:/bin:/sbin/nologin
+		--
+		mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+		operator:x:11:0:operator:/root:/sbin/nologin
+		games:x:12:100:games:/usr/games:/sbin/nologin
+	
+	wc
+		# 输出文件中的行数、单词数、字节数
+		[reajason@study ~]$ wc /etc/passwd
+		  43   87 2271 /etc/passwd
+	
+		# -l: lines
+		# -w：words
+		# -c: bytes
+	
+	cut
+		# 在文件的每一行中提取片断
+		# -d CHAR：以指定的字符为分隔符
+		# -f FIELDS：挑选出的字段
+	
+	sort
+		# 对文本文件的行排序
+		# -n：基于数值大小而非字符进行排序；
+		# -t CHAR：指定分隔符；
+		# -k #：用于排序比较的字段；
+		# -r：逆序排序；
+		# -f：忽略字符大小写
+		# -u：重复的行只保留一份；
+
+
+	uniq
+		# 删除排序文件中的重复行
+		# -c：显示每行的重复次数；
+		# -d：仅显示重复过的的行；
+
+
+	diff
+		# 文件比较
+		# diff  /PATH/TO/OLDFILE  /PATH/TO/NEWFILE > /PATH/TO/PATCH_FILE
+	
+		# -u：使用unfied机制，即显示要修改的行的上下文，默认为3行；
+	
+	patch
+		# 向文件打补丁
+		# patch [OPTIONS] -i /PATH/TO/PATCH_FILE /PATH/TO/OLDFILE
+		# patch /PATH/TO/OLDFILE < /PATH/TO/PATCH_FILE
+
+
+16.Vim编辑器
+	基本模式
+		①编辑模式
+		②输入模式
+		③末行模式
+
+	打开文件
+	
+	模式转换
+	编辑模式 -> 输入模式
+		i：insert，在光标处输入
+		a：append，在光标后方一个字符输入
+		o：在光标所在处下方新的一行输入
+		I：在光标所在处的行首输入
+		A：在光标所在处的行尾输入
+		O：在光标所在处上方新的一行输入
+	
+	输入模式 -> 编辑模式
+	Esc
+	
+	编辑模式 -> 末行模式
+	:
+	
+	末行模式 -> 编辑模式
+	Esc
+	
+	打开文件
+	vim file、vim +n file、vim +/reg file
+	
+	关闭文件
+		ZZ   保存并退出
+		:q   退出
+		:q!  强制退出，不保存
+		:wq! 保存并退出
+		:x   保存并退出
+		:w /PATH/FILE  另存为
+	
+	光标跳转
+	字符间跳转
+		h: ←
+		j: ↓
+		k: ↑
+		l: →
+	
+	单词间跳转
+		w: 下一个单词的词首
+	e: 当前或后一个单词词尾
+	b: 当前或前一个单词词首
+	
+	行首行尾跳转
+		^: 跳转到行首第一个非空白字符
+		0: 跳转至行首
+		$: 跳转至行尾
+	
+	行间跳转	
+		nG: 跳转到第 n 行
+		gg: 跳转第一行
+		G:  跳转最后一行
+	
+	句间跳转
+		()
+	
+	段间跳转
+		{}
+	
+	翻屏
+		Ctrl+f: 向下翻一屏
+		Ctrl+b: 向上翻一屏
+		Ctrl+d: 向下翻半屏
+		Ctrl+u: 向上翻半屏
+		Enter: 按行向后翻
+	
+	编辑命令
+	
+	字符编辑
+		x:  删除光标所在处的字符
+		#x: 删除光标处起始的#个字符
+		xp: 交换光标所在处的字符与其后面的字符的位置
+	
+	替换命令
+		r: 替换光标所在处的字符
+	
+	删除命令
+		d$: 删除光标所在处到行尾
+		d^: 删除光标所在处到行首
+		dw: 
+		de: 
+		db: 
+		dd: 删除光标所在一整行
+		#dd: 删除光标所在处的行起始的共#行
+	
+	粘贴命令
+		p: 整行粘贴则在下方另起一行，否则直接粘贴在其后
+		P: 整行粘贴则在上方另起一行，否则直接粘贴在其前
+	
+	复制命令
+		y: 复制，类似于 d 命令
+		yy: 复制一整行
+	
+	改变命令
+		c: 删除并进入输入模式
+	
+	可视化模式
+		v: 按字符选定
+		V: 按行选定
+	
+	撤销操作
+		u: 撤销
+		Ctrl+r: 取消撤销
+	
+	末行模式
+		内建命令行接口
+	
+	地址定界
+		#：第 # 行
+		#,#：第 # 到 # 行
+		#,+#：第 # 行 偏移 # 行
+		%：全文
+		/reg/：第一次被匹配的文本 
+	
+	查找
+		/reg：从光标所在处往后查找所有匹配字符
+		?reg：从光标所在处往前查找所有匹配字符
+		n：下一个
+		N：上一个
+	
+	查找并替换
+		s/要查找的内容/替换的内容/修饰符
+	
+		修饰符：i：忽略大小写
+			   g：全局替换
+	
+	多文件模式
+		:next 下一个文件
+		:prev 前一个文件
+		:last 最后一个
+	
+		:wqall 保存所有文件并推出
+		:wall 保存所有文件
+		:qall 退出所有文件
+	
+	多窗口机制
+		-o：水平分割窗口
+		-O：垂直分割窗口
+		Ctrl+w,arrow：切换
+		Ctrl+w,s：水平分割
+		Ctrl+w,v：垂直分割
+	
+	定制Vim
+		set number（set nu）：显示行号
+		set nomber（set nonu）：取消显示行号
+		set ai：自动缩进
+		set noai：取消自动缩进
+		set hlsearch：高亮搜索
+		set nohlsearch：取消高亮搜索
+		syntax on：语法高亮
+		syntax off：取消语法高亮
+		set lc：忽略大小写
+		set nocl：取消忽略大小写 
+
+
+17.文件查找
+	locate
+	依赖于事先构建好的索引库
+		系统自动实现（周期性任务）
+		手动更新数据库（updatedb）
+	工作特性
+		查找速度快
+		模糊查找
+		非实时查找
+			-b：只匹配 basename
+			-c：统计出多少符合条件的数量
+			-r：使用正则表达式
+
+	find
+	工作特性
+		查找速度慢
+		精确查找
+		实时查找
+		find [OPTION] [查找起始路径][查找条件][处理动作]
+	
+		-name pattern：查找文件名（精确查找） pattern 为 gloB 通配符
+		-iname pattern：不区分大小写
+		-user USERNAEM：查找属主
+		-group GROUPNAME：查找属组
+		-uid UID：查找属主 uid
+		-gid GID：查找属组 gid
+		-nouser：查找没有属主
+		-nogroup：查找没有属组
+		-type TYPE：查找文件类型
+			f:普通文件
+			d:目录文件
+			l:符号链接文件
+			b:块设备文件
+			c:字符设备文件
+			p:管道文件
+			s:套接字文件
+		-size [+|-]#
+			#为单位，k,M,G
+		-atime/-amin [+|-]#
+			根据访问时间查找
+		-mtime/-mmin [+|-]#
+			根据修改时间查找
+		-ctime/-cmin [+|-]#
+			根据改变时间查找
+	
+		-prem mode
+	
+		处理动作：
+	
+		默认动作为 -print
+		-ls：输出文件详细信息
+		-delete：删除查找的文件
+		-fls /PATH：ls的输出信息保存指定文件
+		-ok COMMAND {}\; ：对查找的每个文件执行命令
+
+18.特殊权限
+	SUID
+	默认情况下，用户发起的进程，进程的属主是其发起者，因此其以发起者的身份在运行。如果此程序拥有 SUID 权限（u=rws），则程序运行为进程时，进程的属主不是发起者，而是程序文件自己的属主。
+		chmod u+s FILE
+
+	SGID
+	当目录属组有写权限时，且有 SGID 权限时（g=rws），那么所有属于此目录的属组，且以属组身份在此目录中新建文件或目录时，新文件的属组不是用户的基本组，而是此目录的属组。
+		chmod u+s FILE
+	
+	STIKY
+	对于属组或全局可写得到目录，组内的所有用户或系统上的所有系统的所有用户对此目录中都能创建新文件或删除所有的已有文件，如果此类目录设置 Stiky 权限（o=rwt），则每个用户能创建新文件，且只能删除自己的文件。
+		chmod o+t FILE
+	
+	facl
+	额外赋权机制，另一层让普通用户能控制赋权给另外的用户或租的赋权机制
+		# 获取文件的 facl 权限
+		getfacl FLIE
+	
+		# 设置文件的 facl 权限
+		setfacl -m u:USERNAME:MODE FILE
+		setfacl -m g:GROUPNAME:MODE FILE
+	
+		# 撤销赋权
+		setfacl -x u:USERNAME FILE
+		setfacl -x g:GROUPNAME FILE

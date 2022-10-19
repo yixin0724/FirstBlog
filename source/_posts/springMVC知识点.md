@@ -9,11 +9,13 @@ description: 简单学习一下SpringMVC吧。
 
 
 
-SpringMVC
-1.简介
-	SpringMVC是隶属于Spring框架的一部分，主要是用来进行Web开发，是对Servlet进行了封装。
-	SpringMVC是处于Web层的框架，所以其主要的作用就是用来接收前端发过来的请求和数据然后经过处理并将处理的结果响应给前端，所以如何处理请求和响应是SpringMVC中非常重要的一块内容
-	REST是一种软件架构风格，可以降低开发的复杂性，提高系统的可伸缩性，后期的应用也是非常广泛。
+## SpringMVC
+
+#### 1.简介
+
+​	SpringMVC是隶属于Spring框架的一部分，主要是用来进行Web开发，是对Servlet进行了封装。
+​	SpringMVC是处于Web层的框架，所以其主要的作用就是用来接收前端发过来的请求和数据然后经过处理并将处理的结果响应给前端，所以如何处理请求和响应是SpringMVC中非常重要的一块内容
+​	REST是一种软件架构风格，可以降低开发的复杂性，提高系统的可伸缩性，后期的应用也是非常广泛。
 
 	SpringMVC主要负责的就是
 		controller如何接收请求和数据
@@ -23,14 +25,15 @@ SpringMVC
 	SpringMVC是表现层的框架也就说web层
 	Mybatis是数据层的框架
 
-2.入门案例
-	SpringMVC实现流程：
-		1.创建web工程(Maven结构)
-		2.设置tomcat服务器，加载web工程(tomcat插件)
-		3.导入坐标(SpringMVC+Servlet)
-		4.定义处理请求的功能类(UserController)
-		5.设置请求映射(配置映射关系)
-		6.将SpringMVC设定加载到Tomcat容器中
+#### 2.入门案例
+
+​	SpringMVC实现流程：
+​		1.创建web工程(Maven结构)
+​		2.设置tomcat服务器，加载web工程(tomcat插件)
+​		3.导入坐标(SpringMVC+Servlet)
+​		4.定义处理请求的功能类(UserController)
+​		5.设置请求映射(配置映射关系)
+​		6.将SpringMVC设定加载到Tomcat容器中
 
 	使用步骤：
 		①创建一个web项目
@@ -93,23 +96,24 @@ SpringMVC
 		    }
 		}
 
+#### 3.bean加载控制
 
-3.bean加载控制
-	SpringMVC加载表现层的相关bean(controller)
-	Spring加载业务bean(service)和功能bean(DataSource)
-	问题：因为功能不同，如何避免Spring错误加载到SpringMVC的bean?
-	两种方法来避免：
-		①Spring加载的bean设定扫描范围为精准范围，例如service包、dao包等
-		②Spring加载的bean设定扫描范围为com.itheima,排除掉controller包中的bean
-	注意：第二种方法采用的是注解的形式，如@ComponentScan(value="com.itheima",excludeFilters=@ComponentScan.Filter(type=FilterType.ANNOTATION,classes=Controller.class))
+​	SpringMVC加载表现层的相关bean(controller)
+​	Spring加载业务bean(service)和功能bean(DataSource)
+​	问题：因为功能不同，如何避免Spring错误加载到SpringMVC的bean?
+​	两种方法来避免：
+​		①Spring加载的bean设定扫描范围为精准范围，例如service包、dao包等
+​		②Spring加载的bean设定扫描范围为com.itheima,排除掉controller包中的bean
+​	注意：第二种方法采用的是注解的形式，如@ComponentScan(value="com.itheima",excludeFilters=@ComponentScan.Filter(type=FilterType.ANNOTATION,classes=Controller.class))
 
 	ComponentScan相关属性
 		excludeFilters:排除扫描路径中加载的bean,需要指定类别(type)和具体项(classes)
 		includeFilters:加载指定的bean，需要指定类别(type)和具体项classes)
 
-4.请求与响应
-	 设置请求映射路径
-	 在出现有不同的控制器中，访问路径一样，这个时候我们需要加上前缀避免完全一样，同时可以在类的上面写上@RequestMapping("前缀")，这样该类中的访问路径默认前面都带上了这个
+#### 4.请求与响应
+
+​	 设置请求映射路径
+​	 在出现有不同的控制器中，访问路径一样，这个时候我们需要加上前缀避免完全一样，同时可以在类的上面写上@RequestMapping("前缀")，这样该类中的访问路径默认前面都带上了这个
 
 	 请求参数
 	 get：在get请求中，参数直接在请求网址中，因此直接在请求网址上加上?然后加参数即可，两个参数之间用&隔开，同时在控制器中，直接在方法的形参位置接收即可
@@ -130,20 +134,21 @@ SpringMVC
 	
 	当想用集合接收的时候，需要先在方法形参的前面加上注解@RequestParam然后直接用集合接收即可
 
-5.json数据传递参数
-	对于JSON数据类型，我们常见的有三种:
-		①json普通数组（["value1","value2","value3",...]）
-		②json对象（{key1:value1,key2:value2,...}）
-		③json对象数组（[{key1:value1,...},{key2:value2,...}]）
-	对于JSON普通数组
-	第一步导入依赖：
-		<groupId>com.fasterxml.jackson.core</groupId>
-		<artifactId>jackson-databind</artifactId>
-		<version>2.9.0</version>
-	第二部在postman中点击body里面的raw然后选择json进行传输
-	第三步在SpringMVC配置类中进行加上注解@EnableWebMvc开启json注解接收
-	第四步控制类对应方法中参数前面加上注解@RequestBody
-	其他都和这个一样
+#### 5.json数据传递参数
+
+​	对于JSON数据类型，我们常见的有三种:
+​		①json普通数组（["value1","value2","value3",...]）
+​		②json对象（{key1:value1,key2:value2,...}）
+​		③json对象数组（[{key1:value1,...},{key2:value2,...}]）
+​	对于JSON普通数组
+​	第一步导入依赖：
+​		<groupId>com.fasterxml.jackson.core</groupId>
+​		<artifactId>jackson-databind</artifactId>
+​		<version>2.9.0</version>
+​	第二部在postman中点击body里面的raw然后选择json进行传输
+​	第三步在SpringMVC配置类中进行加上注解@EnableWebMvc开启json注解接收
+​	第四步控制类对应方法中参数前面加上注解@RequestBody
+​	其他都和这个一样
 
 
 	日期类型参数传递
@@ -171,20 +176,21 @@ SpringMVC
 		SpringMVC的配置类把@EnableWebMvc当做标配配置上去，不要省略
 		其中HttpMessageConverter接口，该接口是实现对象与JSON之间的转换工作
 
+#### 6.响应
 
-6.响应
-	在控制类中在方法中可以直接返回一个jsp等页面，也可也在方法上加注解@ResponseBody表示返回一个文本内容即为字符串
-	如果想要返回一个pojo的对象，即json数据，首先需要在方法上加上注解@ResponseBody，然后导入jackson-databind依赖(在查询数据库那里也是这样用)，在这里面是HttpMessageConverter类型转换器在起作用
+​	在控制类中在方法中可以直接返回一个jsp等页面，也可也在方法上加注解@ResponseBody表示返回一个文本内容即为字符串
+​	如果想要返回一个pojo的对象，即json数据，首先需要在方法上加上注解@ResponseBody，然后导入jackson-databind依赖(在查询数据库那里也是这样用)，在这里面是HttpMessageConverter类型转换器在起作用
 
-7.REST风格
-	概述：表现形式状态转换,它是一种软件架构风格，其实就是访问网络资源的形式
-	如传统风格资源描述形式
-		http://localhost/user/getById?id=1 查询id为1的用户信息
-		http://localhost/user/saveUser 保存用户信息
-		REST风格描述形式
-		http://localhost/user/1
-		http://localhost/user
-	优点：隐藏资源的访问行为，无法通过地址得知对资源是何种操作，书写简化
+#### 7.REST风格
+
+​	概述：表现形式状态转换,它是一种软件架构风格，其实就是访问网络资源的形式
+​	如传统风格资源描述形式
+​		http://localhost/user/getById?id=1 查询id为1的用户信息
+​		http://localhost/user/saveUser 保存用户信息
+​		REST风格描述形式
+​		http://localhost/user/1
+​		http://localhost/user
+​	优点：隐藏资源的访问行为，无法通过地址得知对资源是何种操作，书写简化
 
 	注意：他是按照行为动作(即请求方式)进行区分对资源的操作
 	如按照REST风格访问资源时使用行为动作区分对资源进行了何种操作
@@ -217,57 +223,58 @@ SpringMVC
 
 
 
-8.SSM整合
-	流程分析
-	(1) 创建工程
-		创建一个Maven的web工程
-		pom.xml添加SSM需要的依赖jar包
-		编写Web项目的入口配置类，实现AbstractAnnotationConfigDispatcherServletInitializer
-		重写以下方法
-			getRootConfigClasses() ：返回Spring的配置类->需要SpringConfig配置类
-			getServletConfigClasses() ：返回SpringMVC的配置类->需要SpringMvcConfig配
-			置类
-			getServletMappings() : 设置SpringMVC请求拦截路径规则
-			getServletFilters() ：设置过滤器，解决POST请求中文乱码问题
-	(2)SSM整合[重点是各个配置的编写]
-		SpringConfig
-			标识该类为配置类 @Configuration
-			扫描Service所在的包 @ComponentScan
-			在Service层要管理事务 @EnableTransactionManagement
-			读取外部的properties配置文件 @PropertySource
-			整合Mybatis需要引入Mybatis相关配置类 @Import
-				第三方数据源配置类 JdbcConfig
-					构建DataSource数据源，DruidDataSouroce,需要注入数据库连接四要素， @Bean @Value
-					构建平台事务管理器，DataSourceTransactionManager,@Bean
-				Mybatis配置类 MybatisConfig
-					构建SqlSessionFactoryBean并设置别名扫描与数据源，@Bean
-					构建MapperScannerConfigurer并设置DAO层的包扫描
-		SpringMvcConfig
-			标识该类为配置类 @Configuration
-			扫描Controller所在的包 @ComponentScan
-			开启SpringMVC注解支持 @EnableWebMvc
-	(3)功能模块[与具体的业务模块有关]
-		创建数据库表
-		根据数据库表创建对应的模型类
-		通过Dao层完成数据库表的增删改查(接口+自动代理)
-		编写Service层[Service接口+实现类]
-			@Service
-			@Transactional
-			整合Junit对业务层进行单元测试
-				@RunWith
-				@ContextConfiguration
-				@Test
-		编写Controller层
-			接收请求 @RequestMapping @GetMapping @PostMapping @PutMapping
-			@DeleteMapping
-			接收数据 简单、POJO、嵌套POJO、集合、数组、JSON数据类型
-				@RequestParam
-				@PathVariable
-				@RequestBody
-			转发业务层
-				@Autowired
-			响应结果
-				@ResponseBody
+#### 8.SSM整合
+
+​	流程分析
+​	(1) 创建工程
+​		创建一个Maven的web工程
+​		pom.xml添加SSM需要的依赖jar包
+​		编写Web项目的入口配置类，实现AbstractAnnotationConfigDispatcherServletInitializer
+​		重写以下方法
+​			getRootConfigClasses() ：返回Spring的配置类->需要SpringConfig配置类
+​			getServletConfigClasses() ：返回SpringMVC的配置类->需要SpringMvcConfig配
+​			置类
+​			getServletMappings() : 设置SpringMVC请求拦截路径规则
+​			getServletFilters() ：设置过滤器，解决POST请求中文乱码问题
+​	(2)SSM整合[重点是各个配置的编写]
+​		SpringConfig
+​			标识该类为配置类 @Configuration
+​			扫描Service所在的包 @ComponentScan
+​			在Service层要管理事务 @EnableTransactionManagement
+​			读取外部的properties配置文件 @PropertySource
+​			整合Mybatis需要引入Mybatis相关配置类 @Import
+​				第三方数据源配置类 JdbcConfig
+​					构建DataSource数据源，DruidDataSouroce,需要注入数据库连接四要素， @Bean @Value
+​					构建平台事务管理器，DataSourceTransactionManager,@Bean
+​				Mybatis配置类 MybatisConfig
+​					构建SqlSessionFactoryBean并设置别名扫描与数据源，@Bean
+​					构建MapperScannerConfigurer并设置DAO层的包扫描
+​		SpringMvcConfig
+​			标识该类为配置类 @Configuration
+​			扫描Controller所在的包 @ComponentScan
+​			开启SpringMVC注解支持 @EnableWebMvc
+​	(3)功能模块[与具体的业务模块有关]
+​		创建数据库表
+​		根据数据库表创建对应的模型类
+​		通过Dao层完成数据库表的增删改查(接口+自动代理)
+​		编写Service层[Service接口+实现类]
+​			@Service
+​			@Transactional
+​			整合Junit对业务层进行单元测试
+​				@RunWith
+​				@ContextConfiguration
+​				@Test
+​		编写Controller层
+​			接收请求 @RequestMapping @GetMapping @PostMapping @PutMapping
+​			@DeleteMapping
+​			接收数据 简单、POJO、嵌套POJO、集合、数组、JSON数据类型
+​				@RequestParam
+​				@PathVariable
+​				@RequestBody
+​			转发业务层
+​				@Autowired
+​			响应结果
+​				@ResponseBody
 
 	表现层数据封装
 	可以将Result类放在控制层当中
@@ -341,27 +348,27 @@ SpringMVC
 		    }
 		}
 
+#### 9.拦截器
 
-9.拦截器
-	流程：
-		(1)浏览器发送一个请求会先到Tomcat的web服务器
-		(2)Tomcat服务器接收到请求以后，会去判断请求的是静态资源还是动态资源
-		(3)如果是静态资源，会直接到Tomcat的项目部署目录下去直接访问
-		(4)如果是动态资源，就需要交给项目的后台代码进行处理
-		(5)在找到具体的方法之前，我们可以去配置过滤器(可以配置多个)，按照顺序进行执行
-		(6)然后进入到到中央处理器(SpringMVC中的内容)，SpringMVC会根据配置的规则进行拦截
-		(7)如果满足规则，则进行处理，找到其对应的controller类中的方法进行执行,完成后返回结果
-		(8)如果不满足规则，则不进行处理
-		(9)这个时候，如果我们需要在每个Controller方法执行的前后添加业务，具体该如何来实现?
-		这个就是拦截器要做的事。
-	拦截器（Interceptor）是一种动态拦截方法调用的机制，在SpringMVC中动态拦截控制器方法的执行
-	作用:
-		在指定的方法调用前后执行预先设定的代码
-		阻止原始方法的执行
-	总结：拦截器就是用来做增强
-	拦截器和过滤器之间的区别是什么?
-	归属不同：Filter属于Servlet技术，Interceptor属于SpringMVC技术
-	拦截内容不同：Filter对所有访问进行增强，Interceptor仅针对SpringMVC的访问进行增强
+​	流程：
+​		(1)浏览器发送一个请求会先到Tomcat的web服务器
+​		(2)Tomcat服务器接收到请求以后，会去判断请求的是静态资源还是动态资源
+​		(3)如果是静态资源，会直接到Tomcat的项目部署目录下去直接访问
+​		(4)如果是动态资源，就需要交给项目的后台代码进行处理
+​		(5)在找到具体的方法之前，我们可以去配置过滤器(可以配置多个)，按照顺序进行执行
+​		(6)然后进入到到中央处理器(SpringMVC中的内容)，SpringMVC会根据配置的规则进行拦截
+​		(7)如果满足规则，则进行处理，找到其对应的controller类中的方法进行执行,完成后返回结果
+​		(8)如果不满足规则，则不进行处理
+​		(9)这个时候，如果我们需要在每个Controller方法执行的前后添加业务，具体该如何来实现?
+​		这个就是拦截器要做的事。
+​	拦截器（Interceptor）是一种动态拦截方法调用的机制，在SpringMVC中动态拦截控制器方法的执行
+​	作用:
+​		在指定的方法调用前后执行预先设定的代码
+​		阻止原始方法的执行
+​	总结：拦截器就是用来做增强
+​	拦截器和过滤器之间的区别是什么?
+​	归属不同：Filter属于Servlet技术，Interceptor属于SpringMVC技术
+​	拦截内容不同：Filter对所有访问进行增强，Interceptor仅针对SpringMVC的访问进行增强
 
 	入门案例
 	步骤：

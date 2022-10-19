@@ -11,10 +11,12 @@ description: "学习一下boot框架的强大"
 
 
 
-#### 入门
+## 入门
 
 概述：SpringBoot 是由 Pivotal 团队提供的全新框架，其设计目的是用来简化 Spring 应用的初始搭建以及开发过程。
-1.入门案例
+
+#### 1.入门案例
+
 方法一：用官方或者阿里云
 	①创建一个新的工程，选择Spring Initializr进行创建，选择服务地址https://start.aliyun.com/，然后选择java8进行创建，选住Web里面的Spring Web即可
 	注意：默认的服务地址为https://start.spring.io/
@@ -30,16 +32,17 @@ description: "学习一下boot框架的强大"
 
 	小知识：每次创建一个boot工程会有许多暂时用不到的，可以删除也可以在idea设置中的editor中的File types添加进去进行隐藏即可。
 
-2.快速启动
-	直接打包，然后用cmd，输入java -jar 名字即可运行
-	注意：jar支持命令行启动需要依赖maven插件支持，请确认打包时是否具有SpringBoot对应的maven插件
+#### 2.快速启动
 
+​	直接打包，然后用cmd，输入java -jar 名字即可运行
+​	注意：jar支持命令行启动需要依赖maven插件支持，请确认打包时是否具有SpringBoot对应的maven插件
 
-3.起步依赖
-	SpringBoot优点：
-		①自动配置。这个是用来解决 Spring 程序配置繁琐的问题
-		②起步依赖。这个是用来解决 Spring 程序依赖设置繁琐的问题
-		③辅助功能（内置服务器,...）。我们在启动 SpringBoot 程序时既没有使用本地的 tomcat 也没有使用 tomcat 插件，而是使用 SpringBoot 内置的服务器。
+#### 3.起步依赖
+
+​	SpringBoot优点：
+​		①自动配置。这个是用来解决 Spring 程序配置繁琐的问题
+​		②起步依赖。这个是用来解决 Spring 程序依赖设置繁琐的问题
+​		③辅助功能（内置服务器,...）。我们在启动 SpringBoot 程序时既没有使用本地的 tomcat 也没有使用 tomcat 插件，而是使用 SpringBoot 内置的服务器。
 
 	parent：
 		所有SpringBoot项目要继承的项目，定义了许多坐标版本号(依赖管理，而非依赖)，达到减少依赖冲突的目的
@@ -65,15 +68,16 @@ description: "学习一下boot框架的强大"
 	思考：不管什么框架写，最终都会产生一个spring容器的对象，他们都是以bean的形式被spring管理，springboot的引导类的run方法也是产生了一个ApplicationContext容器对象，也可以获取bean
 	注意：引导类默认会扫描他的包下以及子包的类
 
-4.REST风格
-	概述：表现形式状态转换,它是一种软件架构风格，其实就是访问网络资源的形式
-	如传统风格资源描述形式
-		http://localhost/user/getById?id=1 查询id为1的用户信息
-		http://localhost/user/saveUser 保存用户信息
-		REST风格描述形式
-		http://localhost/user/1
-		http://localhost/user
-	优点：隐藏资源的访问行为，无法通过地址得知对资源是何种操作，书写简化
+#### 4.REST风格
+
+​	概述：表现形式状态转换,它是一种软件架构风格，其实就是访问网络资源的形式
+​	如传统风格资源描述形式
+​		http://localhost/user/getById?id=1 查询id为1的用户信息
+​		http://localhost/user/saveUser 保存用户信息
+​		REST风格描述形式
+​		http://localhost/user/1
+​		http://localhost/user
+​	优点：隐藏资源的访问行为，无法通过地址得知对资源是何种操作，书写简化
 
 	注意：他是按照行为动作(即请求方式)进行区分对资源的操作
 	如按照REST风格访问资源时使用行为动作区分对资源进行了何种操作
@@ -108,22 +112,21 @@ description: "学习一下boot框架的强大"
 	③增删改查本来需要写@RequestMapping的method属性值，可以用@对应的请求方式注解代替原来的@RequestMapping
 		如@DeleteMapping("/{id}")，@PostMapping等等
 
-
-5.基础配置
+#### 5.基础配置
 
 	复制模块
 		可以创建一个boot模板工程，只保留src和pom文件即可，如果要创建一个新的工程，只需要复制一个新的文件，然后给对应的名，并去pom文件修改工程名即可
 	注意：再pom文件中那个name指的是maven那边显示的名字，一般都会删除
 
+#### 6.配置文件
 
-6.配置文件
-	3种方式修改端口：
-		①直接在resources下的application.properties文件进行修改server.port=8080端口即可
-		②在resources下创建application.yml文件，然后根据格式修改即可
-			server:
-				port: 81	#切记后面有空格
-		③同样的位置创键yaml文件，和第二种方法一样
-	注意：如果在写yml配置文件没有出提示，那么在项目结构中点进去Facets中，点击Spring那个，然后点击大炮那个图标，把新建的配置文件填进去即可，如果没法添加，可以先把默认的加上在重新添加
+​	3种方式修改端口：
+​		①直接在resources下的application.properties文件进行修改server.port=8080端口即可
+​		②在resources下创建application.yml文件，然后根据格式修改即可
+​			server:
+​				port: 81	#切记后面有空格
+​		③同样的位置创键yaml文件，和第二种方法一样
+​	注意：如果在写yml配置文件没有出提示，那么在项目结构中点进去Facets中，点击Spring那个，然后点击大炮那个图标，把新建的配置文件填进去即可，如果没法添加，可以先把默认的加上在重新添加
 
 	spring.main.banner-mode=off意思为关闭boot图标的输出
 	spring.banner.image.location=图片的名字,可以识别图片并输出到控制台
@@ -175,11 +178,11 @@ description: "学习一下boot框架的强大"
 		<artifactId>spring-boot-configuration-processor</artifactId>
 		<optional>true</optional>
 
+#### 7.Boot整合JUnit
 
-7.Boot整合JUnit
-	boot默认带有测试
-	①创建boot工程，不需要添加web，因为这里用不到
-	②直接在测试类里面先写上注解(SpringBootTest)，然后注入要测试的方法对应的对象，然后写方法并标上@Test即可
+​	boot默认带有测试
+​	①创建boot工程，不需要添加web，因为这里用不到
+​	②直接在测试类里面先写上注解(SpringBootTest)，然后注入要测试的方法对应的对象，然后写方法并标上@Test即可
 
 	在这里如果我们移动了测试类的位置，发现报错了，我们可以通过@SpringBootTest指明引导类的字节码对象也可以通过@ContextConfiguration来标注指明引导类，
 	注意：在这里以前的配置其实现在的引导类已经帮我们全部做好了，所以他的扫描范围是com.yixin及其以下所有子包，因此test里面也需要在com.yixin下
@@ -189,58 +192,62 @@ description: "学习一下boot框架的强大"
 	
 	Spring和SpringMVC不用整合，因为不存在
 
-8.Boot整合Mybatis
-	思考要整合什么：
-		①核心配置：数据库连接相关信息（连什么？连谁？什么权限）
-		②映射配置：SQL映射（XML/注解）
-	步骤：
-		①创建工程选上MyBatis Framework和MySQL Driver
-		②创建对应的domin(实体类)和dao数据层，并用注解形式@Mapper标在类上面
-		③在application.yml配置数据库的信息
-			spring:
-				datasource:
-				driver-class-name: com.mysql.cj.jdbc.Driver
-				url: jdbc:mysql://localhost:3306/ssm_db
-				username: root
-				password: he020724
-	注意：
-		①如果不给数据层接口标注@Mapper注解，这个时候运行会报错，Spring扫描不上BookDao，因为他做了代理，需要给他做个注解@Mapper
-		②如果选用boot2.4.2下面的低版本，需要设时区，在url后面加上?serverTimezone=UTC即可
-		③如果要用druid数据源，先加依赖，然后在配置加type定义数据源
+#### 8.Boot整合Mybatis
 
-9.Boot整合MybatisPlus
-	步骤：①添加MP的坐标或者用阿里云的boot直接创建即可
-			<dependency>
-				<groupId>com.baomidou</groupId>
-				<artifactId>mybatis-plus-boot-starter</artifactId>
-				<version>3.4.3</version>
-			</dependency>
-		 ②定义数据层接口与映射配置，继承BaseMapper，就算让dao层接口继承
+​	思考要整合什么：
+​		①核心配置：数据库连接相关信息（连什么？连谁？什么权限）
+​		②映射配置：SQL映射（XML/注解）
+​	步骤：
+​		①创建工程选上MyBatis Framework和MySQL Driver
+​		②创建对应的domin(实体类)和dao数据层，并用注解形式@Mapper标在类上面
+​		③在application.yml配置数据库的信息
+​			spring:
+​				datasource:
+​				driver-class-name: com.mysql.cj.jdbc.Driver
+​				url: jdbc:mysql://localhost:3306/ssm_db
+​				username: root
+​				password: he020724
+​	注意：
+​		①如果不给数据层接口标注@Mapper注解，这个时候运行会报错，Spring扫描不上BookDao，因为他做了代理，需要给他做个注解@Mapper
+​		②如果选用boot2.4.2下面的低版本，需要设时区，在url后面加上?serverTimezone=UTC即可
+​		③如果要用druid数据源，先加依赖，然后在配置加type定义数据源
 
-10.Boot整合Druid
-	坐标：
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid-spring-boot-starter</artifactId>
-			<version>1.2.6</version>
-		</dependency>
-	方法一：直接在boot配置文件在数据库里面新加type属性输入type: com.alibaba.druid.pool.DruidDataSource即可
-	方法二：使用druid专用配置格式
-			spring:
-			  datasource:
-				druid:
-				  driver-class-name: com.mysql.cj.jdbc.Driver
-				  url: jdbc:mysql://localhost:3306/ssm_db?serverTimezone=UTC
-				  username: root
-			 	  password: he020724
+#### 9.Boot整合MybatisPlus
 
-11.Lobmbok加快开发
-	依赖坐标：
-		<groupId>org.projectlombok</groupId>
-		<artifactId>lombok</artifactId>
-		<version>1.18.12</version>
-		<scope>provided</scope>
-	注意：boot不用给出后两行
+​	步骤：①添加MP的坐标或者用阿里云的boot直接创建即可
+​			<dependency>
+​				<groupId>com.baomidou</groupId>
+​				<artifactId>mybatis-plus-boot-starter</artifactId>
+​				<version>3.4.3</version>
+​			</dependency>
+​		 ②定义数据层接口与映射配置，继承BaseMapper，就算让dao层接口继承
+
+#### 10.Boot整合Druid
+
+​	坐标：
+​		<dependency>
+​			<groupId>com.alibaba</groupId>
+​			<artifactId>druid-spring-boot-starter</artifactId>
+​			<version>1.2.6</version>
+​		</dependency>
+​	方法一：直接在boot配置文件在数据库里面新加type属性输入type: com.alibaba.druid.pool.DruidDataSource即可
+​	方法二：使用druid专用配置格式
+​			spring:
+​			  datasource:
+​				druid:
+​				  driver-class-name: com.mysql.cj.jdbc.Driver
+​				  url: jdbc:mysql://localhost:3306/ssm_db?serverTimezone=UTC
+​				  username: root
+​			 	  password: he020724
+
+#### 11.Lobmbok加快开发
+
+​	依赖坐标：
+​		<groupId>org.projectlombok</groupId>
+​		<artifactId>lombok</artifactId>
+​		<version>1.18.12</version>
+​		<scope>provided</scope>
+​	注意：boot不用给出后两行
 
 	Lombok常见的注解有:
 		@Setter:为模型类的属性提供setter方法
@@ -251,31 +258,32 @@ description: "学习一下boot框架的强大"
 		@NoArgsConstructor:提供一个无参构造函数
 		@AllArgsConstructor:提供一个包含所有参数的构造函数
 
-12.开启MP的运行日志
-	步骤：在boot配置文件
-		mybatis-plus:
-			configuration:
-				log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-	注意：StdOutImpl是标准输出
+#### 12.开启MP的运行日志
 
+​	步骤：在boot配置文件
+​		mybatis-plus:
+​			configuration:
+​				log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+​	注意：StdOutImpl是标准输出
 
-13.SSMP整合案例
-	案例实现方案分析
-		 实体类开发————使用Lombok快速制作实体类
-		 Dao开发————整合MyBatisPlus，制作数据层测试类
-		 Service开发————基于MyBatisPlus进行增量开发，制作业务层测试类
-		 Controller开发————基于Restful开发，使用PostMan测试接口功能
-		 Controller开发————前后端开发协议制作
-		 页面开发————基于VUE+ElementUI制作，前后端联调，页面数据处理，页面消息处理
-		 列表、新增、修改、删除、分页、查询
-		 项目异常处理
-		 按条件查询————页面功能调整、Controller修正功能、Service修正功能
-	细节问题：
-		①记得要在Service实现类加上@Service注解，接口不需要添加注解
-		②记得在controller层标上rest风格@RestController，和各个方法的请求方式注解，还有参数的注解，如请求体参数@RequestBody或者@PathVariable
-		③要保证表现层和业务层的方法参数一样
-		④要注意让表现层的输出形式尽量保持一致，如统一为json格式，用data存数据，如果存在就返回数据，如果是增删改就返回true，没有就返回null
-		⑤对异常也要做统一处理
+#### 13.SSMP整合案例
+
+​	案例实现方案分析
+​		 实体类开发————使用Lombok快速制作实体类
+​		 Dao开发————整合MyBatisPlus，制作数据层测试类
+​		 Service开发————基于MyBatisPlus进行增量开发，制作业务层测试类
+​		 Controller开发————基于Restful开发，使用PostMan测试接口功能
+​		 Controller开发————前后端开发协议制作
+​		 页面开发————基于VUE+ElementUI制作，前后端联调，页面数据处理，页面消息处理
+​		 列表、新增、修改、删除、分页、查询
+​		 项目异常处理
+​		 按条件查询————页面功能调整、Controller修正功能、Service修正功能
+​	细节问题：
+​		①记得要在Service实现类加上@Service注解，接口不需要添加注解
+​		②记得在controller层标上rest风格@RestController，和各个方法的请求方式注解，还有参数的注解，如请求体参数@RequestBody或者@PathVariable
+​		③要保证表现层和业务层的方法参数一样
+​		④要注意让表现层的输出形式尽量保持一致，如统一为json格式，用data存数据，如果存在就返回数据，如果是增删改就返回true，没有就返回null
+​		⑤对异常也要做统一处理
 
 	表现层消息一致性处理
 	设计表现层返回结果的模型类，用于后端与前端进行数据格式统一，也称为前后端数据协议
@@ -361,7 +369,7 @@ description: "学习一下boot框架的强大"
 
 
 
-#### SpringBoot运维实用篇
+## SpringBoot运维实用篇
 
 1.  ①Windows打包与运行
 		boot中，打包是直接在maven中的lifecycle生命周期中先进行clean，然后双击package打包即可(他会执行test)，然后他会生成一个tagfet文件，里面会有jar包，进入cmd，输入java -jar 名字进行运行。
@@ -398,10 +406,10 @@ description: "学习一下boot框架的强大"
 		然后kill -9 pid杀掉即可
 		用cat server.log查看
 
+#### 2.临时属性的设置
 
-2.临时属性的设置
-	在使用java -jar的命令启动时，在后面用--加临时属性，如--server.port=80
-	在这里我们使用properties的方式写，可以用--打多个临时属性
+​	在使用java -jar的命令启动时，在后面用--加临时属性，如--server.port=80
+​	在这里我们使用properties的方式写，可以用--打多个临时属性
 
 	在idea中(不建议)
 	我们可以带属性启动SpringBoot程序，为程序添加运行属性，在启动哪里，对启动进行配置Program arguments即可，他和引导类中args的参数有关系，他生效的原因就是因为临时属性会放在args中，可以用toString(args)进行输出查看，也可以不带args进行运行
@@ -420,14 +428,14 @@ description: "学习一下boot框架的强大"
 		多服务器项目：使用自定义配置文件需求较高，将所有配置放置在一个目录中，统一管理
 		基于SpringCloud技术，所有的服务器将不再设置配置文件，而是通过配置中心进行设定，动态加载配置信息
 
+#### 3.多坏境开发配置
 
-3.多坏境开发配置
-	在yml配置多环境
-	①首先在yml配置文件中将各个环境之间用---隔开
-	②然后在坏境里面给出Spring：profiles：名字(这种是过时的)，分别对应dev，pro，test
-	新版为spring: config: activate: on-profile: 名字
-	③在最上面指定使用哪个环境，spring：profiles：active：名字即可
-	注意：一般会把公共的配置写在最上面，这样维护比较方便，同时yml文件一级一级要用回车隔开
+​	在yml配置多环境
+​	①首先在yml配置文件中将各个环境之间用---隔开
+​	②然后在坏境里面给出Spring：profiles：名字(这种是过时的)，分别对应dev，pro，test
+​	新版为spring: config: activate: on-profile: 名字
+​	③在最上面指定使用哪个环境，spring：profiles：active：名字即可
+​	注意：一般会把公共的配置写在最上面，这样维护比较方便，同时yml文件一级一级要用回车隔开
 
 	yml文件版的多环境
 	①首先再创建出3个yml配置文件，分别对应dev，pro，test和最原始的主启动类，命名为原始文件名字-dev等
@@ -506,46 +514,46 @@ description: "学习一下boot框架的强大"
 	
 	注意：boot2.5版本有一个bug，就是config必须要有子目录，给他一个就好
 
+#### 4.日志
 
-4.日志
-	作用：
-		①编程期调试代码
-		②运营期记录信息
-	代码中使用日志工具记录日志步骤：
-		①添加日志记录操作(slf4j)
-			@RestController
-			@RequestMapping("/books")
-			public class BookController extends BaseController {
-				//创建记录日志的对象
-				private static final Logger log = LoggerFactory.getLogger(BookController.class);
-				@GetMapping
-				public String getById(){
-					System.out.println("springboot is running...");
-					log.debug("debug ...");
-					log.info("info ...");
-					log.warn("warn ...");
-					log.error("error ...");
-					return "springboot is running...";
-				}
-			}
-		②在这里可能日志等级没有配置，3种方式修改，直接在启动配置里面给出临时属性--debug，或者在yml配置文件给出debug：true，
-		或者在配置文件种配置他是设置日志级别，root表示根节点，即整体应用日志级别
-			logging:
-				level:
-					root: debug
-		③设置日志组，控制指定包对应的日志输出级别，也可以直接控制指定包对应的日志输出级别
-			logging:
-				# 设置日志组
-				group:
-					# 自定义组名，设置当前组中所包含的包
-					ebank: com.itheima.controller
-				level:
-					root: warn
-					# 为对应组设置日志级别
-					ebank: debug
-					# 为对包设置日志级别
-					com.itheima.controller: debug
-	在这里遇到一个小问题，创建日志对象需要大量重复，在这里进行解决，我们直接在类上面加上注解@Slf4j，默认创建的对象为Log
+​	作用：
+​		①编程期调试代码
+​		②运营期记录信息
+​	代码中使用日志工具记录日志步骤：
+​		①添加日志记录操作(slf4j)
+​			@RestController
+​			@RequestMapping("/books")
+​			public class BookController extends BaseController {
+​				//创建记录日志的对象
+​				private static final Logger log = LoggerFactory.getLogger(BookController.class);
+​				@GetMapping
+​				public String getById(){
+​					System.out.println("springboot is running...");
+​					log.debug("debug ...");
+​					log.info("info ...");
+​					log.warn("warn ...");
+​					log.error("error ...");
+​					return "springboot is running...";
+​				}
+​			}
+​		②在这里可能日志等级没有配置，3种方式修改，直接在启动配置里面给出临时属性--debug，或者在yml配置文件给出debug：true，
+​		或者在配置文件种配置他是设置日志级别，root表示根节点，即整体应用日志级别
+​			logging:
+​				level:
+​					root: debug
+​		③设置日志组，控制指定包对应的日志输出级别，也可以直接控制指定包对应的日志输出级别
+​			logging:
+​				# 设置日志组
+​				group:
+​					# 自定义组名，设置当前组中所包含的包
+​					ebank: com.itheima.controller
+​				level:
+​					root: warn
+​					# 为对应组设置日志级别
+​					ebank: debug
+​					# 为对包设置日志级别
+​					com.itheima.controller: debug
+​	在这里遇到一个小问题，创建日志对象需要大量重复，在这里进行解决，我们直接在类上面加上注解@Slf4j，默认创建的对象为Log
 
 
 	日志输出控制
@@ -557,27 +565,29 @@ description: "学习一下boot框架的强大"
 		%m：消息
 		%n：换行
 
-5.日志以文件的形式保存
-	设置日志文件
-	logging:
-		file:
-			name: server.log
-	日志文件详细配置
-	logging:
-		file:
-			name: server.log
-		logback:
-			rollingpolicy:
-				max-file-size: 10MB
-				file-name-pattern: server.%d{yyyy-MM-dd}.%i.log
-	注意:%d是设置日期，%i表示序号
+#### 5.日志以文件的形式保存
+
+​	设置日志文件
+​	logging:
+​		file:
+​			name: server.log
+​	日志文件详细配置
+​	logging:
+​		file:
+​			name: server.log
+​		logback:
+​			rollingpolicy:
+​				max-file-size: 10MB
+​				file-name-pattern: server.%d{yyyy-MM-dd}.%i.log
+​	注意:%d是设置日期，%i表示序号
 
 
 
-#### SpringBoot开发实用篇(整合第三方技术)
+## SpringBoot开发实用篇(整合第三方技术)
 
-1.热部署
-	概念：什么是热部署？简单说就是你程序改了，现在要重新启动服务器，嫌麻烦？不用重启，服务器会自己悄悄的把更新后的程序给重新加载一遍，这就是热部署。
+#### 1.热部署
+
+​	概念：什么是热部署？简单说就是你程序改了，现在要重新启动服务器，嫌麻烦？不用重启，服务器会自己悄悄的把更新后的程序给重新加载一遍，这就是热部署。
 
 	原因：tomcat是boot工程中一个内置的服务器，他受spring的管制，因此我们想要让他监督我们东西变没变化，需要在容器内建立一下程序去监管他并随之更新，接下来我们研究如何做这样的程序
 	步骤：
@@ -610,48 +620,49 @@ description: "学习一下boot框架的强大"
 		      enabled: false
 	注意：在这里出现问题或许是因为配置优先级的缘故
 
+#### 2.关于@ConfigurationProperties注解
 
-2.关于@ConfigurationProperties注解
-	作用：此注解的作用是用来为bean绑定属性的。它既可以给自己的bean绑定属性，也可以为第三方bean绑定
-	简单使用：
-	①开发者可以在yml配置文件中以对象的格式添加若干属性
-		如servers:
-		  ip-address: 192.168.0.1 
-		  port: 2345
-		  timeout: -1
-	②然后再开发一个用来封装数据的实体类，注意要提供属性对应的setter方法
-	@Component
-	@Data
-	public class ServerConfig {
-	    private String ipAddress;
-	    private int port;
-	    private long timeout;
-	}
-	③使用@ConfigurationProperties注解就可以将配置中的属性值关联到开发的模型类上
-	@ConfigurationProperties(prefix = "servers")
-	注意：在这里有个@EnableConfigurationProperties，它相当于起到一个开关的作用，他写在引导类中，告诉boot谁在配置中读取属性，在他括号里用一个数组写谁用了这个注解如ServerConfig.class，同时ServerConfig就不用在写@Compoent注解(因为他写在括号里已经自动帮他注册为一个bean了)，但是@ConfigurationProperties不能省
-	记得在添加一组坐标防止报错：
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-configuration-processor</artifactId>
-		</dependency>
+​	作用：此注解的作用是用来为bean绑定属性的。它既可以给自己的bean绑定属性，也可以为第三方bean绑定
+​	简单使用：
+​	①开发者可以在yml配置文件中以对象的格式添加若干属性
+​		如servers:
+​		  ip-address: 192.168.0.1 
+​		  port: 2345
+​		  timeout: -1
+​	②然后再开发一个用来封装数据的实体类，注意要提供属性对应的setter方法
+​	@Component
+​	@Data
+​	public class ServerConfig {
+​	    private String ipAddress;
+​	    private int port;
+​	    private long timeout;
+​	}
+​	③使用@ConfigurationProperties注解就可以将配置中的属性值关联到开发的模型类上
+​	@ConfigurationProperties(prefix = "servers")
+​	注意：在这里有个@EnableConfigurationProperties，它相当于起到一个开关的作用，他写在引导类中，告诉boot谁在配置中读取属性，在他括号里用一个数组写谁用了这个注解如ServerConfig.class，同时ServerConfig就不用在写@Compoent注解(因为他写在括号里已经自动帮他注册为一个bean了)，但是@ConfigurationProperties不能省
+​	记得在添加一组坐标防止报错：
+​		<dependency>
+​		    <groupId>org.springframework.boot</groupId>
+​		    <artifactId>spring-boot-configuration-processor</artifactId>
+​		</dependency>
 
 	松散绑定
 	@ConfigurationProperties绑定属性支持属性名宽松绑定，但是其他的注解不支持如@Value
 
-3.常用计量单位绑定
-	两个JDK8中新增的类，分别是Duration和DataSize
-		@Component
-		@Data
-		@ConfigurationProperties(prefix = "servers")
-		public class ServerConfig {
-		    @DurationUnit(ChronoUnit.HOURS)
-		    private Duration serverTimeOut;
-		    @DataSizeUnit(DataUnit.MEGABYTES)
-		    private DataSize dataSize;
-		}
-	Duration：表示时间间隔，可以通过@DurationUnit注解描述时间单位，例如上例中描述的单位为小时（ChronoUnit.HOURS）
-	DataSize：表示存储空间，可以通过@DataSizeUnit注解描述存储空间单位，例如上例中描述的单位为MB（DataUnit.MEGABYTES）
+#### 3.常用计量单位绑定
+
+​	两个JDK8中新增的类，分别是Duration和DataSize
+​		@Component
+​		@Data
+​		@ConfigurationProperties(prefix = "servers")
+​		public class ServerConfig {
+​		    @DurationUnit(ChronoUnit.HOURS)
+​		    private Duration serverTimeOut;
+​		    @DataSizeUnit(DataUnit.MEGABYTES)
+​		    private DataSize dataSize;
+​		}
+​	Duration：表示时间间隔，可以通过@DurationUnit注解描述时间单位，例如上例中描述的单位为小时（ChronoUnit.HOURS）
+​	DataSize：表示存储空间，可以通过@DataSizeUnit注解描述存储空间单位，例如上例中描述的单位为MB（DataUnit.MEGABYTES）
 
 
 	数据校验
@@ -686,15 +697,16 @@ description: "学习一下boot框架的强大"
 	开发遇到的问题数据类型转换
 	在yml里面配置连接数据库的时候设置密码如果为数字一定要用引号括起来，因为他解析yml文件的时候支持8进制和16进制还有2进制。
 
-4.测试
-	加载测试专用属性
-	方法一：
-		在SpringBootTest中有一个属性叫做properties，在这里面可以用一个数组把临时属性填进去，他只针对当前测试类的测试环境，他的优先级大于全局配置
-		如@SpringBootTest(properties = {"test.prop=testValue1"})
-	方法二：
-		在之前我们讲过在引导类中那个args对它进行操作也可以进行临时属性的添加，在这里也有这个args属性，使用如下
-		@SpringBootTest(args={"--test.prop=testValue2"})
-		他的优先级属于命令行那个，所以优先级更高
+#### 4.测试
+
+​	加载测试专用属性
+​	方法一：
+​		在SpringBootTest中有一个属性叫做properties，在这里面可以用一个数组把临时属性填进去，他只针对当前测试类的测试环境，他的优先级大于全局配置
+​		如@SpringBootTest(properties = {"test.prop=testValue1"})
+​	方法二：
+​		在之前我们讲过在引导类中那个args对它进行操作也可以进行临时属性的添加，在这里也有这个args属性，使用如下
+​		@SpringBootTest(args={"--test.prop=testValue2"})
+​		他的优先级属于命令行那个，所以优先级更高
 
 	加载测试专用配置
 	他是相当于测试的时候，用了一些专门用于测试的bean辅助测试的，这个测试bean可以放在test里面，不用放在main里面
@@ -714,16 +726,16 @@ description: "学习一下boot框架的强大"
 		    }
 		}
 
+#### 5.Web环境模拟测试
 
-5.Web环境模拟测试
-	之前是在postman或者apifox测试的，在这里我们使用源码测试
-	在SpringBootTest里面有一个属性叫做webEnvironment，他是开启web环境
-	如@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)建议这个
-	其中：
-		- MOCK：根据当前设置确认是否启动web环境，例如使用了Servlet的API就启动web环境，属于适配性的配置
-		- DEFINED_PORT：使用自定义的端口作为web服务器端口
-		- RANDOM_PORT：使用随机端口作为web服务器端口
-		- NONE：不启动web环境
+​	之前是在postman或者apifox测试的，在这里我们使用源码测试
+​	在SpringBootTest里面有一个属性叫做webEnvironment，他是开启web环境
+​	如@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)建议这个
+​	其中：
+​		- MOCK：根据当前设置确认是否启动web环境，例如使用了Servlet的API就启动web环境，属于适配性的配置
+​		- DEFINED_PORT：使用自定义的端口作为web服务器端口
+​		- RANDOM_PORT：使用随机端口作为web服务器端口
+​		- NONE：不启动web环境
 
 	测试类中发送请求
 	在java中其实就有，boot对它进行了封装，使用步骤：
@@ -828,43 +840,46 @@ description: "学习一下boot框架的强大"
 		    action.andExpect(result);
 		}
 
-6.业务层测试事务回滚
-	因为在进行打包的时候，测试中我们会产生许多无用的数据，在这里我们想让该执行的执行，但是不要留下数据在数据库。
-	步骤：
-		①在测试类中加上注解@Transactional
-	注解解释：当程序运行后，只要注解@Transactional出现的位置存在注解@SpringBootTest，springboot就会认为这是一个测试程序，无需提交事务，所以也就可以避免事务的提交。
-	注意：如果开发者想提交事务，也可以，再添加一个@RollBack的注解，设置回滚状态为false即可正常提交事务
+#### 6.业务层测试事务回滚
 
-7.测试用例设置随机数据
-	使用原因：为了保证测试的权威性，一般我们用随机数据
-	步骤：
-		①在yml文件里面进行配置(在实际中应该写在测试环境中的配置)
-			testcase:
-			  book:
-			    id: ${random.int}
-			    //id2: ${random.int(10)}
-			    //type: ${random.int(5,10)}
-			    name: ${random.value}
-			    uuid: ${random.uuid}
-			    publishTime: ${random.long}
-		②在test中创建domin，数据的加载按照之前加载数据的形式，使用@ConfigurationProperties注解即可
-			@Component
-			@Data
-			@ConfigurationProperties(prefix = "testcase.book")
-			public class BookCase {
-			    private int id;
-			    private int id2;
-			    private int type;
-			    private String name;
-			    private String uuid;
-			    private long publishTime;
-			}
+​	因为在进行打包的时候，测试中我们会产生许多无用的数据，在这里我们想让该执行的执行，但是不要留下数据在数据库。
+​	步骤：
+​		①在测试类中加上注解@Transactional
+​	注解解释：当程序运行后，只要注解@Transactional出现的位置存在注解@SpringBootTest，springboot就会认为这是一个测试程序，无需提交事务，所以也就可以避免事务的提交。
+​	注意：如果开发者想提交事务，也可以，再添加一个@RollBack的注解，设置回滚状态为false即可正常提交事务
 
-8.数据层解决方案
-	我们一直使用的技术是Mysql+Druid+MyBatisPlus，分别对应
-	- 数据源技术：Druid
-	- 持久化技术：MyBatisPlus
-	- 数据库技术：MySQL
+#### 7.测试用例设置随机数据
+
+​	使用原因：为了保证测试的权威性，一般我们用随机数据
+​	步骤：
+​		①在yml文件里面进行配置(在实际中应该写在测试环境中的配置)
+​			testcase:
+​			  book:
+​			    id: ${random.int}
+​			    //id2: ${random.int(10)}
+​			    //type: ${random.int(5,10)}
+​			    name: ${random.value}
+​			    uuid: ${random.uuid}
+​			    publishTime: ${random.long}
+​		②在test中创建domin，数据的加载按照之前加载数据的形式，使用@ConfigurationProperties注解即可
+​			@Component
+​			@Data
+​			@ConfigurationProperties(prefix = "testcase.book")
+​			public class BookCase {
+​			    private int id;
+​			    private int id2;
+​			    private int type;
+​			    private String name;
+​			    private String uuid;
+​			    private long publishTime;
+​			}
+
+#### 8.数据层解决方案
+
+​	我们一直使用的技术是Mysql+Druid+MyBatisPlus，分别对应
+​	- 数据源技术：Druid
+​	- 持久化技术：MyBatisPlus
+​	- 数据库技术：MySQL
 
 
 	关于数据源Hikari
@@ -978,12 +993,13 @@ description: "学习一下boot框架的强大"
 		可以直接进行使用，注意表明创建一样即可。
 	注意：上线后一定要关闭这个，H2数据库控制台仅用于开发阶段
 
-9.NoSQL解决方案
-	市场上常见的NoSQL解决方案
-		Redis
-		Mongo
-		ES
-	注意：他们一般都在linux系统中，在这里我们使用windows
+#### 9.NoSQL解决方案
+
+​	市场上常见的NoSQL解决方案
+​		Redis
+​		Mongo
+​		ES
+​	注意：他们一般都在linux系统中，在这里我们使用windows
 
 	Redis
 	概述：Redis是一款采用key-value数据存储格式的内存级NoSQL数据库
@@ -1220,14 +1236,15 @@ description: "学习一下boot框架的强大"
 
 
 
-10.缓存(cache)
-	场景：
-		企业级应用主要作用是信息处理，当需要读取数据时，由于受限于数据库的访问效率，导致整体系统性能偏低。此时就出现在应用程序与数据库之间建立一种临时的数据存储机制，该区域中的数据在内存中保存，读写速度较快，可以有效解决数据库访问效率低下的问题。这一块临时存储数据的区域就是缓存。
-	概述：
-		缓存是一种介于数据永久存储介质与应用程序之间的数据临时存储介质
-	作用：
-		使用缓存可以有效的减少低速数据读取过程的次数（例如磁盘IO），提高系统性能。
-		还可以提供临时的数据存储空间
+#### 10.缓存(cache)
+
+​	场景：
+​		企业级应用主要作用是信息处理，当需要读取数据时，由于受限于数据库的访问效率，导致整体系统性能偏低。此时就出现在应用程序与数据库之间建立一种临时的数据存储机制，该区域中的数据在内存中保存，读写速度较快，可以有效解决数据库访问效率低下的问题。这一块临时存储数据的区域就是缓存。
+​	概述：
+​		缓存是一种介于数据永久存储介质与应用程序之间的数据临时存储介质
+​	作用：
+​		使用缓存可以有效的减少低速数据读取过程的次数（例如磁盘IO），提高系统性能。
+​		还可以提供临时的数据存储空间
 
 	简单模拟缓存：
 		①在业务实现层进行创建一个HashMap<Integer,Book>集合，在进行查的时候先判断集合内是否包含有，如果没有则进行查询同时把这给实体数据put到集合中。
@@ -1284,12 +1301,12 @@ description: "学习一下boot框架的强大"
 ​			    @Autowired
 ​			    private CodeUtils codeUtils;
 ​	
-			    @CachePut(value = "smsCode", key = "#tele")
-			    public String sendCodeToSMS(String tele) {
-			        String code = codeUtils.generator(tele);
-			        return code;
-			    }
-	
+​			    @CachePut(value = "smsCode", key = "#tele")
+​			    public String sendCodeToSMS(String tele) {
+​			        String code = codeUtils.generator(tele);
+​			        return code;
+​			    }
+​	
 			    public boolean checkCode(SMSCode smsCode) {
 			        //取出内存中的验证码与传递过来的验证码比对，如果相同，返回true
 			        String code = smsCode.getCode();
@@ -1809,8 +1826,9 @@ description: "学习一下boot框架的强大"
 
 
 
-11.任务
-	概述：定时任务是企业级应用中常见操作
+#### 11.任务
+
+​	概述：定时任务是企业级应用中常见操作
 
 	Quartz
 	概述：Quartz技术是一个比较成熟的定时任务框架，springboot对其进行整合后，简化了一系列的配置，将很多配置采用默认设置，这样开发阶段就简化了很多。它里面的一些概念：
@@ -1890,29 +1908,29 @@ description: "学习一下boot框架的强大"
 		1. spring task需要使用注解@EnableScheduling开启定时任务功能
 		2. 为定时执行的的任务设置执行周期，描述方式cron表达式
 
+#### 12.邮件
 
-12.邮件
-	学习邮件发送之前先了解3个概念，这些概念规范了邮件操作过程中的标准。
-	- SMTP（Simple Mail Transfer Protocol）：简单邮件传输协议，用于发送电子邮件的传输协议
-	- POP3（Post Office Protocol - Version 3）：用于接收电子邮件的标准协议
-	- IMAP（Internet Mail Access Protocol）：互联网消息协议，是POP3的替代协议
-	发送简单邮件步骤：
-		①导入springboot整合javamail的starter
-			<dependency>
-			    <groupId>org.springframework.boot</groupId>
-			    <artifactId>spring-boot-starter-mail</artifactId>
-			</dependency>
-		②配置邮箱的登录信息
-			spring:
-			  mail:
-			    host: smtp.qq.com
-			    username: 571247566@qq.com
-			    password: 授权码
-		③使用JavaMailSender接口发送邮件
-			@Service
-			public class SendMailServiceImpl implements SendMailService {
-			    @Autowired
-			    private JavaMailSender javaMailSender;
+​	学习邮件发送之前先了解3个概念，这些概念规范了邮件操作过程中的标准。
+​	- SMTP（Simple Mail Transfer Protocol）：简单邮件传输协议，用于发送电子邮件的传输协议
+​	- POP3（Post Office Protocol - Version 3）：用于接收电子邮件的标准协议
+​	- IMAP（Internet Mail Access Protocol）：互联网消息协议，是POP3的替代协议
+​	发送简单邮件步骤：
+​		①导入springboot整合javamail的starter
+​			<dependency>
+​			    <groupId>org.springframework.boot</groupId>
+​			    <artifactId>spring-boot-starter-mail</artifactId>
+​			</dependency>
+​		②配置邮箱的登录信息
+​			spring:
+​			  mail:
+​			    host: smtp.qq.com
+​			    username: 571247566@qq.com
+​			    password: 授权码
+​		③使用JavaMailSender接口发送邮件
+​			@Service
+​			public class SendMailServiceImpl implements SendMailService {
+​			    @Autowired
+​			    private JavaMailSender javaMailSender;
 
 			    //发送人
 			    private String from = "test@qq.com";
@@ -2006,13 +2024,13 @@ description: "学习一下boot框架的强大"
 		    }
 		}
 
+#### 13.消息
 
-13.消息
-	目前企业级开发中广泛使用的消息处理技术共三大类，具体如下：
-		- JMS
-		- AMQP
-		- MQTT
-	解释：为什么是三大类，而不是三个技术呢？因为这些都是规范，就想JDBC技术，是个规范，开发针对规范开发，运行还要靠实现类，例如MySQL提供了JDBC的实现，最终运行靠的还是实现。并且这三类规范都是针对异步消息进行处理的，也符合消息的设计本质，处理异步的业务。
+​	目前企业级开发中广泛使用的消息处理技术共三大类，具体如下：
+​		- JMS
+​		- AMQP
+​		- MQTT
+​	解释：为什么是三大类，而不是三个技术呢？因为这些都是规范，就想JDBC技术，是个规范，开发针对规范开发，运行还要靠实现类，例如MySQL提供了JDBC的实现，最终运行靠的还是实现。并且这三类规范都是针对异步消息进行处理的，也符合消息的设计本质，处理异步的业务。
 
 	JMS
 	概述：
@@ -2496,29 +2514,30 @@ description: "学习一下boot框架的强大"
 
 
 
-14.监控
-	概述：
-		①监控是一个非常重要的工作，是保障程序正常运行的基础手段
-		②监控的过程通过一个监控程序进行，它汇总所有被监控的程序的信息集中统一展示
-		③被监控程序需要主动上报自己被监控，同时要设置哪些指标被监控
-	意义：
-		①监控服务状态是否处理宕机状态
-		②监控服务运行指标(内存，虚拟机，线程，请求等)
-		③监控程序运行日志
-		④管理服务状态(服务下线)
+#### 14.监控
 
+​	概述：
+​		①监控是一个非常重要的工作，是保障程序正常运行的基础手段
+​		②监控的过程通过一个监控程序进行，它汇总所有被监控的程序的信息集中统一展示
+​		③被监控程序需要主动上报自己被监控，同时要设置哪些指标被监控
+​	意义：
+​		①监控服务状态是否处理宕机状态
+​		②监控服务运行指标(内存，虚拟机，线程，请求等)
+​		③监控程序运行日志
+​		④管理服务状态(服务下线)
 
-15.可视化监控平台(SpringBootAdmin)
-	概述：Spring Boot Admin，这是一个开源社区项目，用于管理和监控SpringBoot应用程序。这个项目中包含有客户端和服务端两部分，而监控平台指的就是服务端。我们做的程序如果需要被监控，将我们做的程序制作成客户端，然后配置服务端地址后，服务端就可以通过HTTP请求的方式从客户端获取对应的信息，并通过UI界面展示对应信息。
-	下面就来开发这套监控程序，先制作服务端，其实服务端可以理解为是一个web程序，收到一些信息后展示这些信息。
-	服务端开发
-	步骤：
-		①导入springboot admin对应的starter，版本与当前使用的springboot版本保持一致，并将其配置成web工程(创建时可以在ops里面勾选)
-			<dependency>
-			    <groupId>de.codecentric</groupId>
-			    <artifactId>spring-boot-admin-starter-server</artifactId>
-			    <version>2.5.4</version>
-			</dependency>
+#### 15.可视化监控平台(SpringBootAdmin)
+
+​	概述：Spring Boot Admin，这是一个开源社区项目，用于管理和监控SpringBoot应用程序。这个项目中包含有客户端和服务端两部分，而监控平台指的就是服务端。我们做的程序如果需要被监控，将我们做的程序制作成客户端，然后配置服务端地址后，服务端就可以通过HTTP请求的方式从客户端获取对应的信息，并通过UI界面展示对应信息。
+​	下面就来开发这套监控程序，先制作服务端，其实服务端可以理解为是一个web程序，收到一些信息后展示这些信息。
+​	服务端开发
+​	步骤：
+​		①导入springboot admin对应的starter，版本与当前使用的springboot版本保持一致，并将其配置成web工程(创建时可以在ops里面勾选)
+​			<dependency>
+​			    <groupId>de.codecentric</groupId>
+​			    <artifactId>spring-boot-admin-starter-server</artifactId>
+​			    <version>2.5.4</version>
+​			</dependency>
 
 			<dependency>
 			    <groupId>org.springframework.boot</groupId>
@@ -2572,13 +2591,14 @@ description: "学习一下boot框架的强大"
 		2. 开发被监控的客户端需要导入坐标，然后配置服务端服务器地址，并做开放指标的设定即可
 		3. 在监控平台中可以查阅到各种各样被监控的指标，前提是客户端开放了被监控的指标
 
-16.监控原理
-	概述：通过查阅监控中的映射指标，可以看到当前系统中可以运行的所有请求路径，其中大部分路径以/actuator开头
-	简单来说，分四点：
-		①Actuato提供了SpringBoot生产就绪功能，通过端点的配置与访问，获取端点信息
-		②端点描述了一组监控信息，SpringBoot提供了多个内置端点，也可以根据需要自定义端点信息
-		③访问当前应用所有端点信息：/actuator
-		④访问端点详细信息：/actuator/端点名称
+#### 16.监控原理
+
+​	概述：通过查阅监控中的映射指标，可以看到当前系统中可以运行的所有请求路径，其中大部分路径以/actuator开头
+​	简单来说，分四点：
+​		①Actuato提供了SpringBoot生产就绪功能，通过端点的配置与访问，获取端点信息
+​		②端点描述了一组监控信息，SpringBoot提供了多个内置端点，也可以根据需要自定义端点信息
+​		③访问当前应用所有端点信息：/actuator
+​		④访问端点详细信息：/actuator/端点名称
 
 	原来监控中显示的信息实际上是通过发送请求后得到json数据，然后展示出来。按照上述操作，可以发送更多的以/actuator开头的链接地址，获取更多的数据，这些数据汇总到一起组成了监控平台显示的所有数据。
 	到这里我们得到了一个核心信息，监控平台中显示的信息实际上是通过对被监控的应用发送请求得到的。那这些请求谁开发的呢？打开被监控应用的pom文件，其中导入了springboot admin的对应的client，在这个资源中导入了一个名称叫做actuator的包。被监控的应用之所以可以对外提供上述请求路径，就是因为添加了这个包。

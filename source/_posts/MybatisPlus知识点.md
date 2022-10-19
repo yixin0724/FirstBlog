@@ -9,21 +9,23 @@ description: MP真是好用呀，不过或许进了公司还是得回到Mybatis�
 
 
 
-MyBatisPlus
-1.入门案例
-	①创建boot工程，把MySQL server和MyBatisPlus Framework加进去
-	②以前在dao层会写注解标注查询，现在直接在类上写注解@Mapper，并且继承与BaseMapper<User>
-	③配置yml，选择druid数据源，给出时区等
+## MyBatisPlus
 
+#### 1.入门案例
 
-2.简介
-	概述：MybatisPlus(简称MP)是基于MyBatis框架基础上开发的增强型工具，旨在简化开发、提供效率。
-	优点：
-		①无侵入：只做增强不做改变，不会对现有工程产生影响
-		②强大的 CRUD 操作：内置通用 ③Mapper，少量配置即可实现单表CRUD 操作
-		④支持 Lambda：编写查询条件无需担心字段写错
-		⑤支持主键自动生成
-		⑥内置分页插件
+​	①创建boot工程，把MySQL server和MyBatisPlus Framework加进去
+​	②以前在dao层会写注解标注查询，现在直接在类上写注解@Mapper，并且继承与BaseMapper<User>
+​	③配置yml，选择druid数据源，给出时区等
+
+#### 2.简介
+
+​	概述：MybatisPlus(简称MP)是基于MyBatis框架基础上开发的增强型工具，旨在简化开发、提供效率。
+​	优点：
+​		①无侵入：只做增强不做改变，不会对现有工程产生影响
+​		②强大的 CRUD 操作：内置通用 ③Mapper，少量配置即可实现单表CRUD 操作
+​		④支持 Lambda：编写查询条件无需担心字段写错
+​		⑤支持主键自动生成
+​		⑥内置分页插件
 
 
 	MP配置
@@ -89,8 +91,9 @@ MyBatisPlus
 
 
 
-3.标准数据层开发
-	继承BaseMapper以后，它里面提供有增删改查方法，用的时候直接用对象调用即可。
+#### 3.标准数据层开发
+
+​	继承BaseMapper以后，它里面提供有增删改查方法，用的时候直接用对象调用即可。
 
 	分页查询：IPage<T> selectPage(IPage<T> page)
 	使用步骤：
@@ -233,10 +236,10 @@ MyBatisPlus
 		@NoArgsConstructor:提供一个无参构造函数
 		@AllArgsConstructor:提供一个包含所有参数的构造函数
 
+#### 4.字段映射与表明映射
 
-4.字段映射与表明映射
-	当出现数据库的字段和后端实体类名字不一样时
-	直接在私人变量上面加注解@TableField(value="数据库字段")
+​	当出现数据库的字段和后端实体类名字不一样时
+​	直接在私人变量上面加注解@TableField(value="数据库字段")
 
 	当编码中添加了数据库中没有的
 	加注解@TableField的exist属性为false表示数据库没有
@@ -249,11 +252,12 @@ MyBatisPlus
 
 
 
-5.id生成策略控制
-	会出现不同情况的id自增
-	在id上面加上注解@TableId(IdType.AUTO)
-	相关属性 value(默认)：设置数据库表主键名称
-	type:设置主键属性的生成策略，值查照IdType的枚举值
+#### 5.id生成策略控制
+
+​	会出现不同情况的id自增
+​	在id上面加上注解@TableId(IdType.AUTO)
+​	相关属性 value(默认)：设置数据库表主键名称
+​	type:设置主键属性的生成策略，值查照IdType的枚举值
 
 	结论：
 		①NONE: 不设置id生成策略，MP不自动生成，约等于INPUT,所以这两种方式都需要用户手动设置，但是手动设置第一个问题是容易出现相同的ID造成主键冲突，为了保证主键不冲突就需要做很
@@ -265,68 +269,69 @@ MyBatisPlus
 		⑤Input：用户自己必须上传id
 	注意：也可也在yml文件直接设置所有的id形式，打个id-type就出来了
 
+#### 6.多记录操作
 
-6.多记录操作
-	他用BaseMapper里面的deletBatchIds(List<T> list)
-	把需要删的放到这个集合就行
-	selectBatchIds也是
-
-
-
-7.逻辑删除
-	概述：为数据设置是否可用状态字段，删除时设置状态字段为不可用状态，数据保留在数据库中，执行的是update操作
-	执行步骤：①修改数据库表添加deleted列，给出默认值
-			②实体类添加属性，并给上注解@TableLogic(value="默认的值",delval="删除数据的值")
-	注意：设置完以后也会影响select，他会不查询哪些进行了逻辑删除的
-	他也可以在yml即boot的配置文件里面全局配置，如：
-		# 逻辑已删除值(默认为 1)
-		mybatis-plus.global-config.db-config.logic-delete-value=1
-		# 逻辑未删除值(默认为 0)
-		mybatis-plus.global-config.db-config.logic-not-delete-value=0
+​	他用BaseMapper里面的deletBatchIds(List<T> list)
+​	把需要删的放到这个集合就行
+​	selectBatchIds也是
 
 
-8.乐观锁
-	他是针对比如说秒杀等，解决这种同步问题的
-	简单来说，乐观锁主要解决的问题是当要更新一条记录的时候，希望这条记录没有被别人更新。
-	这种是针对小型的，超过2000的不行
-	步骤：
-		①数据库表添加version列，并给出默认值1
-		②在实体类中添加对应的属性，并加上注解@Version
-		③添加乐观锁的拦截器
-			@Configuration
-			public class MpConfig {
-				@Bean
-				public MybatisPlusInterceptor mpInterceptor() {
-					//1.定义Mp拦截器
-					MybatisPlusInterceptor mpInterceptor = new MybatisPlusInterceptor();
-					//2.添加乐观锁拦截器
-					mpInterceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
-					return mpInterceptor;
-				}
-			}
-		④执行更新操作，并且一定要带上version
-	注意：他是实现其实就是每一次使用都对version进行了加1，如果下一个操作的时候version与现在的version不等就无法进行
-	说明:
-		①支持的数据类型只有:int,Integer,long,Long,Date,Timestamp,LocalDateTime
-		②整数类型下 newVersion = oldVersion + 1
-		③newVersion 会回写到 entity 中
-		④仅支持 updateById(id) 与 update(entity, wrapper) 方法
-		⑤在 update(entity, wrapper) 方法下, wrapper 不能复用!!!
 
+#### 7.逻辑删除
 
-9.插件
-	MyBatis 允许你在已映射语句执行过程中的某一点进行拦截调用。
-	默认情况下，MyBatis 允许使用插件来拦截的方法调用包括：
-		1. Executor (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)
-		2. ParameterHandler (getParameterObject, setParameters)
-		3. ResultSetHandler (handleResultSets, handleOutputParameters)
-		4. StatementHandler (prepare, parameterize, batch, update, query)
-	我们看到了可以拦截Executor接口的部分方法，比如update，query，commit，rollback等方法，还有其他接口的一些方法等。
-	总体概括为：
-		1. 拦截执行器的方法
-		2. 拦截参数的处理
-		3. 拦截结果集的处理
-		4. 拦截Sql语法构建的处理
+​	概述：为数据设置是否可用状态字段，删除时设置状态字段为不可用状态，数据保留在数据库中，执行的是update操作
+​	执行步骤：①修改数据库表添加deleted列，给出默认值
+​			②实体类添加属性，并给上注解@TableLogic(value="默认的值",delval="删除数据的值")
+​	注意：设置完以后也会影响select，他会不查询哪些进行了逻辑删除的
+​	他也可以在yml即boot的配置文件里面全局配置，如：
+​		# 逻辑已删除值(默认为 1)
+​		mybatis-plus.global-config.db-config.logic-delete-value=1
+​		# 逻辑未删除值(默认为 0)
+​		mybatis-plus.global-config.db-config.logic-not-delete-value=0
+
+#### 8.乐观锁
+
+​	他是针对比如说秒杀等，解决这种同步问题的
+​	简单来说，乐观锁主要解决的问题是当要更新一条记录的时候，希望这条记录没有被别人更新。
+​	这种是针对小型的，超过2000的不行
+​	步骤：
+​		①数据库表添加version列，并给出默认值1
+​		②在实体类中添加对应的属性，并加上注解@Version
+​		③添加乐观锁的拦截器
+​			@Configuration
+​			public class MpConfig {
+​				@Bean
+​				public MybatisPlusInterceptor mpInterceptor() {
+​					//1.定义Mp拦截器
+​					MybatisPlusInterceptor mpInterceptor = new MybatisPlusInterceptor();
+​					//2.添加乐观锁拦截器
+​					mpInterceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+​					return mpInterceptor;
+​				}
+​			}
+​		④执行更新操作，并且一定要带上version
+​	注意：他是实现其实就是每一次使用都对version进行了加1，如果下一个操作的时候version与现在的version不等就无法进行
+​	说明:
+​		①支持的数据类型只有:int,Integer,long,Long,Date,Timestamp,LocalDateTime
+​		②整数类型下 newVersion = oldVersion + 1
+​		③newVersion 会回写到 entity 中
+​		④仅支持 updateById(id) 与 update(entity, wrapper) 方法
+​		⑤在 update(entity, wrapper) 方法下, wrapper 不能复用!!!
+
+#### 9.插件
+
+​	MyBatis 允许你在已映射语句执行过程中的某一点进行拦截调用。
+​	默认情况下，MyBatis 允许使用插件来拦截的方法调用包括：
+​		1. Executor (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)
+​		2. ParameterHandler (getParameterObject, setParameters)
+​		3. ResultSetHandler (handleResultSets, handleOutputParameters)
+​		4. StatementHandler (prepare, parameterize, batch, update, query)
+​	我们看到了可以拦截Executor接口的部分方法，比如update，query，commit，rollback等方法，还有其他接口的一些方法等。
+​	总体概括为：
+​		1. 拦截执行器的方法
+​		2. 拦截参数的处理
+​		3. 拦截结果集的处理
+​		4. 拦截Sql语法构建的处理
 
 
 	执行分析插件
@@ -343,88 +348,88 @@ MyBatisPlus
 		}
 	结果：当执行全表更新时，会抛出异常，这样有效防止了一些误操作。
 
+#### 10.Sql注入器
 
-10.Sql注入器
-	前言：我们已经知道，在MP中，通过AbstractSqlInjector将BaseMapper中的方法注入到了Mybatis容器，这样这些方法才可以正常执行。
-	需求：当我们需要扩充BaseMapper中的方法，并且让后续所有的mapper都拥有这个方法的时候使用这个
-	步骤：
-		①编写MyBaseMapper，让他继承自BaseMapper，并且让原来的mapper继承自MyBaseMapper即可
-			public interface MyBaseMapper<T> extends BaseMapper<T> {
-				List<T> findAll();
-			}
-		其他的mapper
-			public interface UserMapper extends MyBaseMapper<User> {
-				User findById(Long id);
-			}
-		②创建一个injector的包，创建你要注入的方法的类和MySqlInjector类
-		注意：如果直接继承AbstractSqlInjector的话，原有的BaseMapper中的方法将失效，所以我们选择继承DefaultSqlInjector进行扩展。
-			public class MySqlInjector extends DefaultSqlInjector {
-				@Override
-				public List<AbstractMethod> getMethodList() {
-					List<AbstractMethod> methodList = super.getMethodList();
-					methodList.add(new FindAll());
-					// 再扩充自定义的方法
-					list.add(new FindAll());
-					return methodList;
-					}
-				}
-		③编写FindAll方法
-			public class FindAll extends AbstractMethod {
-				@Override
-				public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?>
-				modelClass, TableInfo tableInfo) {
-					String sqlMethod = "findAll";
-					String sql = "select * from " + tableInfo.getTableName();
-					SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql,
-				modelClass);
-					return this.addSelectMappedStatement(mapperClass, sqlMethod, sqlSource,
-				modelClass, tableInfo);
-					}
-				}
-		④注册到Spring容器，在MPconfig中
-			@Bean
-			public MySqlInjector mySqlInjector(){
-				return new MySqlInjector();
-			}
+​	前言：我们已经知道，在MP中，通过AbstractSqlInjector将BaseMapper中的方法注入到了Mybatis容器，这样这些方法才可以正常执行。
+​	需求：当我们需要扩充BaseMapper中的方法，并且让后续所有的mapper都拥有这个方法的时候使用这个
+​	步骤：
+​		①编写MyBaseMapper，让他继承自BaseMapper，并且让原来的mapper继承自MyBaseMapper即可
+​			public interface MyBaseMapper<T> extends BaseMapper<T> {
+​				List<T> findAll();
+​			}
+​		其他的mapper
+​			public interface UserMapper extends MyBaseMapper<User> {
+​				User findById(Long id);
+​			}
+​		②创建一个injector的包，创建你要注入的方法的类和MySqlInjector类
+​		注意：如果直接继承AbstractSqlInjector的话，原有的BaseMapper中的方法将失效，所以我们选择继承DefaultSqlInjector进行扩展。
+​			public class MySqlInjector extends DefaultSqlInjector {
+​				@Override
+​				public List<AbstractMethod> getMethodList() {
+​					List<AbstractMethod> methodList = super.getMethodList();
+​					methodList.add(new FindAll());
+​					// 再扩充自定义的方法
+​					list.add(new FindAll());
+​					return methodList;
+​					}
+​				}
+​		③编写FindAll方法
+​			public class FindAll extends AbstractMethod {
+​				@Override
+​				public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?>
+​				modelClass, TableInfo tableInfo) {
+​					String sqlMethod = "findAll";
+​					String sql = "select * from " + tableInfo.getTableName();
+​					SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql,
+​				modelClass);
+​					return this.addSelectMappedStatement(mapperClass, sqlMethod, sqlSource,
+​				modelClass, tableInfo);
+​					}
+​				}
+​		④注册到Spring容器，在MPconfig中
+​			@Bean
+​			public MySqlInjector mySqlInjector(){
+​				return new MySqlInjector();
+​			}
 
+#### 11.自动填充功能
 
-11.自动填充功能
-	需求：有些时候我们可能会有这样的需求，插入或者更新数据时，希望有些字段可以自动填充数据，比如密码、version等。在MP中提供了这样的功能，可以实现自动填充。
-	步骤：
-		①添加@TableField注解，并设置fill=FieldFill.值
-		②创建handler包，并创建MyMetaObjectHandler类
-			@Component
-			public class MyMetaObjectHandler implements MetaObjectHandler {
-				@Override
-				public void insertFill(MetaObject metaObject) {
-				//先获取到password的值，在进行判断，如果为空，就进行填充，如果不为空，就不做处理
-					Object password = getFieldValByName("password", metaObject);
-					if(null == password){
-					//字段为空，可以进行填充
-					setFieldValByName("password", "123456", metaObject);
-					}
-				}
-				@Override
-				public void updateFill(MetaObject metaObject) {
-				}
-			}
+​	需求：有些时候我们可能会有这样的需求，插入或者更新数据时，希望有些字段可以自动填充数据，比如密码、version等。在MP中提供了这样的功能，可以实现自动填充。
+​	步骤：
+​		①添加@TableField注解，并设置fill=FieldFill.值
+​		②创建handler包，并创建MyMetaObjectHandler类
+​			@Component
+​			public class MyMetaObjectHandler implements MetaObjectHandler {
+​				@Override
+​				public void insertFill(MetaObject metaObject) {
+​				//先获取到password的值，在进行判断，如果为空，就进行填充，如果不为空，就不做处理
+​					Object password = getFieldValByName("password", metaObject);
+​					if(null == password){
+​					//字段为空，可以进行填充
+​					setFieldValByName("password", "123456", metaObject);
+​					}
+​				}
+​				@Override
+​				public void updateFill(MetaObject metaObject) {
+​				}
+​			}
 
-
-12.通用枚举
-
+#### 12.通用枚举
 
 
 
 
 
 
-13.ActiveRecord
-	概述：
-		ActiveRecord也属于ORM（对象关系映射）层，由Rails最早提出，遵循标准的ORM模型：表映射到记录，记录映射到对象，字段映射到对象属性。配合遵循的命名和配置惯例，能够很大程度的快速实现模型的操作，而且简洁易懂。
-	ActiveRecord的主要思想是：
-		①每一个数据库表对应创建一个类，类的每一个对象实例对应于数据库中表的一行记录；通常表的每个字段在类中都有相应的Field；
-		②ActiveRecord同时负责把自己持久化，在ActiveRecord中封装了对数据库的访问，即CURD;；
-		③ActiveRecord是一种领域模型(Domain Model)，封装了部分业务逻辑；
+
+#### 13.ActiveRecord
+
+​	概述：
+​		ActiveRecord也属于ORM（对象关系映射）层，由Rails最早提出，遵循标准的ORM模型：表映射到记录，记录映射到对象，字段映射到对象属性。配合遵循的命名和配置惯例，能够很大程度的快速实现模型的操作，而且简洁易懂。
+​	ActiveRecord的主要思想是：
+​		①每一个数据库表对应创建一个类，类的每一个对象实例对应于数据库中表的一行记录；通常表的每个字段在类中都有相应的Field；
+​		②ActiveRecord同时负责把自己持久化，在ActiveRecord中封装了对数据库的访问，即CURD;；
+​		③ActiveRecord是一种领域模型(Domain Model)，封装了部分业务逻辑；
 
 	上手
 	在MP中，开启AR非常简单，只需要将实体对象继承Model，泛型为实体类即可。
@@ -432,38 +437,39 @@ MyBatisPlus
 
 
 
-14.回忆mybatis
-	步骤：
-		①创建数据库表和创建maven工程
-		②导入坐标依赖，分别有druid连接池，lombok，junit，slf4j-log4j12，mysql-connector-java，mybatis-plus依赖和maven-compiler-plugin插件
-		③设置log4j的日志配置文件放在资源目录下
-		④编写mybatis-config.xml配置文件
-			<configuration>
-				<environments default="development">
-				<environment id="development">
-				<transactionManager type="JDBC"/>
-				<dataSource type="POOLED">
-				<property name="driver" value="com.mysql.jdbc.Driver"/>
-				<property name="url" value="jdbc:mysql://127.0.0.1:3306/mp?
-				useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;allowMultiQuerie
-				s=true&amp;useSSL=false"/>
-				<property name="username" value="root"/>
-				<property name="password" value="root"/>
-				</dataSource>
-				</environment>
-				</environments>
-				<mappers>
-				<mapper resource="UserMapper.xml"/>
-				</mappers>
-			</configuration>
-		⑤编写User实体对象（这里使用lombok进行了进化bean操作）
-		⑥编写UserMapper接口
-		⑦编写UserMapper.xml文件
-			<mapper namespace="cn.itcast.mp.simple.mapper.UserMapper">
-				<select id="findAll" resultType="cn.itcast.mp.simple.pojo.User">
-				select * from tb_user
-				</select>
-			</mapper>
+#### 14.回忆mybatis
+
+​	步骤：
+​		①创建数据库表和创建maven工程
+​		②导入坐标依赖，分别有druid连接池，lombok，junit，slf4j-log4j12，mysql-connector-java，mybatis-plus依赖和maven-compiler-plugin插件
+​		③设置log4j的日志配置文件放在资源目录下
+​		④编写mybatis-config.xml配置文件
+​			<configuration>
+​				<environments default="development">
+​				<environment id="development">
+​				<transactionManager type="JDBC"/>
+​				<dataSource type="POOLED">
+​				<property name="driver" value="com.mysql.jdbc.Driver"/>
+​				<property name="url" value="jdbc:mysql://127.0.0.1:3306/mp?
+​				useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;allowMultiQuerie
+​				s=true&amp;useSSL=false"/>
+​				<property name="username" value="root"/>
+​				<property name="password" value="root"/>
+​				</dataSource>
+​				</environment>
+​				</environments>
+​				<mappers>
+​				<mapper resource="UserMapper.xml"/>
+​				</mappers>
+​			</configuration>
+​		⑤编写User实体对象（这里使用lombok进行了进化bean操作）
+​		⑥编写UserMapper接口
+​		⑦编写UserMapper.xml文件
+​			<mapper namespace="cn.itcast.mp.simple.mapper.UserMapper">
+​				<select id="findAll" resultType="cn.itcast.mp.simple.pojo.User">
+​				select * from tb_user
+​				</select>
+​			</mapper>
 
 		⑧编写test测试用例
 			public class TestMybatis {
@@ -486,46 +492,48 @@ MyBatisPlus
 
 
 
-15.回忆mybatis和mp整合
-	步骤：
-		①将UserMapper继承自BaseMapper<实体类>
-		②使用MP中的MybatisSqlSessionFactoryBuilder进程构建
-		③在User对象中添加@TableName，指定数据库表名
+#### 15.回忆mybatis和mp整合
+
+​	步骤：
+​		①将UserMapper继承自BaseMapper<实体类>
+​		②使用MP中的MybatisSqlSessionFactoryBuilder进程构建
+​		③在User对象中添加@TableName，指定数据库表名
+
+#### 16.回忆Spring + Mybatis + MP
+
+​	步骤：
+​		①导入坐标spring-webmvc，spring-jdbc，spring-test
+​		②在资源目录编写jdbc.properties
+​		③编写spring配置文件applicationContext.xml
+​		④编写User对象以及UserMapper接口
+​		⑤编写测试用例
+
+#### 17.回忆SpringBoot + Mybatis + MP
+
+​	步骤：
+​		①导入boot等的相应坐标
+​		②开启log4j日志，编写log4j.properties
+​		③boot的配置文件application.properties
+​		④编写pojo和mapper
+​		⑤编写启动类，然后进行测试
 
 
-16.回忆Spring + Mybatis + MP
-	步骤：
-		①导入坐标spring-webmvc，spring-jdbc，spring-test
-		②在资源目录编写jdbc.properties
-		③编写spring配置文件applicationContext.xml
-		④编写User对象以及UserMapper接口
-		⑤编写测试用例
 
-17.回忆SpringBoot + Mybatis + MP
-	步骤：
-		①导入boot等的相应坐标
-		②开启log4j日志，编写log4j.properties
-		③boot的配置文件application.properties
-		④编写pojo和mapper
-		⑤编写启动类，然后进行测试
+#### 18.代码生成器
 
-
-
-
-18.代码生成器
-	步骤：①首先导入坐标
-		<!--velocity模板引擎-->
-		<dependency>
-			<groupId>org.apache.velocity</groupId>
-			<artifactId>velocity-engine-core</artifactId>
-			<version>2.3</version>
-		</dependency>
-		<!--代码生成器-->
-		<dependency>
-			<groupId>com.baomidou</groupId>
-			<artifactId>mybatis-plus-generator</artifactId>
-			<version>3.4.1</version>
-		</dependency>
+​	步骤：①首先导入坐标
+​		<!--velocity模板引擎-->
+​		<dependency>
+​			<groupId>org.apache.velocity</groupId>
+​			<artifactId>velocity-engine-core</artifactId>
+​			<version>2.3</version>
+​		</dependency>
+​		<!--代码生成器-->
+​		<dependency>
+​			<groupId>com.baomidou</groupId>
+​			<artifactId>mybatis-plus-generator</artifactId>
+​			<version>3.4.1</version>
+​		</dependency>
 
 
 	代码生成器类
@@ -584,6 +592,7 @@ MyBatisPlus
 
 
 
-19.MybatisX 快速开发插件
-	功能：①Java 与 XML 调回跳转
-		 ②Mapper 方法自动生成 XML
+#### 19.MybatisX 快速开发插件
+
+​	功能：①Java 与 XML 调回跳转
+​		 ②Mapper 方法自动生成 XML

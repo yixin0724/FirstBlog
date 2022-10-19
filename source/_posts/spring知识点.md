@@ -9,27 +9,32 @@ description: 经典Spring！
 
 
 
-Spring
-1.概述：Spring其实指的是Spring Framework。
+## Spring
 
-2.系统架构：
-	(1)核心层
-		Core Container:核心容器，这个模块是Spring最核心的模块，其他的都需要依赖该模块
-	(2)AOP层
-		AOP:面向切面编程，它依赖核心层容器，目的是在不改变原有代码的前提下对其进行功能增强
-		Aspects:AOP是思想,Aspects是对AOP思想的具体实现
-	(3)数据层
-		Data Access:数据访问，Spring全家桶中有对数据访问的具体实现技术
-		Data Integration:数据集成，Spring支持整合其他的数据层解决方案，比如Mybatis
-		Transactions:事务，Spring中事务管理是Spring AOP的一个具体实现，也是后期学习的
-		重点内容
-	(4)Web层
-		这一层的内容将在SpringMVC框架具体学习
-	(5)Test层
-		Spring主要整合了Junit来完成单元测试和集成测试
+#### 1.概述：
 
-3.核心概念
-	代码书写：使用对象时，不要主动去new传生对象，转换由外部提供对象，要追求高内聚低耦合
+​	Spring其实指的是Spring Framework。
+
+#### 2.系统架构：
+
+​	(1)核心层
+​		Core Container:核心容器，这个模块是Spring最核心的模块，其他的都需要依赖该模块
+​	(2)AOP层
+​		AOP:面向切面编程，它依赖核心层容器，目的是在不改变原有代码的前提下对其进行功能增强
+​		Aspects:AOP是思想,Aspects是对AOP思想的具体实现
+​	(3)数据层
+​		Data Access:数据访问，Spring全家桶中有对数据访问的具体实现技术
+​		Data Integration:数据集成，Spring支持整合其他的数据层解决方案，比如Mybatis
+​		Transactions:事务，Spring中事务管理是Spring AOP的一个具体实现，也是后期学习的
+​		重点内容
+​	(4)Web层
+​		这一层的内容将在SpringMVC框架具体学习
+​	(5)Test层
+​		Spring主要整合了Junit来完成单元测试和集成测试
+
+#### 3.核心概念
+
+​	代码书写：使用对象时，不要主动去new传生对象，转换由外部提供对象，要追求高内聚低耦合
 
 	IOC（Inversion of Control）控制反转
 		概念：对象的创建控制权由程序转移到外部，这种思想叫控制反转
@@ -60,38 +65,40 @@ Spring
 		在IOC容器内将有依赖关系的bean进行关系绑定（DI）
 		最终结果为:使用对象时不仅可以直接从IOC容器中获取，并且获取到的bean已经绑定了所有的依赖关系.
 
-4.IoC入门案例
-	①导入spring坐标：<dependency>
-				      <groupId>org.springframework</groupId>
-				      <artifactId>spring-context</artifactId>
-				      <version>5.2.10.RELEASE</version>
-				   </dependency>
-	②在resoures下创建xml配置文件，进行配置bean
-		<!--bean标签标示配置bean id属性标示给bean起名字 class属性表示给bean定义类型-->
-		<bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl"/>
-		<bean id="bookService" class="com.itheima.service.impl.BookServiceImpl"/>
-	③在service层创建类，获取IoC容器，获取bean
-		获取IOC容器  ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-		也可以用绝对路径获取容器	        ApplicationContext ctx = new FileSystemXmlApplicationContext("D:/applicationContext.xml");
+#### 4.IoC入门案例
+
+​	①导入spring坐标：<dependency>
+​				      <groupId>org.springframework</groupId>
+​				      <artifactId>spring-context</artifactId>
+​				      <version>5.2.10.RELEASE</version>
+​				   </dependency>
+​	②在resoures下创建xml配置文件，进行配置bean
+​		<!--bean标签标示配置bean id属性标示给bean起名字 class属性表示给bean定义类型-->
+​		<bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl"/>
+​		<bean id="bookService" class="com.itheima.service.impl.BookServiceImpl"/>
+​	③在service层创建类，获取IoC容器，获取bean
+​		获取IOC容器  ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+​		也可以用绝对路径获取容器	        ApplicationContext ctx = new FileSystemXmlApplicationContext("D:/applicationContext.xml");
 
 	④调用方法
 		BookService bookService = (BookService) ctx.getBean("bookService");
 		bookService.save();
 
-5.DI入门案例
-	基于IoC案例上进行改善
-	①在BookServiceImpl类中，删除业务层中使用new的方式创建的dao对象
-	②为(本来new的那个对象)属性提供set+名字方法
-	③修改配置完成注入
-		<bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl"/>
-		<bean id="bookService" class="com.itheima.service.impl.BookServiceImpl">
-			<!--配置server与dao的关系-->
-			<!--property标签表示配置当前bean的属性 name属性表示配置哪一个具体的属性 ref属性表示参照哪一个bean-->
-			<property name="bookDao" ref="bookDao"/>
-		</bean>
-	注意:配置中的两个bookDao的含义是不一样的
-		name="bookDao"中bookDao的作用是让Spring的IOC容器在获取到名称后，将首字母大写，前面加set找对应的setBookDao()方法进行对象注入
-		ref="bookDao"中bookDao的作用是让Spring能在IOC容器中找到id为bookDao的Bean对象给bookService进行注入
+#### 5.DI入门案例
+
+​	基于IoC案例上进行改善
+​	①在BookServiceImpl类中，删除业务层中使用new的方式创建的dao对象
+​	②为(本来new的那个对象)属性提供set+名字方法
+​	③修改配置完成注入
+​		<bean id="bookDao" class="com.itheima.dao.impl.BookDaoImpl"/>
+​		<bean id="bookService" class="com.itheima.service.impl.BookServiceImpl">
+​			<!--配置server与dao的关系-->
+​			<!--property标签表示配置当前bean的属性 name属性表示配置哪一个具体的属性 ref属性表示参照哪一个bean-->
+​			<property name="bookDao" ref="bookDao"/>
+​		</bean>
+​	注意:配置中的两个bookDao的含义是不一样的
+​		name="bookDao"中bookDao的作用是让Spring的IOC容器在获取到名称后，将首字母大写，前面加set找对应的setBookDao()方法进行对象注入
+​		ref="bookDao"中bookDao的作用是让Spring能在IOC容器中找到id为bookDao的Bean对象给bookService进行注入
 
 6.bean配置
 	别名：在resources里面xml配置文件里面bean标签加个name属性，中间用空格或者逗号或者分号隔开表示多个名字
@@ -117,143 +124,148 @@ Spring
 	④哪些bean对象不适合交给容器进行管理?
 		①封装实例的域对象，因为会引发线程安全问题，所以不适合。
 
-7.bean实例化
-	bean是如何创建的？
-	①构造方法
-		bean本质上是对象，创建bean使用无参构造方法，然后在xml配置bean来完成
-	②使用静态工厂创建(了解)
-		先写出一个工厂类，写出静态方法返回对象，然后在配置文件里面配置bean，并且给出factory-method，class给出工厂名
-	③使用实例工厂 
-		写出一个工厂类，写出一个非静态方法，在实现类里面new工厂类调用方法，然在配置文件里面配置bean，先给出bean指向工厂类，然后下面写第二个bean，不写class，给出factory-method属性，同时给出factory-bean指向上面给出的那个bean名字
-	④实例工厂的改良(常用)
-		创建工厂类且类名加上Bean，并且实现FactoryBean<要实现的dao>接口，重写其中三个方法getObject()和getObjectType()和isSingleton()，其中第一个返回实现接口的实现类对象，第二个返回实现接口的.class，第三个然后true表示创造单例对象，false表示非单例，然后配置bean，class指向工厂类即可
+#### 7.bean实例化
 
-8.bean的生命周期
-	②Spring提供了两个接口来完成生命周期的控制，好处是可以不用再进行配置init-method和destroy-method
-		修改BookServiceImpl类，添加两个接口InitializingBean， DisposableBean并实现接口中的两个方法afterPropertiesSet和destroy
-	(1)关于Spring中对bean生命周期控制提供了两种方式:
-		在配置文件中的bean标签中添加init-method和destroy-method属性
-		类实现InitializingBean与DisposableBean接口，这种方式了解下即可。
-	(2)对于bean的生命周期控制在bean的整个生命周期中所处的位置如下:
-		初始化容器
-			1.创建对象(内存分配)
-			2.执行构造方法
-			3.执行属性注入(set操作)
-			4.执行bean初始化方法
-		使用bean
-			1.执行业务操作
-		关闭/销毁容器
-			1.执行bean销毁方法
-	(3)关闭容器的两种方式:
-		ConfigurableApplicationContext是ApplicationContext的子类
-		close()方法
-		registerShutdownHook()方法
+​	bean是如何创建的？
+​	①构造方法
+​		bean本质上是对象，创建bean使用无参构造方法，然后在xml配置bean来完成
+​	②使用静态工厂创建(了解)
+​		先写出一个工厂类，写出静态方法返回对象，然后在配置文件里面配置bean，并且给出factory-method，class给出工厂名
+​	③使用实例工厂 
+​		写出一个工厂类，写出一个非静态方法，在实现类里面new工厂类调用方法，然在配置文件里面配置bean，先给出bean指向工厂类，然后下面写第二个bean，不写class，给出factory-method属性，同时给出factory-bean指向上面给出的那个bean名字
+​	④实例工厂的改良(常用)
+​		创建工厂类且类名加上Bean，并且实现FactoryBean<要实现的dao>接口，重写其中三个方法getObject()和getObjectType()和isSingleton()，其中第一个返回实现接口的实现类对象，第二个返回实现接口的.class，第三个然后true表示创造单例对象，false表示非单例，然后配置bean，class指向工厂类即可
 
-9.依赖注入方式
-	思考：(1)向一个类中传递数据的方式有几种？
-				①普通方法(set方法)
-				②构造方法
-		  (2)依赖注入描述了在容器中建立bean与bean之间依赖关系的过程，如果bean运行需要的是数字或字符串呢？
-		  		①引用类型
-		  		②简单类型(基本数据类型与String)
-	依赖注入方式
-	①setter注入(推荐使用)
-		(1)引用类型
-			①在bean中定义引用类型属性，并提供可访问的set方法
-				public class BookServiceImpl implements BookService {
-					private BookDao bookDao;
-					public void setBookDao(BookDao bookDao) {
-					this.bookDao = bookDao;
-					}
-				}
-			②配置中使用property标签ref属性注入引用类型对象
-				<bean id="bookService" class="com.itheima.service.impl.BookServiceImpl">
-					<property name="bookDao" ref="bookDao"/>
-				</bean>
-				<bean id="bookDao" class="com.itheima.dao.imipl.BookDaoImpl"/>
-		(2)简单类型
-			①在bean中定义引用类型属性并提供可访问的set方法
-			②配置中使用property标签value属性注入简单类型数据
-	②构造方法
-		(1)引用类型
-			①在bean中定义引用类型属性并提供可访问的构造方法
-			②配置中使用constructor-arg标签ref属性注入引用类型对象，其中该标签name指的的是形参名字
-		(2)简单类型
-			①在bean中定义引用类型属性并提供可访问的构造方法
-			②配置中使用constructor-arg标签value属性注入简单类型数据
-	依赖注入方式选择
-		1. 强制依赖使用构造器进行，使用setter注入有概率不进行注入导致null对象出现强制依赖指对象在创建的过程中必须要注入指定的参数
-		2. 可选依赖使用setter注入进行，灵活性强可选依赖指对象在创建过程中注入的参数可有可无
-		3. Spring框架倡导使用构造器，第三方框架内部大多数采用构造器注入的形式进行数据初始化，相对严谨
-		4. 如果有必要可以两者同时使用，使用构造器注入完成强制依赖的注入，使用setter注入完成可选依赖的注入
-		5. 实际开发过程中还要根据实际情况分析，如果受控对象没有提供setter方法就必须使用构造器注入
-		6. 自己开发的模块推荐使用setter注入
+#### 8.bean的生命周期
 
-10.依赖自动装配
-	概述：IoC容器根据bean所依赖的资源在容器中自动查找并注入到bean中的过程称为自动装配
-	自动装配方式有哪些?
-		①按类型（常用）
-			直接在配置中bean标签提供autowire属性，要求类型匹配是唯一的，意思就是定义的属性如name，必须唯一只有一个实现类
-		注意事项:
-			需要注入属性的类中对应属性的setter方法不能省略
-			被注入的对象必须要被Spring的IOC容器管理
-		②按名称
-		③按构造方法
-		④不启用自动装配
-	注意：
-		1. 自动装配用于引用类型依赖注入，不能对简单类型进行操作
-		2. 使用按类型装配时（byType）必须保障容器中相同类型的bean唯一，推荐使用
-		3. 使用按名称装配时（byName）必须保障容器中具有指定名称的bean，因变量名与配置耦合，不推荐使用
-		4. 自动装配优先级低于setter注入与构造器注入，同时出现时自动装配配置失效
+​	②Spring提供了两个接口来完成生命周期的控制，好处是可以不用再进行配置init-method和destroy-method
+​		修改BookServiceImpl类，添加两个接口InitializingBean， DisposableBean并实现接口中的两个方法afterPropertiesSet和destroy
+​	(1)关于Spring中对bean生命周期控制提供了两种方式:
+​		在配置文件中的bean标签中添加init-method和destroy-method属性
+​		类实现InitializingBean与DisposableBean接口，这种方式了解下即可。
+​	(2)对于bean的生命周期控制在bean的整个生命周期中所处的位置如下:
+​		初始化容器
+​			1.创建对象(内存分配)
+​			2.执行构造方法
+​			3.执行属性注入(set操作)
+​			4.执行bean初始化方法
+​		使用bean
+​			1.执行业务操作
+​		关闭/销毁容器
+​			1.执行bean销毁方法
+​	(3)关闭容器的两种方式:
+​		ConfigurableApplicationContext是ApplicationContext的子类
+​		close()方法
+​		registerShutdownHook()方法
 
+#### 9.依赖注入方式
 
-11.集合注入
-	使用：①先在配置文件中bean指向要注入集合的类
-		②根据集合的类型进行相关的注入方法
-	说明：property标签表示setter方式注入，构造方式注入constructor-arg标签内部也可以写<array>、<list>、<set>、<map>、<props>标签
-		List的底层也是通过数组实现的，所以<list>和<array>标签是可以混用
-		集合中要添加引用类型，只需要把<value>标签改成<ref>标签，这种方式用的比较少
+​	思考：(1)向一个类中传递数据的方式有几种？
+​				①普通方法(set方法)
+​				②构造方法
+​		  (2)依赖注入描述了在容器中建立bean与bean之间依赖关系的过程，如果bean运行需要的是数字或字符串呢？
+​		  		①引用类型
+​		  		②简单类型(基本数据类型与String)
+​	依赖注入方式
+​	①setter注入(推荐使用)
+​		(1)引用类型
+​			①在bean中定义引用类型属性，并提供可访问的set方法
+​				public class BookServiceImpl implements BookService {
+​					private BookDao bookDao;
+​					public void setBookDao(BookDao bookDao) {
+​					this.bookDao = bookDao;
+​					}
+​				}
+​			②配置中使用property标签ref属性注入引用类型对象
+​				<bean id="bookService" class="com.itheima.service.impl.BookServiceImpl">
+​					<property name="bookDao" ref="bookDao"/>
+​				</bean>
+​				<bean id="bookDao" class="com.itheima.dao.imipl.BookDaoImpl"/>
+​		(2)简单类型
+​			①在bean中定义引用类型属性并提供可访问的set方法
+​			②配置中使用property标签value属性注入简单类型数据
+​	②构造方法
+​		(1)引用类型
+​			①在bean中定义引用类型属性并提供可访问的构造方法
+​			②配置中使用constructor-arg标签ref属性注入引用类型对象，其中该标签name指的的是形参名字
+​		(2)简单类型
+​			①在bean中定义引用类型属性并提供可访问的构造方法
+​			②配置中使用constructor-arg标签value属性注入简单类型数据
+​	依赖注入方式选择
+​		1. 强制依赖使用构造器进行，使用setter注入有概率不进行注入导致null对象出现强制依赖指对象在创建的过程中必须要注入指定的参数
+​		2. 可选依赖使用setter注入进行，灵活性强可选依赖指对象在创建过程中注入的参数可有可无
+​		3. Spring框架倡导使用构造器，第三方框架内部大多数采用构造器注入的形式进行数据初始化，相对严谨
+​		4. 如果有必要可以两者同时使用，使用构造器注入完成强制依赖的注入，使用setter注入完成可选依赖的注入
+​		5. 实际开发过程中还要根据实际情况分析，如果受控对象没有提供setter方法就必须使用构造器注入
+​		6. 自己开发的模块推荐使用setter注入
 
-12.spring读取properties文件
-	使用：①在resources下创建一个properties文件，并添加对应属性的键值对
-		  ②开启context命名空间
-		  		<?xml version="1.0" encoding="UTF-8"?>
-				<beans xmlns="http://www.springframework.org/schema/beans"
-					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-					xmlns:context="http://www.springframework.org/schema/context"
-					xsi:schemaLocation="
-						http://www.springframework.org/schema/beans
-						http://www.springframework.org/schema/beans/spring-beans.xsd
-						http://www.springframework.org/schema/context
-						http://www.springframework.org/schema/context/springcontext.xsd">
-				</beans>
-			③加载properties配置文件
-				在配置文件中使用context命名空间下的标签来加载properties配置文件
-				<context:property-placeholder location="jdbc.properties"/>
-				在这里推荐使用：<context:property-placeholder location="classpath:*.properties"/>
-				这个只能读取当前工程的文件，classpath*：.properties是表示读取所有
-			④使用属性占位符${}完成属性注入
-				使用${key}来读取properties配置文件中的内容并完成属性注入
-					<context:property-placeholder location="jdbc.properties"/>
-					<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
-						<property name="driverClassName" value="${jdbc.driver}"/>
-						<property name="url" value="${jdbc.url}"/>
-						<property name="username" value="${jdbc.username}"/>
-						<property name="password" value="${jdbc.password}"/>
-					</bean>
+#### 10.依赖自动装配
 
+​	概述：IoC容器根据bean所依赖的资源在容器中自动查找并注入到bean中的过程称为自动装配
+​	自动装配方式有哪些?
+​		①按类型（常用）
+​			直接在配置中bean标签提供autowire属性，要求类型匹配是唯一的，意思就是定义的属性如name，必须唯一只有一个实现类
+​		注意事项:
+​			需要注入属性的类中对应属性的setter方法不能省略
+​			被注入的对象必须要被Spring的IOC容器管理
+​		②按名称
+​		③按构造方法
+​		④不启用自动装配
+​	注意：
+​		1. 自动装配用于引用类型依赖注入，不能对简单类型进行操作
+​		2. 使用按类型装配时（byType）必须保障容器中相同类型的bean唯一，推荐使用
+​		3. 使用按名称装配时（byName）必须保障容器中具有指定名称的bean，因变量名与配置耦合，不推荐使用
+​		4. 自动装配优先级低于setter注入与构造器注入，同时出现时自动装配配置失效
 
-13.容器
-	容器的创建方式：
-		①基本的：ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-		②还有用绝对路径获取的：ApplicationContext ctx = new FileSystemXmlApplicationContext("D:/applicationContext.xml");
-	Bean的获取方式：
-		①BookDao bookDao = (BookDao) ctx.getBean("bookDao");
-		注意：这种方式存在的问题是每次获取的时候都需要进行类型转换，有没有更简单的方式呢?
-		②BookDao bookDao = ctx.getBean("bookDao"，BookDao.class);
-		注意：这种方式可以解决类型强转问题，但是参数又多加了一个，相对来说没有简化多少。
-		③BookDao bookDao = ctx.getBean(BookDao.class);
-		注意：这种方式就类似我们之前所学习依赖注入中的按类型注入。必须要确保IOC容器中该类型对应的bean对象只能有一个。	
+#### 11.集合注入
+
+​	使用：①先在配置文件中bean指向要注入集合的类
+​		②根据集合的类型进行相关的注入方法
+​	说明：property标签表示setter方式注入，构造方式注入constructor-arg标签内部也可以写<array>、<list>、<set>、<map>、<props>标签
+​		List的底层也是通过数组实现的，所以<list>和<array>标签是可以混用
+​		集合中要添加引用类型，只需要把<value>标签改成<ref>标签，这种方式用的比较少
+
+#### 12.spring读取properties文件
+
+​	使用：①在resources下创建一个properties文件，并添加对应属性的键值对
+​		  ②开启context命名空间
+​		  		<?xml version="1.0" encoding="UTF-8"?>
+​				<beans xmlns="http://www.springframework.org/schema/beans"
+​					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+​					xmlns:context="http://www.springframework.org/schema/context"
+​					xsi:schemaLocation="
+​						http://www.springframework.org/schema/beans
+​						http://www.springframework.org/schema/beans/spring-beans.xsd
+​						http://www.springframework.org/schema/context
+​						http://www.springframework.org/schema/context/springcontext.xsd">
+​				</beans>
+​			③加载properties配置文件
+​				在配置文件中使用context命名空间下的标签来加载properties配置文件
+​				<context:property-placeholder location="jdbc.properties"/>
+​				在这里推荐使用：<context:property-placeholder location="classpath:*.properties"/>
+​				这个只能读取当前工程的文件，classpath*：.properties是表示读取所有
+​			④使用属性占位符${}完成属性注入
+​				使用${key}来读取properties配置文件中的内容并完成属性注入
+​					<context:property-placeholder location="jdbc.properties"/>
+​					<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+​						<property name="driverClassName" value="${jdbc.driver}"/>
+​						<property name="url" value="${jdbc.url}"/>
+​						<property name="username" value="${jdbc.username}"/>
+​						<property name="password" value="${jdbc.password}"/>
+​					</bean>
+
+#### 13.容器
+
+​	容器的创建方式：
+​		①基本的：ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+​		②还有用绝对路径获取的：ApplicationContext ctx = new FileSystemXmlApplicationContext("D:/applicationContext.xml");
+​	Bean的获取方式：
+​		①BookDao bookDao = (BookDao) ctx.getBean("bookDao");
+​		注意：这种方式存在的问题是每次获取的时候都需要进行类型转换，有没有更简单的方式呢?
+​		②BookDao bookDao = ctx.getBean("bookDao"，BookDao.class);
+​		注意：这种方式可以解决类型强转问题，但是参数又多加了一个，相对来说没有简化多少。
+​		③BookDao bookDao = ctx.getBean(BookDao.class);
+​		注意：这种方式就类似我们之前所学习依赖注入中的按类型注入。必须要确保IOC容器中该类型对应的bean对象只能有一个。	
 
 	小结
 	①BeanFactory是IoC容器的顶层接口，初始化BeanFactory对象时，加载的bean延迟加载
@@ -269,13 +281,13 @@ Spring
 	④init-method：生命周期初始化方法
 	⑤destory-method：销毁方法
 
+#### 14.注解开发
 
-14.注解开发
-	使用@Component注解定义bean
-		①首先在需要bean管理的类上面加上注解
-		②在配置文件中开辟context空间，然后进行contxt组件扫描加载bean
-			<context:component-scan base-package="com.itheima"/>
-	注意：在service层使用@Service，在数据层impl中使用@Repository，在表现层使用@Controller，用法和Component一样
+​	使用@Component注解定义bean
+​		①首先在需要bean管理的类上面加上注解
+​		②在配置文件中开辟context空间，然后进行contxt组件扫描加载bean
+​			<context:component-scan base-package="com.itheima"/>
+​	注意：在service层使用@Service，在数据层impl中使用@Repository，在表现层使用@Controller，用法和Component一样
 
 	纯注解开发
 	步骤：①首先创建一个新的包config，创建一个配置类，
@@ -314,16 +326,17 @@ Spring
 			@PropertySource注解属性中不支持使用通配符*,运行会报错
 			@PropertySource注解属性中可以把classpath:加上,代表从当前项目的根路径找文件
 
-15.注解开发管理第三方bean
-	使用步骤：
-		①导入对应的jar包
-			在这里我们导的是Druid的
-		②在配置类中添加一个方法
-		③在方法上添加@Bean注解
-			注意:
-				不能使用DataSource ds = new DruidDataSource()
-				在一个方法的上面加上@Bean代表这方法返回的是一个bean类型
-		④从IOC容器中获取对象并打印
+#### 15.注解开发管理第三方bean
+
+​	使用步骤：
+​		①导入对应的jar包
+​			在这里我们导的是Druid的
+​		②在配置类中添加一个方法
+​		③在方法上添加@Bean注解
+​			注意:
+​				不能使用DataSource ds = new DruidDataSource()
+​				在一个方法的上面加上@Bean代表这方法返回的是一个bean类型
+​		④从IOC容器中获取对象并打印
 
 	引入外部配置类
 	把代码都写到SpringConfig类中不美观我们需要另写一个jdbcConfig配置类
@@ -340,16 +353,19 @@ Spring
 		引用类型注入
 			只需要为bean定义方法设置形参，就可以按照类型自动装配
 
-16.Spring整合MyBatis
-	spring技术要使用数据库，首先导入spring-jdbc，然后使用mybatis要导入mybatis-spring，它属于mybatis
+#### 16.Spring整合MyBatis
 
-17.Spring整合Junit测试
-	首先在main下创建一个test文件夹，然后把要创建要测试的类，在类上面加上注解@RunWith(SpringJUnit4ClassRunner.class)和注解@ContextConfiguration(classes = SpringConfig.class)，然后对私人变量进行自动装配@Autowired，然后哪个方法测试哪个加上@Test即可
+​	spring技术要使用数据库，首先导入spring-jdbc，然后使用mybatis要导入mybatis-spring，它属于mybatis
 
-18.AOP
-	概述：AOP(Aspect Oriented Programming)面向切面编程，一种编程范式，指导开发者如何组织程序结构。
-		切面编程里面有个通知类里面的方法叫通知，测试方法的叫连接点，中间有个切入点(允许被代理的点)，通知通过切面来切入进行连接
-		  OOP(Object Oriented Programming)面向对象编程
+#### 17.Spring整合Junit测试
+
+​	首先在main下创建一个test文件夹，然后把要创建要测试的类，在类上面加上注解@RunWith(SpringJUnit4ClassRunner.class)和注解@ContextConfiguration(classes = SpringConfig.class)，然后对私人变量进行自动装配@Autowired，然后哪个方法测试哪个加上@Test即可
+
+#### 18.AOP
+
+​	概述：AOP(Aspect Oriented Programming)面向切面编程，一种编程范式，指导开发者如何组织程序结构。
+​		切面编程里面有个通知类里面的方法叫通知，测试方法的叫连接点，中间有个切入点(允许被代理的点)，通知通过切面来切入进行连接
+​		  OOP(Object Oriented Programming)面向对象编程
  	作用:在不惊动原始设计的基础上为其进行功能增强，前面咱们有技术就可以实现这样的功能即代理模式
 
  	核心概念
@@ -365,23 +381,24 @@ Spring
  		④通知类：定义通知的类
  		⑤切面(Aspect):描述通知与切入点的对应关系。
 
-19.AOP入门案例
-	思路分析：①我们采用注解的形式或者xml，这里选择注解
-			 ②导入坐标(pom.xml)
-			 ③制作连接点(原始操作，Dao接口与实现类)
-			 ④制作共性功能(通知类与通知)
-			 ⑤定义切入点
-			 ⑥绑定切入点与通知关系(切面)
-	实现步骤：①导入坐标
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjweaver</artifactId>
-				<version>1.9.4</version>
-			 ②dao层接口和impl实现类，和执行类都没有影响
-			 ③在配置类里面加上注解@EnableAspectJAutoProxy表示用了注解AOP
-			 ④创建一个AOP包，里面创建通知类(MyAdvice)
-			 ⑤在通知类里创建切入点pt()并加上注解@Pointcut("execution(void com.itheima.dao.BookDao.update())")
-			 ⑥创建通知方法(即需要增强什么功能)，并且加上注解@Before("pt()")与切入点绑定
-		注意：切入点必须是一个私人的，无返回值的，无参的，并且没有内容。
+#### 19.AOP入门案例
+
+​	思路分析：①我们采用注解的形式或者xml，这里选择注解
+​			 ②导入坐标(pom.xml)
+​			 ③制作连接点(原始操作，Dao接口与实现类)
+​			 ④制作共性功能(通知类与通知)
+​			 ⑤定义切入点
+​			 ⑥绑定切入点与通知关系(切面)
+​	实现步骤：①导入坐标
+​				<groupId>org.aspectj</groupId>
+​				<artifactId>aspectjweaver</artifactId>
+​				<version>1.9.4</version>
+​			 ②dao层接口和impl实现类，和执行类都没有影响
+​			 ③在配置类里面加上注解@EnableAspectJAutoProxy表示用了注解AOP
+​			 ④创建一个AOP包，里面创建通知类(MyAdvice)
+​			 ⑤在通知类里创建切入点pt()并加上注解@Pointcut("execution(void com.itheima.dao.BookDao.update())")
+​			 ⑥创建通知方法(即需要增强什么功能)，并且加上注解@Before("pt()")与切入点绑定
+​		注意：切入点必须是一个私人的，无返回值的，无参的，并且没有内容。
 
 	AOP的工作流程
 		①Spring容器启动
@@ -410,20 +427,20 @@ Spring
 		代理(Proxy)：目标对象无法直接完成工作，需要对其进行功能回填，通过原始对象的代理对象实现
 		SpringAOP的本质或者可以说底层实现是通过代理模式。
 
+#### 20.AOP切入点表达式
 
-20.AOP切入点表达式
-	切入点：要进行增强的方法
-	切入点表达式：要进行增强的方法的描述方法
-	切入点表达式标准格式：动作关键字(访问修饰符 返回值 包名.类/接口名.方法名(参数) 异常名）
-	如execution(public User com.itheima.service.UserService.findById(int))
-		execution：动作关键字，描述切入点的行为动作，例如execution表示执行到指定切入点
-		public:访问修饰符,还可以是public，private等，可以省略
-		User：返回值，写返回值类型
-		com.itheima.service：包名，多级包使用点连接
-		UserService:类/接口名称
-		findById：方法名
-		int:参数，直接写参数的类型，多个类型用逗号隔开
-		异常名：方法定义中抛出指定异常，可以省略
+​	切入点：要进行增强的方法
+​	切入点表达式：要进行增强的方法的描述方法
+​	切入点表达式标准格式：动作关键字(访问修饰符 返回值 包名.类/接口名.方法名(参数) 异常名）
+​	如execution(public User com.itheima.service.UserService.findById(int))
+​		execution：动作关键字，描述切入点的行为动作，例如execution表示执行到指定切入点
+​		public:访问修饰符,还可以是public，private等，可以省略
+​		User：返回值，写返回值类型
+​		com.itheima.service：包名，多级包使用点连接
+​		UserService:类/接口名称
+​		findById：方法名
+​		int:参数，直接写参数的类型，多个类型用逗号隔开
+​		异常名：方法定义中抛出指定异常，可以省略
 
 	通配符
 		①*：单个独立的任意符号，可以独立出现，也可以作为前缀或者后缀的匹配符出现
@@ -448,16 +465,16 @@ Spring
 		参数规则较为复杂，根据业务方法灵活调整
 		通常不使用异常作为匹配规则
 
+#### 21.AOP通知类型
 
-21.AOP通知类型
-	五种类型：前置通知@Before
-			 后置通知@After
-			 环绕通知(重点)@Around
-			 返回后通知(了解)@AfterReturning
-			 抛出异常后通知(了解)@AfterThrowing
-	关于环绕通知
-		①需要在参数里面加上ProceedingJoinPoint pjp，
-		②如果是有参数的，首先通知方法需要改为Object类型，同时需要加上返回值，可以接收原始操作的返回值并且返回出去
+​	五种类型：前置通知@Before
+​			 后置通知@After
+​			 环绕通知(重点)@Around
+​			 返回后通知(了解)@AfterReturning
+​			 抛出异常后通知(了解)@AfterThrowing
+​	关于环绕通知
+​		①需要在参数里面加上ProceedingJoinPoint pjp，
+​		②如果是有参数的，首先通知方法需要改为Object类型，同时需要加上返回值，可以接收原始操作的返回值并且返回出去
 
 	其中pip.proceed()表示对原始操作的调用
 	pip.proceed(Object[] args)：可以返回参数值
@@ -472,41 +489,43 @@ Spring
 	String methodName = signature.getName();
 	可以通过这个得到各个方法的执行效率
 
-22.AOP通知获取数据
-	分析：
-		获取切入点方法的参数，所有的通知类型都可以获取参数
-			JoinPoint：适用于前置、后置、返回后、抛出异常后通知
-			ProceedingJoinPoint：适用于环绕通知
-			如jp.getArgs()
-		获取切入点方法返回值，前置和抛出异常后通知是没有返回值，后置通知可有可无，所以不做研究
-			返回后通知
-			环绕通知
-		获取切入点方法运行异常信息，前置和返回后通知是不会有，后置通知可有可无，所以不做研究
-			抛出异常后通知
-			环绕通知
+#### 22.AOP通知获取数据
+
+​	分析：
+​		获取切入点方法的参数，所有的通知类型都可以获取参数
+​			JoinPoint：适用于前置、后置、返回后、抛出异常后通知
+​			ProceedingJoinPoint：适用于环绕通知
+​			如jp.getArgs()
+​		获取切入点方法返回值，前置和抛出异常后通知是没有返回值，后置通知可有可无，所以不做研究
+​			返回后通知
+​			环绕通知
+​		获取切入点方法运行异常信息，前置和返回后通知是不会有，后置通知可有可无，所以不做研究
+​			抛出异常后通知
+​			环绕通知
 
 	String.trim()：可以对参数进行去空格处理
 
-23.Spring事务
-	事务作用：在数据层保障一系列的数据库操作同成功同失败
-	Spring事务作用：在数据层或业务层保障一系列的数据库操作同成功同失败
-	Spring通过平台事务管理器PlatformTransactionManager接口来管理事务
-	其中有两个方法，commit是用来提交事务，rollback是用来回滚事务。
-	他有一个实现类DataSourceTransactionManager
-	使用步骤：
-		①在需要被事务管理(业务层impl)的方法上添加注解@Transactional
-		②在配置类JdbcConfig类中配置事务管理器
-			加上注解@Bean，然后创建事务管理器接口，并且在方法中传入数据对象的形参，
-			@Bean
-			public PlatformTransactionManager transactionManager(DataSourcedataSource){
-				DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
-				transactionManager.setDataSource(dataSource);
-				return transactionManager;
-				}
-			}
-		注意：事务管理器要根据使用技术进行选择，Mybatis框架使用的是JDBC事务，可以直接使用DataSourceTransactionManager
-		③开启事务注解
-			在SpringConfig的配置类中开启，告诉Spring我用了注解开启事务@EnableTransactionManagement
+#### 23.Spring事务
+
+​	事务作用：在数据层保障一系列的数据库操作同成功同失败
+​	Spring事务作用：在数据层或业务层保障一系列的数据库操作同成功同失败
+​	Spring通过平台事务管理器PlatformTransactionManager接口来管理事务
+​	其中有两个方法，commit是用来提交事务，rollback是用来回滚事务。
+​	他有一个实现类DataSourceTransactionManager
+​	使用步骤：
+​		①在需要被事务管理(业务层impl)的方法上添加注解@Transactional
+​		②在配置类JdbcConfig类中配置事务管理器
+​			加上注解@Bean，然后创建事务管理器接口，并且在方法中传入数据对象的形参，
+​			@Bean
+​			public PlatformTransactionManager transactionManager(DataSourcedataSource){
+​				DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
+​				transactionManager.setDataSource(dataSource);
+​				return transactionManager;
+​				}
+​			}
+​		注意：事务管理器要根据使用技术进行选择，Mybatis框架使用的是JDBC事务，可以直接使用DataSourceTransactionManager
+​		③开启事务注解
+​			在SpringConfig的配置类中开启，告诉Spring我用了注解开启事务@EnableTransactionManagement
 
 	注意：
 		@Transactional可以写在接口类上、接口方法上、实现类上和实现类方法上

@@ -13,7 +13,7 @@ description: 简单记录一下学习爬虫的知识。
 
 
 
-##### urllib库使用
+### urllib库使用
 
 ​	urllib.request.urlopen() 模拟浏览器向服务器发送请求，在这里他返回的是一个HTTPResponse类型的
 ​	response 服务器返回的数据
@@ -31,24 +31,26 @@ description: 简单记录一下学习爬虫的知识。
 ​	urllib.request.urlretrieve(url,filename)	#用来下载的
 ​	参数：url代表的是下载的路径，filename是文件的名字
 
-2.请求对象的定制
-	UA介绍：UserAgent中文名为用户代理，简称UA，它是一个特殊字符串头，使得服务器能够识别客户使用的操作系统及版本、CPU类型、浏览器及版本。浏览器内核、浏览器渲染引擎、浏览器语言、浏览器插件等
-	语法：request = urllib.request.Request()
+#### 2.请求对象的定制
 
-3.编解码
-	①get请求方式：urllib.parse.quote（）	他是把汉字变为unicode编码
-	如
-		import urllib.request
-		import urllib.parse
-		url = 'https://www.baidu.com/s?wd='
-		headers = {
-		'User‐Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
-		Gecko) Chrome/74.0.3729.169 Safari/537.36'
-		}
-		url = url + urllib.parse.quote('小野')
-		request = urllib.request.Request(url=url,headers=headers)
-		response = urllib.request.urlopen(request)
-		print(response.read().decode('utf‐8'))
+​	UA介绍：UserAgent中文名为用户代理，简称UA，它是一个特殊字符串头，使得服务器能够识别客户使用的操作系统及版本、CPU类型、浏览器及版本。浏览器内核、浏览器渲染引擎、浏览器语言、浏览器插件等
+​	语法：request = urllib.request.Request()
+
+#### 3.编解码
+
+​	①get请求方式：urllib.parse.quote（）	他是把汉字变为unicode编码
+​	如
+​		import urllib.request
+​		import urllib.parse
+​		url = 'https://www.baidu.com/s?wd='
+​		headers = {
+​		'User‐Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+​		Gecko) Chrome/74.0.3729.169 Safari/537.36'
+​		}
+​		url = url + urllib.parse.quote('小野')
+​		request = urllib.request.Request(url=url,headers=headers)
+​		response = urllib.request.urlopen(request)
+​		print(response.read().decode('utf‐8'))
 
 	②get请求方式：urllib.parse.urlencode（）
 	他是把字典中的各个键值对转换为Unicode编码，并且中间用与连接
@@ -170,23 +172,26 @@ description: 简单记录一下学习爬虫的知识。
 	下载文件时：可以使用with open() as 参数：
 	他会自动关闭 
 
-4.异常
-	URLError\HTTPError
-	简介:1.HTTPError类是URLError类的子类
-	2.导入的包urllib.error.HTTPError urllib.error.URLError
-	3.http错误：http错误是针对浏览器无法连接到服务器而增加出来的错误提示。引导并告诉浏览者该页是哪里出
-	了问题。
-	4.通过urllib发送请求的时候，有可能会发送失败，这个时候如果想让你的代码更加的健壮，可以通过try‐except进行捕获异常，异常有两类，URLError\HTTPError
+#### 4.异常
 
-5.cookie
-	请求数据里面的：referer：他是判断当前路径是不是由上一个路径进来的
+​	URLError\HTTPError
+​	简介:1.HTTPError类是URLError类的子类
+​	2.导入的包urllib.error.HTTPError urllib.error.URLError
+​	3.http错误：http错误是针对浏览器无法连接到服务器而增加出来的错误提示。引导并告诉浏览者该页是哪里出
+​	了问题。
+​	4.通过urllib发送请求的时候，有可能会发送失败，这个时候如果想让你的代码更加的健壮，可以通过try‐except进行捕获异常，异常有两类，URLError\HTTPError
 
-6.Handler处理器
-	为什么要学习handler？
-	urllib.request.urlopen(url)
-	不能定制请求头
-	urllib.request.Request(url,headers,data)
-	可以定制请求头
+#### 5.cookie
+
+​	请求数据里面的：referer：他是判断当前路径是不是由上一个路径进来的
+
+#### 6.Handler处理器
+
+​	为什么要学习handler？
+​	urllib.request.urlopen(url)
+​	不能定制请求头
+​	urllib.request.Request(url,headers,data)
+​	可以定制请求头
 
 	Handler
 	定制更高级的请求头（随着业务逻辑的复杂 请求对象的定制已经满足不了我们的需求（动态cookie和代理不能使用请求对象的定制）
@@ -215,13 +220,14 @@ description: 简单记录一下学习爬虫的知识。
 	response = opener.open(request)
 	print(response.read().decode('utf‐8'))
 
-7.代理服务器
-	代码配置代理
-	①创建Reuqest对象
-	在创建ProxyHandler对象之前要写入proxies={'http':'ip地址:端口'}代理
-	②创建ProxyHandler对象
-	③用handler对象创建opener对象
-	④使用opener.open函数发送请求
+#### 7.代理服务器
+
+​	代码配置代理
+​	①创建Reuqest对象
+​	在创建ProxyHandler对象之前要写入proxies={'http':'ip地址:端口'}代理
+​	②创建ProxyHandler对象
+​	③用handler对象创建opener对象
+​	④使用opener.open函数发送请求
 
 	代理池
 	可以写一个代理池proxies_pool=[{}，{}]
@@ -243,7 +249,7 @@ content = response.read().decode('utf‐8')
 with open('daili.html','w',encoding='utf‐8')as fp:
 fp.write(content)
 
-#### 解析
+## 解析
 
 	方法一：xpath插件
 ​	使用：ctrl + shift + x
@@ -351,13 +357,14 @@ fp.write(content)
 			(1).find(返回一个对象)
 				find('a')：只找到第一个a标签
 
-9.Selenium
-	1.什么是selenium？
-	（1）Selenium是一个用于Web应用程序测试的工具。
-	（2）Selenium 测试直接运行在浏览器中，就像真正的用户在操作一样。
-	（3）支持通过各种driver（FirfoxDriver，IternetExplorerDriver，OperaDriver，ChromeDriver）驱动
-	真实浏览器完成测试。
-	（4）selenium也是支持无界面浏览器操作的。
+#### 9.Selenium
+
+​	1.什么是selenium？
+​	（1）Selenium是一个用于Web应用程序测试的工具。
+​	（2）Selenium 测试直接运行在浏览器中，就像真正的用户在操作一样。
+​	（3）支持通过各种driver（FirfoxDriver，IternetExplorerDriver，OperaDriver，ChromeDriver）驱动
+​	真实浏览器完成测试。
+​	（4）selenium也是支持无界面浏览器操作的。
 
 	2.为什么使用selenium？
 	模拟浏览器功能，自动执行网页中的js代码，实现动态加载
@@ -405,13 +412,13 @@ fp.write(content)
 	获取网页代码：page_source
 	退出：browser.quit()
 
+#### 10.Phantomjs(已经倒闭了)
 
-10.Phantomjs(已经倒闭了)
-	帮助selenium用的，提高效率
-	1.什么是Phantomjs？
-	（1）是一个无界面的浏览器
-	（2）支持页面元素查找，js的执行等
-	（3）由于不进行css和gui渲染，运行效率要比真实的浏览器要快很多
+​	帮助selenium用的，提高效率
+​	1.什么是Phantomjs？
+​	（1）是一个无界面的浏览器
+​	（2）支持页面元素查找，js的执行等
+​	（3）由于不进行css和gui渲染，运行效率要比真实的浏览器要快很多
 
 	2.如何使用Phantomjs？
 	（1）获取PhantomJS.exe文件路径path
@@ -419,10 +426,11 @@ fp.write(content)
 	（3）browser.get(url)
 	扩展：保存屏幕快照:browser.save_screenshot('baidu.png')
 
-11.Chrome handless
-	帮助selenium用的，提高效率
-	Chrome-headless 模式， Google 针对 Chrome 浏览器 59版 新增加的一种模式，可以让你不打开UI界面的情况下
-	使用 Chrome 浏览器，所以运行效果与 Chrome 保持完美一致。
+#### 11.Chrome handless
+
+​	帮助selenium用的，提高效率
+​	Chrome-headless 模式， Google 针对 Chrome 浏览器 59版 新增加的一种模式，可以让你不打开UI界面的情况下
+​	使用 Chrome 浏览器，所以运行效果与 Chrome 保持完美一致。
 
 	2.配置：（写死的不用动）
 	from selenium import webdriver
@@ -436,7 +444,7 @@ fp.write(content)
 	browser = webdriver.Chrome(chrome_options=chrome_options)
 	browser.get('http://www.baidu.com/')
 
-12.requests
+## 12.requests
 
 	s = requests.session
 	
@@ -497,7 +505,7 @@ fp.write(content)
 			with open('proxy.html','w',encoding='utf‐8') as fp:
 				fp.write(r.text)
 
-#### scrapy
+## scrapy
 
 ​	scrapy是什么？
 ​	Scrapy是一个为了爬取网站数据，提取结构性数据而编写的应用框架。 可以应用在包括数据挖掘，信息处理或存储历史数据等一系列的程序中。

@@ -13,6 +13,10 @@ description: linux系统yyds！
 
 
 
+
+
+## 前言
+
 添加端口白名单：iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
 
 网络连接的三种连接方式：
@@ -23,9 +27,10 @@ description: linux系统yyds！
 虚拟机克隆：方法①直接拷贝安装好的虚拟机文件
 	②使用vmware的克隆操作，注意克隆时需要先关闭linux系统	//和之前的用户名密码都一样
 
-MobaXterm连接Centos7
-	# 1、查看系统是否监听于tcp协议的22号端口
-	ss -tnl
+#### MobaXterm连接Centos7
+
+​	# 1、查看系统是否监听于tcp协议的22号端口
+​	ss -tnl
 
 	# 2、查看ip地址
 	ifconfig
@@ -40,14 +45,16 @@ MobaXterm连接Centos7
 	systemctl stop firewalld.service
 	输入ip和用户名连接即可
 
-12.终端设备：terminal
-	物理终端，也称控制台：console
-	虚拟终端：tty
-	图形终端
-	串行终端：ttyS
-	伪终端：pty
+#### 2.终端设备：terminal
 
-13.命令行接口：CLI
+​	物理终端，也称控制台：console
+​	虚拟终端：tty
+​	图形终端
+​	串行终端：ttyS
+​	伪终端：pty
+
+#### 3.命令行接口：CLI
+
 例：[root@localhost ~]#
 	root：当前用户名称
 	localhost：当前主机名
@@ -59,7 +66,8 @@ MobaXterm连接Centos7
 	# 查看接口程序
 	echo $SHELL
 
-14.文件系统
+#### 4.文件系统
+
 例：/dev/pts/0
 	最左侧 / 表示根目录
 	其余 / 表示为文件分隔符，Linux 文件分隔符为 / ，Windows 文件分隔符为 \
@@ -73,9 +81,11 @@ MobaXterm连接Centos7
 	dirname /etc/sysconfig/network-scripts/ifcfg-ens33
 	/etc/sysconfig/network-scripts
 
-Linux基础知识
-1.命令格式
-	语法通用格式：# COMMAND OPTIONS ARGUMENTS
+## Linux基础知识
+
+#### 1.命令格式
+
+​	语法通用格式：# COMMAND OPTIONS ARGUMENTS
 
 	COMMAND
 	概述：发起一个命令，请求内核将某个二进制程序运行为一个进程，命令本身就是一个可执行的程序文件，二进制格式的文件（ELF 格式），有可能调用共享库文件。命令分为两种，一种是由 shell 程序自带的命令，成为内置命令，另一种则是独立的可执行文件，文件名即为命令名，称为外部命令。shell 程序是独特的程序，负责解析用户提供的命令，查询通过环境变量，从左到右依次查看。
@@ -94,9 +104,10 @@ Linux基础知识
 	ARGUMENTS
 	概述：表示命令的作用对象，即命令对什么生效，多个命令参数之间以空白字符分隔，如ls -ld /var /etc。
 
-2.获取命令帮助
-	内部命令
-	help COMMAND
+#### 2.获取命令帮助
+
+​	内部命令
+​	help COMMAND
 
 	外部命令
 		命令自带简要格式的使用帮助，COMMAND --help
@@ -133,8 +144,9 @@ Linux基础知识
 		-M /PATH/TO/SOMEDIR：到指定目录下查找命令手册并打开之
 		q：退出手册
 
-3.基础命令
-	pwd:显示当前路径
+#### 3.基础命令
+
+​	pwd:显示当前路径
 
 	cd
 		# change directory
@@ -288,9 +300,10 @@ Linux基础知识
 		root     pts/0    192.168.1.105    14:43    7.00s  0.06s  0.04s w
 		root     pts/1    192.168.1.105    15:43   23.00s  0.01s  0.00s less -s
 
-4.根目录系统
-	文件层级结构：FHS
-	Filesystem Hierarchy Standard
+#### 4.根目录系统
+
+​	文件层级结构：FHS
+​	Filesystem Hierarchy Standard
 
 		/bin ：所有用户可用的基本命令程序文件
 		/sbin：供系统管理使用的工具程序
@@ -330,20 +343,23 @@ Linux基础知识
 		/proc：基于内存的虚拟文件系统，用于为内核及进程存储其相关信息，它们多为内核参数，例如net.ipv4.ip_forward， 虚拟为net/ipv4/ip_forward，存储于/proc/sys/，因此其完整路径为/proc/sys/net/ipv4/ip_forward
 		/sys：sysfs 虚拟文件系统提供了一种比 proc 更为理想的访问内核数据的途径，其主要作用在于为管理 Linux 设备提供一种统一模型的的接口
 
-6.文件类型
-	-：常规文件 file
-	d：directory，目录文件
-	b：block device，块设备文件，支持以block为单位进行随机访问
-	c：character device，字符设备文件
-		major number：主设备号，用于标识设备类型，进而确定要加载的驱动程序
-		minor number：次设备号，用于标识同一类型中的不同设备
-	symbolic link：符号链接文件
-	pipe：命名管道
-	socket：套接字文件
-	
-7.bash
-	命令历史
-	shell 进程会将其会话中保存此前用户提交执行过的命令
+#### 6.文件类型
+
+​	-：常规文件 file
+​	d：directory，目录文件
+​	b：block device，块设备文件，支持以block为单位进行随机访问
+​	c：character device，字符设备文件
+​		major number：主设备号，用于标识设备类型，进而确定要加载的驱动程序
+​		minor number：次设备号，用于标识同一类型中的不同设备
+​	symbolic link：符号链接文件
+​	pipe：命名管道
+​	socket：套接字文件
+​	
+
+#### 7.bash
+
+​	命令历史
+​	shell 进程会将其会话中保存此前用户提交执行过的命令
 
 	# history
 	[root@localhost ~]# history
@@ -464,12 +480,13 @@ Linux基础知识
 			# 当命令1成功则不再运行命令2
 			COMMAND1 || COMMAND2
 
-8.目录管理命令
-	mkdir
-		# 创建目录，mkdir [OPTION]... DIRECTORY...
-		# -p，自动按需创建父目录
-		# -v，verbose，显示详细过程
-		# -m MODE，创建目录时直接给定权限
+#### 8.目录管理命令
+
+​	mkdir
+​		# 创建目录，mkdir [OPTION]... DIRECTORY...
+​		# -p，自动按需创建父目录
+​		# -v，verbose，显示详细过程
+​		# -m MODE，创建目录时直接给定权限
 
 		# 创建/tmp/x/y/z，并显示创建详情
 		[root@localhost ~]# mkdir -p -v /tmp/x/y/z
@@ -507,9 +524,10 @@ Linux基础知识
 		# 显示目录层级结构，tree [options] [directory]
 		# -L，指定显示的层级
 
-9.文本查看命令
-	cat
-		# 文件内容查看，-n显示行号，-E显示行尾结束符
+#### 9.文本查看命令
+
+​	cat
+​		# 文件内容查看，-n显示行号，-E显示行尾结束符
 
 	tac
 		# 与 cat 相反，逆行序打印文本内容
@@ -564,17 +582,18 @@ Linux基础知识
 		# -m：仅修改吗，modify time
 		# -t STAMP：指定时间戳，[[CC]YY]MMDDhhmm[.ss]
 
-10.文件管理命令
-	cp
-		# copy files and directories，
-		# 单源复制：cp [OPTION]... [-T] SOURCE DEST
-		# 多源复制：cp [OPTION]... SOURCE... DIRECTORY，cp [OPTION]... -t DIRECTORY SOURCE...
-		# -i：交互式复制，即覆盖之前提醒用户确认
-		# -f：强制覆盖目标文件
-		# -r：递归目录
-		# -d：复制符号链接本身，而非其指向的源文件
-		# -a：等价于 -dR --preserve=all，用于归档
-		# --perserve=...：指定保留对应属性，默认：mode,ownership,timestamps，额外：context, links, xattr, all
+#### 10.文件管理命令
+
+​	cp
+​		# copy files and directories，
+​		# 单源复制：cp [OPTION]... [-T] SOURCE DEST
+​		# 多源复制：cp [OPTION]... SOURCE... DIRECTORY，cp [OPTION]... -t DIRECTORY SOURCE...
+​		# -i：交互式复制，即覆盖之前提醒用户确认
+​		# -f：强制覆盖目标文件
+​		# -r：递归目录
+​		# -d：复制符号链接本身，而非其指向的源文件
+​		# -a：等价于 -dR --preserve=all，用于归档
+​		# --perserve=...：指定保留对应属性，默认：mode,ownership,timestamps，额外：context, links, xattr, all
 
 	rm
 		# remove files or directories
@@ -584,15 +603,16 @@ Linux基础知识
 		# -r：递归目录
 		# 所有不用文件建议不用删除，而是移动到固定目录
 
-11.IO 重定向与管道
-	输出重定向
-		# >，覆盖输出
-		[root@localhost /]# head -n 5 /etc/passwd
-		root:x:0:0:root:/root:/bin/bash
-		bin:x:1:1:bin:/bin:/sbin/nologin
-		daemon:x:2:2:daemon:/sbin:/sbin/nologin
-		adm:x:3:4:adm:/var/adm:/sbin/nologin
-		lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+#### 11.IO 重定向与管道
+
+​	输出重定向
+​		# >，覆盖输出
+​		[root@localhost /]# head -n 5 /etc/passwd
+​		root:x:0:0:root:/root:/bin/bash
+​		bin:x:1:1:bin:/bin:/sbin/nologin
+​		daemon:x:2:2:daemon:/sbin:/sbin/nologin
+​		adm:x:3:4:adm:/var/adm:/sbin/nologin
+​		lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
 
 		[root@localhost /]# head -n 5 /etc/passwd > /tmp/head_5_etc_passwd.txt
 	
@@ -669,13 +689,14 @@ Linux基础知识
 		\S
 		Kernel \r on an \m
 
-12.用户与组
-	用户类别
-		管理员：0
-		普通用户：1-65635
-			系统用户：1-499(CentOS6), 1-999(CentOS7)
-			登录用户：500-60000(CentOS6), 1000-60000(CentOS7)
-	名称解析：Username <–> UID 名称解析库：/etc/passwd
+#### 12.用户与组
+
+​	用户类别
+​		管理员：0
+​		普通用户：1-65635
+​			系统用户：1-499(CentOS6), 1-999(CentOS7)
+​			登录用户：500-60000(CentOS6), 1000-60000(CentOS7)
+​	名称解析：Username <–> UID 名称解析库：/etc/passwd
 
 	组类别
 		管理员组：0
@@ -811,16 +832,16 @@ Linux基础知识
 		#  -c 'COMMAND'：仅以指定用户的身份运行此处指定的命令；
 		su - USERNAME -c 'COMMAND'
 
+#### 13.权限管理
 
-13.权限管理
-	mode：rwxrwxrwx
-		左三位：定义 user（owner）的权限
-		中三位：定义 group 的权限
-		右三位：定义 other 的权限
-	r：readable，读权限
-	w：writable，写权限
-	x：excutable，执行权限
-	ownership：user,group,other
+​	mode：rwxrwxrwx
+​		左三位：定义 user（owner）的权限
+​		中三位：定义 group 的权限
+​		右三位：定义 other 的权限
+​	r：readable，读权限
+​	w：writable，写权限
+​	x：excutable，执行权限
+​	ownership：user,group,other
 
 	权限组合机制
 		---、000、0
@@ -891,10 +912,10 @@ Linux基础知识
 	
 		# -d 创建临时目录
 
+#### 14.Shell编程
 
-14.Shell编程
-	编写脚本
-	第一行指定解释器路径，用于指明解释执行当前脚本的解释器程序文件，常用的有：#!/bin/bash、#!/usr/bin/python、#!/usr/bin/perl，脚本文件为 .sh
+​	编写脚本
+​	第一行指定解释器路径，用于指明解释执行当前脚本的解释器程序文件，常用的有：#!/bin/bash、#!/usr/bin/python、#!/usr/bin/perl，脚本文件为 .sh
 
 	解释器会自动忽略空白行和加 # 的注释行
 	
@@ -931,12 +952,12 @@ Linux基础知识
 		图形界面下打开的终端
 		运行脚本
 
+#### 15.文本处理
 
-15.文本处理
-	grep
-		# grep, egrep, fgrep - 打印匹配给定模式的行
-		grep [options] PATTERN [FILE...]
-		grep [options] [-e PATTERN | -f FILE] [FILE...]
+​	grep
+​		# grep, egrep, fgrep - 打印匹配给定模式的行
+​		grep [options] PATTERN [FILE...]
+​		grep [options] [-e PATTERN | -f FILE] [FILE...]
 
 		[reajason@study ~]$ grep "UUID" /etc/fstab
 		UUID=4da0c9b1-d833-434b-a700-6abe448403ec /boot
@@ -1013,12 +1034,12 @@ Linux基础知识
 		# patch [OPTIONS] -i /PATH/TO/PATCH_FILE /PATH/TO/OLDFILE
 		# patch /PATH/TO/OLDFILE < /PATH/TO/PATCH_FILE
 
+#### 16.Vim编辑器
 
-16.Vim编辑器
-	基本模式
-		①编辑模式
-		②输入模式
-		③末行模式
+​	基本模式
+​		①编辑模式
+​		②输入模式
+​		③末行模式
 
 	打开文件
 	
@@ -1174,19 +1195,19 @@ Linux基础知识
 		set lc：忽略大小写
 		set nocl：取消忽略大小写 
 
+#### 17.文件查找
 
-17.文件查找
-	locate
-	依赖于事先构建好的索引库
-		系统自动实现（周期性任务）
-		手动更新数据库（updatedb）
-	工作特性
-		查找速度快
-		模糊查找
-		非实时查找
-			-b：只匹配 basename
-			-c：统计出多少符合条件的数量
-			-r：使用正则表达式
+​	locate
+​	依赖于事先构建好的索引库
+​		系统自动实现（周期性任务）
+​		手动更新数据库（updatedb）
+​	工作特性
+​		查找速度快
+​		模糊查找
+​		非实时查找
+​			-b：只匹配 basename
+​			-c：统计出多少符合条件的数量
+​			-r：使用正则表达式
 
 	find
 	工作特性
@@ -1230,10 +1251,11 @@ Linux基础知识
 		-fls /PATH：ls的输出信息保存指定文件
 		-ok COMMAND {}\; ：对查找的每个文件执行命令
 
-18.特殊权限
-	SUID
-	默认情况下，用户发起的进程，进程的属主是其发起者，因此其以发起者的身份在运行。如果此程序拥有 SUID 权限（u=rws），则程序运行为进程时，进程的属主不是发起者，而是程序文件自己的属主。
-		chmod u+s FILE
+#### 18.特殊权限
+
+​	SUID
+​	默认情况下，用户发起的进程，进程的属主是其发起者，因此其以发起者的身份在运行。如果此程序拥有 SUID 权限（u=rws），则程序运行为进程时，进程的属主不是发起者，而是程序文件自己的属主。
+​		chmod u+s FILE
 
 	SGID
 	当目录属组有写权限时，且有 SGID 权限时（g=rws），那么所有属于此目录的属组，且以属组身份在此目录中新建文件或目录时，新文件的属组不是用户的基本组，而是此目录的属组。

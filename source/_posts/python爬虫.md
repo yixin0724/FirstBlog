@@ -2,7 +2,7 @@
 title: python爬虫
 date: 2022-09-19 14:41:40
 cover: ./img/pachong.png
-tags: python
+tags: Python
 categories: python
 description: 简单记录一下学习爬虫的知识。
 ---
@@ -245,7 +245,7 @@ fp.write(content)
 
 #### 解析
 
-​	方法一：xpath插件
+	方法一：xpath插件
 ​	使用：ctrl + shift + x
 ​	使用步骤
 ​	1.安装lxml库
@@ -258,6 +258,16 @@ fp.write(content)
 ​	html_tree = etree.HTML(response.read().decode('utf‐8')
 ​	4.html_tree.xpath(xpath路径)
 ​	注意：xpath的返回值是列表
+​		同时xpath得到的对象是<Element html at 0x52e5c10>等，要将element转成能看懂的html内容，需要进行		先tostring，然后decode编码，代码如下：
+​		from html.parser import HTMLParser
+​		from lxml import etree, html
+​			text = html_tree.xpath("//div[@class='pl2']")[0]
+​			res1 = html.tostring(text)
+​			res2 = HTMLParser().unescape(res1.decode('utf-8'))
+​			print(res2)
+​		等价于：
+​			tree3 = html.tostring(html_tree[0],encoding='utf-8').decode('utf-8')
+​			print(tree3)
 
 
 	简单使用

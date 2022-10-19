@@ -13,10 +13,6 @@ description: 当时学的真是头疼呀，各种杂七杂八的。
 
 
 
-
-
-
-
 ## JDBC
 
 用shift右键，点击powershell窗口，用java -jar来启动jar包	如sql.jar	java -jar .\sql.jar
@@ -483,17 +479,19 @@ JSP知识点
 	也就是 JSP = HTML + Java 
 2.快速入门
 	①导入坐标
+
 	<dependency>
 	<groupId>javax.servlet.jsp</groupId>
 	<artifactId>jsp-api</artifactId>
 	<version>2.2</version>
 	<scope>provided</scope>
 	</dependency>
-	该依赖的 scope 必须设置为 provided ，因为 tomcat 中有这个jar包了，所以在打包时我们是不希望将该依赖打进到我们工程的war包中。
-	②建立文件，在webapp下建立jsp文件
-	③写代码
+
+​	该依赖的 scope 必须设置为 provided ，因为 tomcat 中有这个jar包了，所以在打包时我们是不希望将该依赖打进到我们工程的war包中。
+​	②建立文件，在webapp下建立jsp文件
+​	③写代码
 3.jsp原理
-	他本质上就是一个Servlet
+​	他本质上就是一个Servlet
 
 	1. 浏览器第一次访问 hello.jsp 页面
 	2. tomcat 会将 hello.jsp 转换为名为 hello_jsp.java 的一个 Servlet
@@ -803,15 +801,17 @@ Json数据和java对象转换
 	Fastjson 是阿里巴巴提供的一个Java语言编写的高性能功能完善的 JSON 库，是目前Java语言中最快的 JSON 库，可以实现 Java 对象和 JSON 字符串的相互转换。
 2.Fastjson使用
 	①导入坐标
+
 	<dependency>
 	<groupId>com.alibaba</groupId>
 	<artifactId>fastjson</artifactId>
 	<version>1.2.62</version>
 	</dependency>
-	②Java对象转JSON
-	String jsonStr = JSON.toJSONString(obj);
-	③JSON字符串转Java对象
-	User user = JSON.parseObject(jsonStr, User.class);
+
+​	②Java对象转JSON
+​	String jsonStr = JSON.toJSONString(obj);
+​	③JSON字符串转Java对象
+​	User user = JSON.parseObject(jsonStr, User.class);
 
 
 
@@ -837,9 +837,9 @@ Json数据和java对象转换
 ​	data ：用来定义数据模型
 ​	methods ：用来定义函数。这个我们在后面就会用到
 ​	③. 编写视图
+
 	<div id="app">
-	<input name="username" v-model="username" >
-	{{username}}
+	<input name="username" v-model="username" >	{{username}}
 	</div>
 ​	注意：{{}} 是 Vue 中定义的 插值表达式 ，在里面写数据模型，到时候会将该模型的数据值展示在这个位置。
 
@@ -865,10 +865,10 @@ Element知识点
 2.快速入门：
 	①将资源 04-资料\02-element 下的 element-ui 文件夹直接拷贝到项目的 webapp 下
 	②创建页面，并在页面引入Element 的css、js文件 和 Vue.js
+
 	<script src="vue.js"></script>
 	<script src="element-ui/lib/index.js"></script>
-​	<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
-​	③创建Vue核心对象
+	<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">	③创建Vue核心对象
 ​	Element 是基于 Vue 的，所以使用Element时必须要创建 Vue 对象
 
 	<script>

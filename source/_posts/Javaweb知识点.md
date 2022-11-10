@@ -298,19 +298,20 @@ JavaEE三层架构：表现层、业务层、持久层
 3. Tomcat Maven插件
 	在IDEA中使用本地Tomcat进行项目部署，相对来说步骤比较繁琐，所以我们需要一种更简便的方式来替换它，那就是直接使用Maven中的Tomcat插件来部署项目，具体的实现步骤，只需要两步，分别是:
 
-	1. 在pom.xml中添加Tomcat插件
+	在pom.xml中添加Tomcat插件
 
-	   ```xml
-	   <build>
-	       <plugins>
-	       	<!--Tomcat插件 -->
-	           <plugin>
-	               <groupId>org.apache.tomcat.maven</groupId>
-	               <artifactId>tomcat7-maven-plugin</artifactId>
-	               <version>2.2</version>
-	           </plugin>
-	       </plugins>
-	   </build>
+	```
+	<build>
+	    <plugins>
+	    	<!--Tomcat插件 -->
+	        <plugin>
+	            <groupId>org.apache.tomcat.maven</groupId>
+	            <artifactId>tomcat7-maven-plugin</artifactId>
+	            <version>2.2</version>
+	        </plugin>
+	    </plugins>
+	</build>
+	```
 
 ------
 

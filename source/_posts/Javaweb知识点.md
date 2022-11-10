@@ -125,7 +125,7 @@ description: 当时学的真是头疼呀，各种杂七杂八的。
 				//修改数据库的编码格式alter database db1 character set utf8;
 				show variables like 'char%';
 
-
+------
 
 
 
@@ -264,9 +264,13 @@ JavaEE三层架构：表现层、业务层、持久层
 	删除 ：@Delete
 	#注解完成简单功能，配置文件完成复杂功能。
 
+------
 
 
-## tomcat知识点
+
+
+
+## Tomcat知识点
 
 1.项目部署：
 	就是把war包或者文件夹直接复制到目录workapps下就好，他会自动解压，这时在浏览器访问localhost:8080/hello/a.html
@@ -307,6 +311,10 @@ JavaEE三层架构：表现层、业务层、持久层
 	           </plugin>
 	       </plugins>
 	   </build>
+
+------
+
+
 
 
 
@@ -496,6 +504,10 @@ JavaEE三层架构：表现层、业务层、持久层
 	①通过Response对象获取字节输出流：ServletOutputStream outputStream =resp.getOutputStream();
 	②通过字节输出流写数据: outputStream.write(字节数据);
 
+------
+
+
+
 
 
 
@@ -631,6 +643,14 @@ EL表达式
 	业务逻辑层： com.itheima.service
 	数据访问层： com.itheima.dao 或者 com.itheima.mapper
 
+------
+
+
+
+
+
+
+
 ## 会话跟踪技术
 
 1.概述：
@@ -713,6 +733,12 @@ EL表达式
 	
 	小结：如果需要登录后成功进行保存相关数据用session(安全)，长时间保存用cookie(不安全)
 
+------
+
+
+
+
+
 
 
 ## Filter知识点
@@ -741,6 +767,12 @@ EL表达式
 	过滤器链
 		概述：过滤器链是指在一个Web应用，可以配置多个过滤器，这多个过滤器称为过滤器链。
 		规则：我们现在使用的是注解配置Filter，而这种配置方式的优先级是按照过滤器类名(字符串)的自然排序。
+
+------
+
+
+
+
 
 
 
@@ -826,6 +858,10 @@ Axios
 	get 请求 ： axios.get(url[,config])
 	post 请求： axios.post(url[,data[,config])
 
+------
+
+
+
 
 
 ## Json知识点
@@ -843,6 +879,10 @@ Axios
 		⑤对象（在花括号中）
 		⑥null
 		获取数据：变量名.key    json.name
+
+------
+
+
 
 
 
@@ -865,6 +905,10 @@ Axios
 ​		String jsonStr = JSON.toJSONString(obj);
 ​	③JSON字符串转Java对象
 ​		User user = JSON.parseObject(jsonStr, User.class);
+
+------
+
+
 
 
 
@@ -916,6 +960,10 @@ Axios
 
 4.生命周期
 	mounted ：挂载完成，Vue初始化成功，HTML页面渲染成功。而以后我们会在该方法中发送异步请求，加载数据。
+
+------
+
+
 
 
 

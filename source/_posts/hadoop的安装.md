@@ -1,7 +1,7 @@
 ---
 title: hadoop的安装
 date: 2022-11-15 16:52:30
-cover: ./img/hadoopanzhuang.png
+cover: ./img/hadoopanzhaung.png
 tags: Hadoop
 categories: hadoop
 description: hadoop,他的坑要比hive多的多的多。

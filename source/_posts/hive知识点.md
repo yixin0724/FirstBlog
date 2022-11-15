@@ -1,7 +1,7 @@
 ---
 title: hive知识点
 date: 2022-11-15 16:52:46
-cover: ./img/hiveanzhuang.png
+cover: ./img/hive.png
 tags: Hive
 categories: hive
 description: 关于hive采的超级多的坑，最终总结出来的。

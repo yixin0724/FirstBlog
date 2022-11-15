@@ -8,7 +8,8 @@ type: "love"
 
 
 
-```html
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,7 +26,7 @@ type: "love"
             margin: 0;
             background: #000;
         }
-        
+
         canvas {
             position: absolute;
             width: 100%;
@@ -119,7 +120,7 @@ type: "love"
         })();
         var Particle = (function() {
             undefined
-
+    
             function Particle() {
                 undefined
                 this.position = new Point();
@@ -147,7 +148,7 @@ type: "love"
             };
             Particle.prototype.draw = function(context, image) {
                 undefined
-
+    
                 function ease(t) {
                     undefined
                     return (--t) * t * t + 1;
@@ -164,7 +165,7 @@ type: "love"
                 firstActive = 0,
                 firstFree = 0,
                 duration = settings.particles.duration;
-
+    
             function ParticlePool(length) {
                 undefined
                 particles = new Array(length);
@@ -223,7 +224,7 @@ type: "love"
                 particles = new ParticlePool(settings.particles.length),
                 particleRate = settings.particles.length / settings.particles.duration,
                 time;
-
+    
             function pointOnHeart(t) {
                 undefined
                 return new Point(
@@ -237,7 +238,7 @@ type: "love"
                     context = canvas.getContext('2d');
                 canvas.width = settings.particles.size;
                 canvas.height = settings.particles.size;
-
+    
                 function to(t) {
                     undefined
                     var point = pointOnHeart(t);
@@ -262,7 +263,7 @@ type: "love"
                 image.src = canvas.toDataURL();
                 return image;
             })();
-
+    
             function render() {
                 undefined
                 requestAnimationFrame(render);
@@ -280,7 +281,7 @@ type: "love"
                 particles.update(deltaTime);
                 particles.draw(context, image);
             }
-
+    
             function onResize() {
                 undefined
                 canvas.width = canvas.clientWidth;
@@ -297,5 +298,3 @@ type: "love"
 </body>
 
 </html>
-```
-

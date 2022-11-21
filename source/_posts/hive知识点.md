@@ -4,7 +4,7 @@ date: 2022-11-15 16:52:46
 cover: ./img/hive.png
 tags: Hive
 categories: hive
-description: 关于hive采的超级多的坑，最终总结出来的。
+description: 在学习hive时，做了做笔记，以防学完就忘。
 ---
 
 

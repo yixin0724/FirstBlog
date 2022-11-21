@@ -13,7 +13,7 @@ description: 简单记录一下学习爬虫的知识。
 
 
 
-### urllib库使用
+## urllib库使用
 
 ​	urllib.request.urlopen() 模拟浏览器向服务器发送请求，在这里他返回的是一个HTTPResponse类型的
 ​	response 服务器返回的数据
@@ -251,7 +251,8 @@ fp.write(content)
 
 ## 解析
 
-	方法一：xpath插件
+#### 方法一：xpath插件
+
 ​	使用：ctrl + shift + x
 ​	使用步骤
 ​	1.安装lxml库
@@ -357,7 +358,7 @@ fp.write(content)
 			(1).find(返回一个对象)
 				find('a')：只找到第一个a标签
 
-#### 9.Selenium
+## Selenium
 
 ​	1.什么是selenium？
 ​	（1）Selenium是一个用于Web应用程序测试的工具。
@@ -378,7 +379,8 @@ fp.write(content)
 	谷歌浏览器右上角‐‐>帮助‐‐>关于
 	（4）pip install selenium
 	
-	4.selenium的使用步骤？
+	4.selenium的使用步骤
+	在这里使用的是3.6.0版本
 	（1）导入：from selenium import webdriver
 	（2）创建谷歌浏览器操作对象：
 	path = 谷歌浏览器驱动文件路径
@@ -404,6 +406,8 @@ fp.write(content)
 	7.交互
 	点击:click()
 	输入:send_keys()
+	右键:context_click()
+	双击:double_click()
 	后退操作:browser.back()
 	前进操作:browser.forword()
 	模拟JS滚动:
@@ -411,6 +415,66 @@ fp.write(content)
 	browser.execute_script(js) 执行js代码
 	获取网页代码：page_source
 	退出：browser.quit()
+	
+	js语法
+		选择器定位法
+		1.定位
+		  格式：js = 'return document.querySelector("selector")'
+		  web.execute_script(js)
+		返回值：定位到的浏览器元素(注：是js程序的返回值)
+	
+		2.获取属性值
+		  格式：js = 'return document.querySelector("#kw").className'
+		  web.execute_script(js)
+		返回值：定位到的属性值(注：是js程序的返回值)
+	
+		3.获取文本
+		  格式：js = 'return document.querySelector("#kw").innerText'
+		  web.execute_script(js)
+		返回值：定位到的文本(注：是js程序的返回值)
+	
+		4.执行事件
+		格式：js = 'return document.querySelector("#kw").click()'
+		返回值：None
+		
+		方法定位法
+		id属性定位    return document.getElementById("kw")
+		标签名定位    return document.getElementsByTagName("input")
+	
+		class属性定位    return document.getElementsByClassName("wd")
+	
+	模拟鼠标滚动页面
+		1.滚动到页面底部
+		格式：js = 'window.scrollTo(0,document.body.scrollHeight)'
+		web.execute_script(js)
+		返回值：None
+	
+		document表示浏览器窗口中的HTML文档
+		window表示浏览器中打开的窗口
+	
+		2.滚动到指定元素位置
+		格式：location = web.find_element_by_xpath('')
+		      web.execute_script("arguments[0].scrollIntoView();", location)
+		返回值None
+	
+	
+	切换选型卡
+		1.查看选项卡句柄
+			web.current_window_handle：获取当前选型卡句柄
+			web.window_handle：获取所有选型卡句柄
+		2.切换选项卡
+			web.switch_to.window(web.window_handles[-1])
+		注意：这里面的索引是按照选项卡的打开顺序定义的，而不是根据选项卡的前后位置进行定义的
+	
+	iframe页面的处理
+		概述：
+			iframe是HTML中的标签，用于在网页中内嵌另一个网页，每个iframe里各自维护自己的全局window对象。
+			如果网页中嵌套的有iframe标签，则我们一开始创建的web对象无法操作iframe中的内容，因此我们必须对iframe页面进行单独的处理。
+		步骤：
+			先定位到需要操作的iframe元素位置；
+			进入需要操作的iframe框架中；
+			操作完成之后，需要退出。
+			web.switch_to.default_content()
 
 #### 10.Phantomjs(已经倒闭了)
 
@@ -444,7 +508,7 @@ fp.write(content)
 	browser = webdriver.Chrome(chrome_options=chrome_options)
 	browser.get('http://www.baidu.com/')
 
-## 12.requests
+## requests
 
 	s = requests.session
 	

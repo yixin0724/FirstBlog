@@ -1,7 +1,7 @@
 ---
 title: Linux
 date: 2022-09-18 22:33:55
-cover: ./img/linux.png
+cover: https://tva1.sinaimg.cn/large/008waiCQgy1h8ivgij43lj34aw2dre85.jpg
 tags: Linux
 categories: linux
 description: linux系统yyds！

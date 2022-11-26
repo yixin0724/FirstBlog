@@ -1,7 +1,7 @@
 ---
 title: spring知识点
 date: 2022-10-12 21:35:01
-cover: ./img/spring.png
+cover: https://tvax1.sinaimg.cn/large/008waiCQgy1h8ivhljgq0j31s016okjo.jpg
 tags: Java
 categories: java
 description: 经典Spring！

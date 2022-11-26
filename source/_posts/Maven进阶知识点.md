@@ -1,7 +1,7 @@
 ---
 title: Maven进阶知识点
 date: 2022-10-12 21:35:31
-cover: ./img/maven.png
+cover: https://tvax3.sinaimg.cn/large/008waiCQgy1h8ivgpf60xj32yo1o0kjl.jpg
 tags: Maven
 categories: maven
 description: 关于maven的一些知识。

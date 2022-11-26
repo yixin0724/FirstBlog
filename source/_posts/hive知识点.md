@@ -1,7 +1,7 @@
 ---
 title: hive知识点
 date: 2022-11-15 16:52:46
-cover: ./img/hive.png
+cover: https://tva2.sinaimg.cn/large/008waiCQgy1h8ivf85terj31hc117b2a.jpg
 tags: Hive
 categories: hive
 description: 在学习hive时，做了做笔记，以防学完就忘。

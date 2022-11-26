@@ -1,7 +1,7 @@
 ---
 title: springMVC知识点
 date: 2022-10-12 21:35:20
-cover: ./img/springMVC.png
+cover: https://tva3.sinaimg.cn/large/008waiCQgy1h8ivi18sjfj31xg0yr1kx.jpg
 tags: Java
 categories: java
 description: 简单学习一下SpringMVC吧。

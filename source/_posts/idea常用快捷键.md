@@ -1,7 +1,7 @@
 ---
 title: idea常用快捷键
 date: 2022-09-18 22:38:06
-cover: ./img/idea.png
+cover: https://tvax3.sinaimg.cn/large/008waiCQgy1h8ivfnhjrmj334622xe82.jpg
 tags: idea
 categories: idea
 description: 有些不常用的总是忘记，记录一下吧。

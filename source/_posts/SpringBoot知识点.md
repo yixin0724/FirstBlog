@@ -1,7 +1,7 @@
 ---
 title: SpringBoot知识点
 date: 2022-10-12 21:36:11
-cover: ./img/springBoot.png
+cover: https://tvax4.sinaimg.cn/large/008waiCQgy1h8ivhtd8wdj335s1xaqv7.jpg
 tags: Java
 categories: java
 description: "学习一下boot框架的强大"
@@ -1307,19 +1307,19 @@ description: "学习一下boot框架的强大"
 ​			        return code;
 ​			    }
 ​	
-			    public boolean checkCode(SMSCode smsCode) {
-			        //取出内存中的验证码与传递过来的验证码比对，如果相同，返回true
-			        String code = smsCode.getCode();
-			        String cacheCode = codeUtils.get(smsCode.getTele());
-			        return code.equals(cacheCode);
-			    }
-			}
-		注意：在这里注意启用的是@CachePut注解，因为验证码只需要缓存
-		⑤生成验证码(加密)
-			@Component
-			public class CodeUtils {
-			    private String [] patch = {"000000","00000","0000","000","00","0",""};
-	
+​			    public boolean checkCode(SMSCode smsCode) {
+​			        //取出内存中的验证码与传递过来的验证码比对，如果相同，返回true
+​			        String code = smsCode.getCode();
+​			        String cacheCode = codeUtils.get(smsCode.getTele());
+​			        return code.equals(cacheCode);
+​			    }
+​			}
+​		注意：在这里注意启用的是@CachePut注解，因为验证码只需要缓存
+​		⑤生成验证码(加密)
+​			@Component
+​			public class CodeUtils {
+​			    private String [] patch = {"000000","00000","0000","000","00","0",""};
+​	
 			    public String generator(String tele){
 			        int hash = tele.hashCode();
 			        int encryption = 20206666;

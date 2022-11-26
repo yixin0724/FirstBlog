@@ -1,7 +1,7 @@
 ---
 title: python爬虫
 date: 2022-09-19 14:41:40
-cover: ./img/pachong.png
+cover: https://tva3.sinaimg.cn/large/008waiCQgy1h8ivh6ay28j338o1vue83.jpg
 tags: Python
 categories: python
 description: 简单记录一下学习爬虫的知识。
@@ -456,8 +456,9 @@ fp.write(content)
 		格式：location = web.find_element_by_xpath('')
 		      web.execute_script("arguments[0].scrollIntoView();", location)
 		返回值None
-	
-	
+
+
+​	
 	切换选型卡
 		1.查看选项卡句柄
 			web.current_window_handle：获取当前选型卡句柄

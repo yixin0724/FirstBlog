@@ -1,7 +1,7 @@
 ---
 title: javaweb知识点
 date: 2022-10-19 22:27:04
-cover: ./img/javaweb.png
+cover: https://tvax3.sinaimg.cn/large/008waiCQgy1h8ivgaa56vj34co1uob29.jpg
 tags: Java
 categories: java
 description: 当时学的真是头疼呀，各种杂七杂八的。

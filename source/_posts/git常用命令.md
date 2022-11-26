@@ -1,7 +1,7 @@
 ---
 title: git常用命令
 date: 2022-09-19 22:23:15
-cover: ./img/wuwang.png
+cover: https://tvax3.sinaimg.cn/large/008waiCQgy1h8iv6kcoznj30z80jvnma.jpg
 tags: Git
 categories: git
 description: 简单记录一下git的常用命令
@@ -17,6 +17,7 @@ description: 简单记录一下git的常用命令
 ## git分布式版本控制工具
 
 ```
+cover: ./img/wuwang.png
 概述：Git是一个分布式版本控制工具，通常用来对软件开发过程中的源代码文件进行管理。通过Git仓库来存储和管理这些文件，Git仓库分为两种:
 	●本地仓库:开发人员自己电脑上的Git仓库
 	●远程仓库:远程服务器上的Git仓库,gitHub,gitee,gitLab,BitBucker
@@ -141,8 +142,9 @@ description: 简单记录一下git的常用命令
 	远端名称，默认是origin，取决于远端服务器设置
 	仓库路径，从远端服务器获取此URL
 	例如: git remote add origin git@gitee.com:yixin0724/git_test.git
-	
-	
+
+
+​	
 	查看远程仓库
 	命令：git remote
 	
@@ -180,8 +182,9 @@ description: 简单记录一下git的常用命令
 	
 	解决合并冲突
 	可以先进行git pull然后在进行git push
-	
-	
+
+
+​	
 
 
 ### 7.标签

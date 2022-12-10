@@ -1,7 +1,7 @@
 ---
 title: 关于java实现ocr文字识别功能
 date: 2022-09-20 13:25:26
-tags: Java ocr
+tags: Java;ocr
 cover: https://tvax4.sinaimg.cn/large/008waiCQgy1h8iv7f1ggij32yo1o0u10.jpg
 categories: java
 description: 在一个暑假期间老师布置的任务，也算是粗略完成了。

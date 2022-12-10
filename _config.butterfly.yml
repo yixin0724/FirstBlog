@@ -37,7 +37,7 @@ copy:
 #   icon: link || the description
 social:
   fab fa-github: https://github.com/yixin0724 || Github
-  fas fa-envelope: mailto:xxxxxx@gmail.com || Email
+  fas fa-envelope: mailto:yixinfangya@163.com || Email
   fab fa-weibo: http://weibo.com || Weibo
   fa fa-rss: /atom.xml || RSS
 
@@ -51,11 +51,17 @@ algolia_search:
   hits:
     per_page: 6
 
+  labels:
+    input_placeholder: Search for Posts
+    hits_empty: "We didn't find any results for the search: ${query}" # if there are no result
+    hits_stats: "${hits} results found in ${time} ms"
+
 # Local search
 local_search:
-  enable: false
-  preload: false
-  CDN:
+  enable: true
+  labels:
+    input_placeholder: Search for Posts
+    hits_empty: "We didn't find any results for the search: ${query}" # if there are no result
 
 # Math (數學)
 # --------------------------------------
@@ -143,7 +149,7 @@ error_404:
 
 post_meta:
   page: # Home Page
-    date_type: created # created or updated or both 主頁文章日期是創建日或者更新日或都顯示
+    date_type: both # created or updated or both 主頁文章日期是創建日或者更新日或都顯示
     date_format: date # date/relative 顯示日期還是相對日期
     categories: true # true or false 主頁是否顯示分類
     tags: false # true or false 主頁是否顯示標籤

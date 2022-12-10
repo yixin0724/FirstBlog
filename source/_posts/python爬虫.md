@@ -2,7 +2,9 @@
 title: python爬虫
 date: 2022-09-19 14:41:40
 cover: https://tva3.sinaimg.cn/large/008waiCQgy1h8ivh6ay28j338o1vue83.jpg
-tags: Python
+tags: 
+  - spider
+  - Python
 categories: python
 description: 简单记录一下学习爬虫的知识。
 ---
@@ -459,14 +461,14 @@ fp.write(content)
 
 
 ​	
-	切换选型卡
-		1.查看选项卡句柄
-			web.current_window_handle：获取当前选型卡句柄
-			web.window_handle：获取所有选型卡句柄
-		2.切换选项卡
-			web.switch_to.window(web.window_handles[-1])
-		注意：这里面的索引是按照选项卡的打开顺序定义的，而不是根据选项卡的前后位置进行定义的
-	
+​	切换选型卡
+​		1.查看选项卡句柄
+​			web.current_window_handle：获取当前选型卡句柄
+​			web.window_handle：获取所有选型卡句柄
+​		2.切换选项卡
+​			web.switch_to.window(web.window_handles[-1])
+​		注意：这里面的索引是按照选项卡的打开顺序定义的，而不是根据选项卡的前后位置进行定义的
+​	
 	iframe页面的处理
 		概述：
 			iframe是HTML中的标签，用于在网页中内嵌另一个网页，每个iframe里各自维护自己的全局window对象。

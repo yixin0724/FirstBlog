@@ -2,7 +2,9 @@
 title: SpringBoot知识点
 date: 2022-10-12 21:36:11
 cover: https://tvax4.sinaimg.cn/large/008waiCQgy1h8ivhtd8wdj335s1xaqv7.jpg
-tags: Java
+tags: 
+  - SpringBoot
+  - Java
 categories: java
 description: "学习一下boot框架的强大"
 ---
@@ -1320,19 +1322,19 @@ description: "学习一下boot框架的强大"
 ​			public class CodeUtils {
 ​			    private String [] patch = {"000000","00000","0000","000","00","0",""};
 ​	
-			    public String generator(String tele){
-			        int hash = tele.hashCode();
-			        int encryption = 20206666;
-			        long result = hash ^ encryption;
-			        long nowTime = System.currentTimeMillis();
-			        result = result ^ nowTime;
-			        long code = result % 1000000;
-			        code = code < 0 ? -code : code;
-			        String codeStr = code + "";
-			        int len = codeStr.length();
-			        return patch[len] + codeStr;
-			    }
-	
+​			    public String generator(String tele){
+​			        int hash = tele.hashCode();
+​			        int encryption = 20206666;
+​			        long result = hash ^ encryption;
+​			        long nowTime = System.currentTimeMillis();
+​			        result = result ^ nowTime;
+​			        long code = result % 1000000;
+​			        code = code < 0 ? -code : code;
+​			        String codeStr = code + "";
+​			        int len = codeStr.length();
+​			        return patch[len] + codeStr;
+​			    }
+​	
 			    @Cacheable(value = "smsCode",key="#tele")
 			    public String get(String tele){
 			        return null;

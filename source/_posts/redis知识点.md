@@ -1,9 +1,12 @@
 ---
 title: redis知识点
 date: 2022-12-02 16:44:08
-tags: Redis
+tags: 
+  - Java
+  - Redis
 cover: https://tva1.sinaimg.cn/large/008waiCQly1h8pkudj72lj31xg13sx0n.jpg
-categories: redis
+categories: 
+redis
 description: 浅浅学一下redis的基本的作用吧。
 ---
 

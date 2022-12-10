@@ -2,9 +2,11 @@
 title: hive的安装
 date: 2022-11-15 16:52:22
 cover: https://tvax1.sinaimg.cn/large/008waiCQgy1h8ivdnwru0j32xk1gsnl6.jpg
-tags: Hive
+tags: 
+  - BigData
+  - Hive
 categories: hive
-description: 关于hive采的超级多的坑，最终总结出来的。
+description: 关于安装hive时踩的超级多的坑，最终总结出来的。
 ---
 
 

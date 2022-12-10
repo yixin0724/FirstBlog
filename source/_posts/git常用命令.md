@@ -2,7 +2,9 @@
 title: git常用命令
 date: 2022-09-19 22:23:15
 cover: https://tvax3.sinaimg.cn/large/008waiCQgy1h8iv6kcoznj30z80jvnma.jpg
-tags: Git
+tags: 
+  - Java
+  - Git
 categories: git
 description: 简单记录一下git的常用命令
 ---
@@ -145,9 +147,9 @@ cover: ./img/wuwang.png
 
 
 ​	
-	查看远程仓库
-	命令：git remote
-	
+​	查看远程仓库
+​	命令：git remote
+​	
 	推送到远程仓库
 	命令：git push [-f] [--set-upstream] [远端名称 [本地分支名][:远端分支名] ]
 	如果远程分支名和本地分支名称相同，则可以只写本地分支

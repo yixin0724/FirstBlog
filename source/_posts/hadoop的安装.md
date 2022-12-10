@@ -2,9 +2,11 @@
 title: hadoop的安装
 date: 2022-11-15 16:52:30
 cover: https://tva1.sinaimg.cn/large/008waiCQgy1h8ivd3s53sj32yo1o0npd.jpg
-tags: Hadoop
+tags: 
+  - BigData
+  - Hadoop
 categories: hadoop
-description: hadoop,他的坑要比hive多的多的多。
+description: hadoop的安装，鬼知道我卸载重装了多少遍。
 ---
 
 

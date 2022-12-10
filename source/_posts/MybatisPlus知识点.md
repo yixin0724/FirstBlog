@@ -2,7 +2,9 @@
 title: MybatisPlus知识点
 date: 2022-10-12 21:35:56
 cover: https://tva4.sinaimg.cn/large/008waiCQgy1h8ivgy7qmnj32yo1o04qx.jpg
-tags: Java
+tags: 
+  - MybatisPlus
+  - Java
 categories: java
 description: MP真是好用呀，不过或许进了公司还是得回到Mybatis呀
 ---

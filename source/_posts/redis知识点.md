@@ -4,7 +4,7 @@ date: 2022-12-02 16:44:08
 tags:
   - Java
   - Redis
-cover: https://tva1.sinaimg.cn/large/008waiCQly1h8pkudj72lj31xg13sx0n.jpg
+cover: https://freeimg.eu.org/i/2023/01/iwma4n.jpg
 categories: 技术记录
 description: 浅浅学一下redis的基本的作用吧。
 ---

@@ -1,7 +1,7 @@
 ---
 title: python爬虫
 date: 2022-09-19 14:41:40
-cover: https://tva3.sinaimg.cn/large/008waiCQgy1h8ivh6ay28j338o1vue83.jpg
+cover: https://freeimg.eu.org/i/2023/01/iwkv0a.png
 tags: 
   - spider
   - Python
@@ -469,15 +469,15 @@ fp.write(content)
 ​			web.switch_to.window(web.window_handles[-1])
 ​		注意：这里面的索引是按照选项卡的打开顺序定义的，而不是根据选项卡的前后位置进行定义的
 ​	
-	iframe页面的处理
-		概述：
-			iframe是HTML中的标签，用于在网页中内嵌另一个网页，每个iframe里各自维护自己的全局window对象。
-			如果网页中嵌套的有iframe标签，则我们一开始创建的web对象无法操作iframe中的内容，因此我们必须对iframe页面进行单独的处理。
-		步骤：
-			先定位到需要操作的iframe元素位置；
-			进入需要操作的iframe框架中；
-			操作完成之后，需要退出。
-			web.switch_to.default_content()
+​	iframe页面的处理
+​		概述：
+​			iframe是HTML中的标签，用于在网页中内嵌另一个网页，每个iframe里各自维护自己的全局window对象。
+​			如果网页中嵌套的有iframe标签，则我们一开始创建的web对象无法操作iframe中的内容，因此我们必须对iframe页面进行单独的处理。
+​		步骤：
+​			先定位到需要操作的iframe元素位置；
+​			进入需要操作的iframe框架中；
+​			操作完成之后，需要退出。
+​			web.switch_to.default_content()
 
 #### 10.Phantomjs(已经倒闭了)
 

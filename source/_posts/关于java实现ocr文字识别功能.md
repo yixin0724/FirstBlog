@@ -4,7 +4,7 @@ date: 2022-09-20 13:25:26
 tags: 
   - OCR
   - Java
-cover: https://tvax4.sinaimg.cn/large/008waiCQgy1h8iv7f1ggij32yo1o0u10.jpg
+cover: https://freeimg.eu.org/i/2023/01/iw1wee.png
 categories: java
 description: 在一个暑假期间老师布置的任务，也算是粗略完成了。
 ---

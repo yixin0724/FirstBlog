@@ -1,7 +1,7 @@
 ---
 title: SSM框架知识点
 date: 2022-09-18 22:39:16
-cover: https://tvax4.sinaimg.cn/large/008waiCQgy1h8ivics62sj32yo1o0e84.jpg
+cover: https://freeimg.eu.org/i/2023/01/iwpw33.jpg
 tags: 
   - SSM
   - Java

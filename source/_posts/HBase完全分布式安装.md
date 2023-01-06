@@ -4,7 +4,7 @@ date: 2022-12-10 13:20:46
 tags:
   - BigData
   - HBase
-cover: https://tvax3.sinaimg.cn/large/008waiCQly1h8yov44twfj32yo1o0b2j.jpg
+cover: https://freeimg.eu.org/i/2023/01/iw3tz8.png
 categories: 技术记录
 description: Hadoop的生态圈之间的版本真是一个让人头大的问题，希望他能越来越完善吧！
 ---

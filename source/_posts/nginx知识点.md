@@ -4,7 +4,7 @@ date: 2022-12-02 16:44:19
 tags: 
   - Java
   - Nginx
-cover: https://tva1.sinaimg.cn/large/008waiCQly1h8pkte7g61j32yo1o0x6q.jpg
+cover: https://freeimg.eu.org/i/2023/01/iwjvvj.jpg
 categories: nginx
 description: 对反向代理挺好奇的，来学习学习nginx的强大。
 ---
@@ -82,8 +82,8 @@ description: 对反向代理挺好奇的，来学习学习nginx的强大。
 ​		部署静态资源
 ​		概述：Nginx可以作为静态web服务器来部署静态资源。静态资源指在服务端真实存在并且能够直接展示的一些文件，比如常见的html页面、css文件、js文件、图片、视频等资源。
 ​	
-		优势：相对于Tomcat, Nginx处理静 态资源的能力更加高效，所以在生产环境下，一般都会将静态资源部署到Nginx中。
-		
+​		优势：相对于Tomcat, Nginx处理静 态资源的能力更加高效，所以在生产环境下，一般都会将静态资源部署到Nginx中。
+​		
 		将静态资源部署到Nginx非常简单，只需要将文件复制到Nginx安装目录下的html目录中即可。
 		server {
 			listen 80;   #监听端口

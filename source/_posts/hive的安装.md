@@ -1,7 +1,7 @@
 ---
 title: hive的安装
 date: 2022-11-15 16:52:22
-cover: https://tvax1.sinaimg.cn/large/008waiCQgy1h8ivdnwru0j32xk1gsnl6.jpg
+cover: https://freeimg.eu.org/i/2023/01/iw4vmd.png
 tags: 
   - BigData
   - Hive

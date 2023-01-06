@@ -5,7 +5,7 @@ tags:
   - BigData
   - Java
   - HBase
-cover: https://tvax3.sinaimg.cn/large/008waiCQly1h8yp1dtly0j32yo1o0kjn.jpg
+cover: https://freeimg.eu.org/i/2023/01/j1g3xp.jpg
 categories: 技术记录
 description: 分布式系统的注册服务等管理中心。
 ---

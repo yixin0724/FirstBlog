@@ -1,7 +1,7 @@
 ---
 title: git常用命令
 date: 2022-09-19 22:23:15
-cover: https://tvax3.sinaimg.cn/large/008waiCQgy1h8iv6kcoznj30z80jvnma.jpg
+cover: https://freeimg.eu.org/i/2023/01/iw0md3.png
 tags: 
   - Java
   - Git
@@ -150,16 +150,16 @@ cover: ./img/wuwang.png
 ​	查看远程仓库
 ​	命令：git remote
 ​	
-	推送到远程仓库
-	命令：git push [-f] [--set-upstream] [远端名称 [本地分支名][:远端分支名] ]
-	如果远程分支名和本地分支名称相同，则可以只写本地分支
-	git push origin master
-	-f 表示强制覆盖
-	--set-upstream 推送到远端的同时并且建立起和远端分支的关联关系。
-	git push --set-upstream origin master
-	如果当前分支已经和远端分支关联，则可以省略分支名和远端名。
-	git push 将master分支推送到已关联的远端分支。
-	
+​	推送到远程仓库
+​	命令：git push [-f] [--set-upstream] [远端名称 [本地分支名][:远端分支名] ]
+​	如果远程分支名和本地分支名称相同，则可以只写本地分支
+​	git push origin master
+​	-f 表示强制覆盖
+​	--set-upstream 推送到远端的同时并且建立起和远端分支的关联关系。
+​	git push --set-upstream origin master
+​	如果当前分支已经和远端分支关联，则可以省略分支名和远端名。
+​	git push 将master分支推送到已关联的远端分支。
+​	
 	本地分支与远程分支的关联关系
 	查看关联关系我们可以使用 git branch -vv 命令
 	

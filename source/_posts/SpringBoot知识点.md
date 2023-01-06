@@ -1,7 +1,7 @@
 ---
 title: SpringBoot知识点
 date: 2022-10-12 21:36:11
-cover: https://tvax4.sinaimg.cn/large/008waiCQgy1h8ivhtd8wdj335s1xaqv7.jpg
+cover: https://freeimg.eu.org/i/2023/01/iwnxan.png
 tags: 
   - SpringBoot
   - Java
@@ -1335,19 +1335,19 @@ description: "学习一下boot框架的强大"
 ​			        return patch[len] + codeStr;
 ​			    }
 ​	
-			    @Cacheable(value = "smsCode",key="#tele")
-			    public String get(String tele){
-			        return null;
-			    }
-			}
-		注意：为什么要把获取验证码的方法放在这里，因为他在这里可以被加载成一个bean，这样注解才能生效才能够获取到值
-		⑥定义验证码功能的web层接口，一个方法用于提供手机号获取验证码，一个方法用于提供手机号和验证码进行校验
-			@RestController
-			@RequestMapping("/sms")
-			public class SMSCodeController {
-			    @Autowired
-			    private SMSCodeService smsCodeService;
-			    
+​			    @Cacheable(value = "smsCode",key="#tele")
+​			    public String get(String tele){
+​			        return null;
+​			    }
+​			}
+​		注意：为什么要把获取验证码的方法放在这里，因为他在这里可以被加载成一个bean，这样注解才能生效才能够获取到值
+​		⑥定义验证码功能的web层接口，一个方法用于提供手机号获取验证码，一个方法用于提供手机号和验证码进行校验
+​			@RestController
+​			@RequestMapping("/sms")
+​			public class SMSCodeController {
+​			    @Autowired
+​			    private SMSCodeService smsCodeService;
+​			    
 			    @GetMapping
 			    public String getCode(String tele){
 			        String code = smsCodeService.sendCodeToSMS(tele);

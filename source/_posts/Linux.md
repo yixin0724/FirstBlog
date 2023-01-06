@@ -1,7 +1,7 @@
 ---
 title: Linux
 date: 2022-09-18 22:33:55
-cover: https://tva1.sinaimg.cn/large/008waiCQgy1h8ivgij43lj34aw2dre85.jpg
+cover: https://freeimg.eu.org/i/2023/01/iw8ugb.jpg
 tags: 
   - UNIX
   - Linux

@@ -1,7 +1,7 @@
 ---
 title: Maven进阶知识点
 date: 2022-10-12 21:35:31
-cover: https://tvax3.sinaimg.cn/large/008waiCQgy1h8ivgpf60xj32yo1o0kjl.jpg
+cover: https://freeimg.eu.org/i/2023/01/iw9sez.png
 tags: 
   - Java
   - Maven

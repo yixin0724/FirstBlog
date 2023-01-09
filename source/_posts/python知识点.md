@@ -1,7 +1,7 @@
 ---
 title: python知识点
 date: 2022-10-19 21:36:05
-cover: https://freeimg.eu.org/i/2023/01/iwlsme.png
+cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bbbe0359056.png
 tags: Python
 categories: 技术记录
 description: python？一个写脚本的工具罢了。

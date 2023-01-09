@@ -1,7 +1,7 @@
 ---
 title: MybatisPlus知识点
 date: 2022-10-12 21:35:56
-cover: https://freeimg.eu.org/i/2023/01/iwjgi1.png
+cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bbbd7b7acb0.png
 tags: 
   - MybatisPlus
   - Java

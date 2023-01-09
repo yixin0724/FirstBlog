@@ -1,7 +1,7 @@
 ---
 title: springMVC知识点
 date: 2022-10-12 21:35:20
-cover: https://freeimg.eu.org/i/2023/01/iwoilm.png
+cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bbbe8bd28ab.jpg
 tags: 
   - SpringMVC
   - Java

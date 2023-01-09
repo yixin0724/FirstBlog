@@ -1,7 +1,7 @@
 ---
 title: javaweb知识点
 date: 2022-10-19 22:27:04
-cover: https://freeimg.eu.org/i/2023/01/iw814r.jpg
+cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bbbd2943dd3.jpg
 tags: 
   - JavaWeb
   - Java

@@ -1,7 +1,7 @@
 ---
 title: SpringBoot知识点
 date: 2022-10-12 21:36:11
-cover: https://freeimg.eu.org/i/2023/01/iwnxan.png
+cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bbbe71417f5.png
 tags: 
   - SpringBoot
   - Java
@@ -1354,11 +1354,11 @@ description: "学习一下boot框架的强大"
 ​			        return code;
 ​			    }
 ​			    
-			    @PostMapping
-			    public boolean checkCode(SMSCode smsCode){
-			        return smsCodeService.checkCode(smsCode);
-			    }
-			}
+​			    @PostMapping
+​			    public boolean checkCode(SMSCode smsCode){
+​			        return smsCodeService.checkCode(smsCode);
+​			    }
+​			}
 
 
 

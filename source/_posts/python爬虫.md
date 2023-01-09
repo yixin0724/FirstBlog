@@ -1,7 +1,7 @@
 ---
 title: python爬虫
 date: 2022-09-19 14:41:40
-cover: https://freeimg.eu.org/i/2023/01/iwkv0a.png
+cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bbbdc1a037a.png
 tags: 
   - spider
   - Python

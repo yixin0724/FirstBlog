@@ -5,7 +5,7 @@ cover: https://freeimg.eu.org/i/2023/01/iwjgi1.png
 tags: 
   - MybatisPlus
   - Java
-categories: java
+categories: 技术记录
 description: MP真是好用呀，不过或许进了公司还是得回到Mybatis呀
 ---
 

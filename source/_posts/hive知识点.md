@@ -5,7 +5,7 @@ cover: https://freeimg.eu.org/i/2023/01/iw5a7y.png
 tags: 
   - BigData
   - Hive
-categories: hive
+categories: 技术记录
 description: 在学习hive时，做了做笔记，以防学完就忘。
 ---
 

@@ -5,7 +5,7 @@ cover: https://freeimg.eu.org/i/2023/01/iwmv1o.png
 tags: 
   - Spring
   - Java
-categories: java
+categories: 技术记录
 description: 经典Spring！
 ---
 

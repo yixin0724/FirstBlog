@@ -3,7 +3,7 @@ title: Java的知识点记录
 date: 2022-09-18 18:33:40
 cover: https://freeimg.eu.org/i/2023/01/iw7b2d.png
 tags: Java
-categories: java
+categories: 技术记录
 description: 基础不牢，地动山摇！
 ---
 

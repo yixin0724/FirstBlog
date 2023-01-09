@@ -1,11 +1,11 @@
 ---
 title: git常用命令
 date: 2022-09-19 22:23:15
-cover: https://freeimg.eu.org/i/2023/01/iw0md3.png
+cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bb9d9de16d0.jpg
 tags: 
   - Java
   - Git
-categories: git
+categories: 技术记录
 description: 简单记录一下git的常用命令
 ---
 
@@ -160,14 +160,14 @@ cover: ./img/wuwang.png
 ​	如果当前分支已经和远端分支关联，则可以省略分支名和远端名。
 ​	git push 将master分支推送到已关联的远端分支。
 ​	
-	本地分支与远程分支的关联关系
-	查看关联关系我们可以使用 git branch -vv 命令
-	
-	从远程仓库克隆
-	如果已经有一个远端仓库，我们可以直接clone到本地。
-	命令: git clone <仓库路径> [本地目录]
-	本地目录可以省略，会自动生成一个目录
-	
+​	本地分支与远程分支的关联关系
+​	查看关联关系我们可以使用 git branch -vv 命令
+​	
+​	从远程仓库克隆
+​	如果已经有一个远端仓库，我们可以直接clone到本地。
+​	命令: git clone <仓库路径> [本地目录]
+​	本地目录可以省略，会自动生成一个目录
+​	
 	从远程仓库中抓取和拉取
 	远程分支和本地的分支一样，我们可以进行merge操作，只是需要先把远端仓库里的更新都下载到本
 	地，再进行操作。

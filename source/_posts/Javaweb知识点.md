@@ -5,7 +5,7 @@ cover: https://freeimg.eu.org/i/2023/01/iw814r.jpg
 tags: 
   - JavaWeb
   - Java
-categories: java
+categories: 技术记录
 description: 当时学的真是头疼呀，各种杂七杂八的。
 ---
 

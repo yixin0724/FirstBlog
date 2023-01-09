@@ -5,7 +5,7 @@ tags:
   - Java
   - Nginx
 cover: https://freeimg.eu.org/i/2023/01/iwjvvj.jpg
-categories: nginx
+categories: 技术记录
 description: 对反向代理挺好奇的，来学习学习nginx的强大。
 ---
 
@@ -84,16 +84,16 @@ description: 对反向代理挺好奇的，来学习学习nginx的强大。
 ​	
 ​		优势：相对于Tomcat, Nginx处理静 态资源的能力更加高效，所以在生产环境下，一般都会将静态资源部署到Nginx中。
 ​		
-		将静态资源部署到Nginx非常简单，只需要将文件复制到Nginx安装目录下的html目录中即可。
-		server {
-			listen 80;   #监听端口
-			server.name localhost;  服务器名称(一般是域名)
-			location/ {			#匹配客户端请求url
-				root html;   #指定静态资源根目录
-				index index.html;   #指定默认首页
-				}
-			}
-	
+​		将静态资源部署到Nginx非常简单，只需要将文件复制到Nginx安装目录下的html目录中即可。
+​		server {
+​			listen 80;   #监听端口
+​			server.name localhost;  服务器名称(一般是域名)
+​			location/ {			#匹配客户端请求url
+​				root html;   #指定静态资源根目录
+​				index index.html;   #指定默认首页
+​				}
+​			}
+​	
 	正向代理概念：
 		●正向代理
 		是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，然后代理向原始服务器转交请求井将获得的内容返回给客户端。

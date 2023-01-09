@@ -5,7 +5,7 @@ cover: https://freeimg.eu.org/i/2023/01/iw4vmd.png
 tags: 
   - BigData
   - Hive
-categories: hive
+categories: 技术记录
 description: 关于安装hive时踩的超级多的坑，最终总结出来的。
 ---
 

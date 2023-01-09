@@ -5,7 +5,7 @@ cover: https://freeimg.eu.org/i/2023/01/iw8ugb.jpg
 tags: 
   - UNIX
   - Linux
-categories: linux
+categories: 技术记录
 description: linux系统yyds！
 ---
 

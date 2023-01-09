@@ -5,7 +5,7 @@ cover: https://freeimg.eu.org/i/2023/01/iwkv0a.png
 tags: 
   - spider
   - Python
-categories: python
+categories: 技术记录
 description: 简单记录一下学习爬虫的知识。
 ---
 

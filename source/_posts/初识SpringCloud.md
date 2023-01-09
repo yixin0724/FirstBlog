@@ -4,7 +4,7 @@ date: 2022-12-10 13:20:21
 tags:
   - SpringCloud
   - Java
-cover: https://freeimg.eu.org/i/2023/01/iw137q.png
+cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bb9d7593d33.jpg
 categories: 技术记录
 description: 想想现在的分布式都变成实习的面试标准了，努力！
 ---

@@ -5,7 +5,7 @@ cover: https://freeimg.eu.org/i/2023/01/iw6clw.png
 tags: 
   - Java
   - idea
-categories: idea
+categories: 技术记录
 description: 有些不常用的总是忘记，记录一下吧。
 ---
 

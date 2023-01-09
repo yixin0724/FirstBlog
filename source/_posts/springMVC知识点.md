@@ -5,7 +5,7 @@ cover: https://freeimg.eu.org/i/2023/01/iwoilm.png
 tags: 
   - SpringMVC
   - Java
-categories: java
+categories: 技术记录
 description: 简单学习一下SpringMVC吧。
 ---
 

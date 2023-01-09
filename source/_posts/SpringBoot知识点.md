@@ -5,7 +5,7 @@ cover: https://freeimg.eu.org/i/2023/01/iwnxan.png
 tags: 
   - SpringBoot
   - Java
-categories: java
+categories: 技术记录
 description: "学习一下boot框架的强大"
 ---
 
@@ -1348,12 +1348,12 @@ description: "学习一下boot框架的强大"
 ​			    @Autowired
 ​			    private SMSCodeService smsCodeService;
 ​			    
-			    @GetMapping
-			    public String getCode(String tele){
-			        String code = smsCodeService.sendCodeToSMS(tele);
-			        return code;
-			    }
-			    
+​			    @GetMapping
+​			    public String getCode(String tele){
+​			        String code = smsCodeService.sendCodeToSMS(tele);
+​			        return code;
+​			    }
+​			    
 			    @PostMapping
 			    public boolean checkCode(SMSCode smsCode){
 			        return smsCodeService.checkCode(smsCode);

@@ -1,11 +1,11 @@
 ---
 title: hadoop的安装
 date: 2022-11-15 16:52:30
-cover: https://freeimg.eu.org/i/2023/01/iw2u9v.jpg
+cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bb9db89e110.png
 tags: 
   - BigData
   - Hadoop
-categories: hadoop
+categories: 技术记录
 description: hadoop的安装，鬼知道我卸载重装了多少遍。
 ---
 

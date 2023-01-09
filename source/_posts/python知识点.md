@@ -3,7 +3,7 @@ title: python知识点
 date: 2022-10-19 21:36:05
 cover: https://freeimg.eu.org/i/2023/01/iwlsme.png
 tags: Python
-categories: python
+categories: 技术记录
 description: python？一个写脚本的工具罢了。
 ---
 

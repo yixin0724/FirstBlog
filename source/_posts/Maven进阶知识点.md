@@ -5,7 +5,7 @@ cover: https://freeimg.eu.org/i/2023/01/iw9sez.png
 tags: 
   - Java
   - Maven
-categories: maven
+categories: 技术记录
 description: 关于maven的一些知识。
 ---
 

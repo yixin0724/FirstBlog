@@ -5,7 +5,7 @@ cover: https://freeimg.eu.org/i/2023/01/iwpw33.jpg
 tags: 
   - SSM
   - Java
-categories: java
+categories: 技术记录
 description: 关于SSM的一些知识。
 ---
 

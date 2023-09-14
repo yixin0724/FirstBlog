@@ -67,7 +67,7 @@ local_search:
 search:
   path: search.xml
   field: post
-  content: true
+  content: false
   format: html
 
 # Math (數學)

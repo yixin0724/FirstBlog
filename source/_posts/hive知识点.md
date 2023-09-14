@@ -6,7 +6,7 @@ tags:
   - BigData
   - Hive
 categories: 技术记录
-description: 在学习hive时，做了做笔记，以防学完就忘。
+description: 在大三学习hive的时候，听课顺带做了做笔记，毕竟笔记还是很重要的。
 ---
 
 

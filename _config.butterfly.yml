@@ -58,7 +58,7 @@ algolia_search:
 
 # Local search
 local_search:
-  enable: false
+  enable: true
   labels:
     input_placeholder: Search for Posts
     hits_empty: "We didn't find any results for the search: ${query}" # if there are no result

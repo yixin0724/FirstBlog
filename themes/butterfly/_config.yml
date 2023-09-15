@@ -933,6 +933,3 @@ CDN:
     # prismjs_autoloader:
     # artalk_js:
     # artalk_css:
-
-# RSS订阅
-rss: /atom.xml

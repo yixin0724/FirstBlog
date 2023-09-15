@@ -59,15 +59,12 @@ algolia_search:
 # Local search
 local_search:
   enable: true
+  preload: true
   labels:
     input_placeholder: Search for Posts
     hits_empty: "We didn't find any results for the search: ${query}" # if there are no result
 
-# search:
-#   path: search.xml
-#   field: post
-#   content: false
-#   format: html
+
 
 # Math (數學)
 # --------------------------------------

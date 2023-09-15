@@ -116,5 +116,5 @@ feed:
 search:
   path: search.xml
   field: post
-  content: true
+  content: false
   format: html

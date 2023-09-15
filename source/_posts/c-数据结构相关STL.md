@@ -5,7 +5,7 @@ tags:
   - C++
   - 数据结构
 cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/09/15/6503aed0caa07.png
-categories: 技术实现
+categories: 技术记录
 description: 数据结构是程序员少不了的坎，需要认认真真的态度将其拿下！
 ---
 

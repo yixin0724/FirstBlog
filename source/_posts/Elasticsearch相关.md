@@ -4,7 +4,7 @@ date: 2023-09-14 11:20:46
 tags: 
   - ES
   - Java
-cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/09/14/65027d3180be8.jpg
+cover: https://pic.imgdb.cn/item/66ebef33f21886ccc0d0d791.jpg
 categories: 技术记录
 description: 先简单学习一下ES搜索。
 ---

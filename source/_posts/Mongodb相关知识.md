@@ -1,7 +1,7 @@
 ---
 title: Mongodb相关知识
 date: 2023-09-14 13:04:27
-cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/09/14/650294c1e220a.png
+cover: https://pic.imgdb.cn/item/66ebf035f21886ccc0d1a223.jpg
 tags: 
   - Mongodb
   - 数据库

@@ -1,12 +1,12 @@
 ---
 title: MybatisPlus知识点
 date: 2022-10-12 21:35:56
-cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bbbd7b7acb0.png
+cover: https://pic.imgdb.cn/item/66ebf069f21886ccc0d1cb1f.png
 tags: 
   - MybatisPlus
   - Java
 categories: 技术记录
-description: MP真是好用呀，不过或许进了公司还是得回到Mybatis呀
+description: MP确实方便不少，不过或许Mybatis才是王道。
 ---
 
 

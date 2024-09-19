@@ -1,7 +1,7 @@
 ---
 title: SpringBoot知识点
 date: 2022-10-12 21:36:11
-cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bbbe71417f5.png
+cover: https://pic.imgdb.cn/item/66ebf0fcf21886ccc0d23ee9.jpg
 tags: 
   - SpringBoot
   - Java

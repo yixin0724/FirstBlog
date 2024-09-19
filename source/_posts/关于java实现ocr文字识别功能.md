@@ -4,9 +4,9 @@ date: 2022-09-20 13:25:26
 tags: 
   - OCR
   - Java
-cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bb9d74dbb68.jpg
+cover: https://pic.imgdb.cn/item/66ebef0af21886ccc0d0b643.png
 categories: 技术实现
-description: 在一个暑假期间老师布置的任务，也算是粗略完成了。
+description: 在暑假期间老师布置的任务，也算是粗略完成了。
 ---
 
 

@@ -1,7 +1,7 @@
 ---
-title: SSM框架知识点
+title: SSM三个框架的知识点
 date: 2022-09-18 22:39:16
-cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bbbead3cd80.png
+cover: https://pic.imgdb.cn/item/66ebf119f21886ccc0d25705.jpg
 tags: 
   - SSM
   - Java

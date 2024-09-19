@@ -4,7 +4,7 @@ date: 2023-02-28 15:11:57
 tags:
   - 考研
   - English
-cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/02/28/63fdab302fcb0.png
+cover: https://pic.imgdb.cn/item/66ebef3ff21886ccc0d0e0b4.png
 categories: 考研记录
 description: 努力考研，先过一遍语法，加油！
 ---

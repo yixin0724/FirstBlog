@@ -4,7 +4,7 @@ date: 2023-09-15 09:07:15
 tags: 
   - C++
   - 数据结构
-cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/09/15/6503aed0caa07.png
+cover: https://pic.imgdb.cn/item/66ebeebff21886ccc0d0703b.jpg
 categories: 技术记录
 description: 数据结构是程序员少不了的坎，需要认认真真的态度将其拿下！
 ---

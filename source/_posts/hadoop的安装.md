@@ -1,7 +1,7 @@
 ---
 title: hadoop的安装
 date: 2022-11-15 16:52:30
-cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bb9db89e110.png
+cover: https://pic.imgdb.cn/item/66ebef5cf21886ccc0d0f743.png
 tags: 
   - BigData
   - Hadoop

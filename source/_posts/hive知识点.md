@@ -1,7 +1,7 @@
 ---
 title: hive知识点
 date: 2022-11-15 16:52:46
-cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bbbaffd6ba1.png
+cover: https://pic.imgdb.cn/item/66ebef90f21886ccc0d12496.jpg
 tags: 
   - BigData
   - Hive

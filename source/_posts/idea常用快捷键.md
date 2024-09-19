@@ -1,7 +1,7 @@
 ---
 title: idea常用快捷键
 date: 2022-09-18 22:38:06
-cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bbbcf2af533.png
+cover: https://pic.imgdb.cn/item/66ebef9df21886ccc0d12ec1.jpg
 tags: 
   - Java
   - idea

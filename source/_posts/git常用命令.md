@@ -1,7 +1,7 @@
 ---
 title: git常用命令
 date: 2022-09-19 22:23:15
-cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bb9d9de16d0.jpg
+cover: https://pic.imgdb.cn/item/66ebef4bf21886ccc0d0e972.jpg
 tags: 
   - Java
   - Git
@@ -168,13 +168,13 @@ cover: ./img/wuwang.png
 ​	命令: git clone <仓库路径> [本地目录]
 ​	本地目录可以省略，会自动生成一个目录
 ​	
-	从远程仓库中抓取和拉取
-	远程分支和本地的分支一样，我们可以进行merge操作，只是需要先把远端仓库里的更新都下载到本
-	地，再进行操作。
-	抓取 命令：git fetch [remote name] [branch name]
-	抓取指令就是将仓库里的更新都抓取到本地，不会进行合并
-	如果不指定远端名称和分支名，则抓取所有分支。
-	
+​	从远程仓库中抓取和拉取
+​	远程分支和本地的分支一样，我们可以进行merge操作，只是需要先把远端仓库里的更新都下载到本
+​	地，再进行操作。
+​	抓取 命令：git fetch [remote name] [branch name]
+​	抓取指令就是将仓库里的更新都抓取到本地，不会进行合并
+​	如果不指定远端名称和分支名，则抓取所有分支。
+​	
 	拉取 命令：git pull [remote name] [branch name]
 	拉取指令就是将远端仓库的修改拉到本地并自动进行合并，等同于fetch+merge
 	如果不指定远端名称和分支名，则抓取所有并更新当前分支。

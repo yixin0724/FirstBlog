@@ -1,12 +1,12 @@
 ---
 title: Mysql知识点
 date: 2023-03-17 19:46:35
-cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/03/17/64145f8c5b8f2.png
+cover: https://pic.imgdb.cn/item/66ebf079f21886ccc0d1d5d7.jpg
 tags: 
   - Mysql
   - 数据库
 categories: 技术记录
-description: 开源的软件希望能越来越好！
+description: 强大的Mysql，希望开源软件能越来越好！
 ---
 
 

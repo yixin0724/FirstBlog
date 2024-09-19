@@ -4,9 +4,9 @@ date: 2022-12-02 16:44:08
 tags:
   - Java
   - Redis
-cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bbbe318127f.png
+cover: https://pic.imgdb.cn/item/66ebf0d1f21886ccc0d21961.jpg
 categories: 技术记录
-description: 浅浅学一下redis的基本的作用吧。
+description: redis还是强，浅浅学一下redis吧。
 ---
 
 

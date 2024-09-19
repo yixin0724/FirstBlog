@@ -1,7 +1,7 @@
 ---
 title: spring知识点
 date: 2022-10-12 21:35:01
-cover: https://wltc2-1258834326.cos.ap-guangzhou.myqcloud.com/2023/01/09/63bbbe51ac969.jpg
+cover: https://pic.imgdb.cn/item/66ebf0dff21886ccc0d224d4.jpg
 tags: 
   - Spring
   - Java

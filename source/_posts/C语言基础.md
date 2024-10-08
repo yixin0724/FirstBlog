@@ -3,6 +3,7 @@ title: C语言基础
 date: 2024-09-24 15:54:09
 tags: 
   - C
+  - 编程语言
 cover: https://pic.imgdb.cn/item/66f271e0f21886ccc0a9ffbe.jpg
 categories: 技术记录
 description: C语言我想算是编程语言中的语言父亲了吧！
@@ -1080,5 +1081,4 @@ t.stu.score = 60;
 ​		②地址传递(会跟着形参的改变而改变)		#定义的时候传入struct student *p，使用的时候传入&s1。用->访问内部属性
 
 ​	注意：使用地址传递，可以通过const防止内部属性得到修改。
-
 

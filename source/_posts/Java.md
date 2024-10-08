@@ -2,7 +2,9 @@
 title: Java的知识点记录
 date: 2022-09-18 18:33:40
 cover: https://pic.imgdb.cn/item/66ebefddf21886ccc0d15f79.jpg
-tags: Java
+tags: 
+  - Java
+  - 编程语言
 categories: 技术记录
 description: 基础不牢，地动山摇！
 ---
@@ -5823,4 +5825,4 @@ ServerSocket(服务端)
 
 
 
-	
+​	

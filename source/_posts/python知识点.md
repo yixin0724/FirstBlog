@@ -2,7 +2,9 @@
 title: python知识点
 date: 2022-10-19 21:36:05
 cover: https://pic.imgdb.cn/item/66ebf0b1f21886ccc0d2011a.jpg
-tags: Python
+tags: 
+  - Python
+  - 编程语言
 categories: 技术记录
 description: python？一个写脚本的工具罢了。
 ---
@@ -1574,5 +1576,4 @@ print(result)		# []
     os.path.isdir,判断给定路径是否是文件夹,是返回True,否返回False 
     os.path.exists,判断给定路径是否存在,存在返回True,否则返回False
 ```
-
 

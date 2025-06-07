@@ -6,7 +6,7 @@ tags:
   - 编程语言
 cover: https://pic.imgdb.cn/item/66f271e0f21886ccc0a9ffbe.jpg
 categories: 技术记录
-description: C语言我想算是编程语言中的语言父亲了吧！
+description: C语言，伟大的编程语言！
 ---
 
 
